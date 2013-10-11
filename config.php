@@ -20,4 +20,12 @@ $config['excerpt_length'] = 50;			// The pages excerpt length (in words)
 
 $config['custom_setting'] = 'Hello'; 	// Can be accessed by {{ config.custom_setting }} in a theme
 
+
+$config['at_navigation']['exclude']['single'] = array('a/site', 'another/site');
+$config['at_navigation']['exclude']['folder'] = array('a/folder', 'another/folder');
 */
+$config['base_url'] = 'http://129.10.107.3:8080/LAN-LMS'; 
+$config['at_navigation']['id'] = 'at-navigation';
+$config['at_navigation']['class'] = 'nav';
+$config['at_navigation']['exclude']['folder'] = array('media');
+$config['pages_order_by'] = 'alpha';	// Order pages by "alpha" or "date"
