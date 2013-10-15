@@ -13,7 +13,6 @@ class Pico_Private {
 
   public function __construct() {
     $plugin_path = dirname(__FILE__);
-    session_start();
 	$this->path = $plugin_path;
   }
 
@@ -64,8 +63,14 @@ class Pico_Private {
       exit;
     }
 
-    $twig_vars['authed'] = $_SESSION['authed'];
-    $twig_vars['username'] =  $_SESSION['username'];
+    if(isset($_SESSION['authed'] && $_SESSION['username']) {
+		$twig_vars['authed'] = $_SESSION['authed'];
+		$twig_vars['username'] =  $_SESSION['username'];
+	}
+	else {
+		$twig_vars['authed'] = false;
+		$twig_vars['username'] =  '';
+	}
   }
 
   private function redirect_home() {
