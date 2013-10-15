@@ -1,10 +1,10 @@
 <?php
 
 /**
- * A plugin that let you create a private Pico with authentication form
+ * A plugin that allows optional site-wide authentication via. flat file database
  *
- * @author Johan BLEUZEN
- * @link http://www.johanbleuzen.fr
+ * @author Timothy Su
+ * @link http://www.timofeo.com/
  * @license http://opensource.org/licenses/MIT
  */
 class Pico_Private {
@@ -12,14 +12,10 @@ class Pico_Private {
   private $theme;
 
   public function __construct() {
+    global $plugin_path;
     $plugin_path = dirname(__FILE__);
     session_start();
-
-    if(file_exists($plugin_path .'/pico_private_pass.php')){
-      global $pico_private_passwords;
-      include_once($plugin_path .'/pico_private_pass.php');
-      $this->passwords = $pico_private_passwords;
-    }
+	$this->path = $plugin_path;
   }
 
   public function config_loaded(&$settings) {
@@ -38,11 +34,11 @@ class Pico_Private {
 
     if($url == 'logout') {
       session_destroy();
-      $this->redirect_login();
+      $this->redirect_home();
     }
-    if(!isset($_SESSION['authed']) || $_SESSION['authed'] == false) {
-      $this->redirect_login();
-    }
+    /*if(!isset($_SESSION['authed']) || $_SESSION['authed'] == false) {
+      $this->redirect_home();
+    }*/
   }
 
   public function before_render(&$twig_vars, &$twig) {
@@ -51,7 +47,10 @@ class Pico_Private {
       $postUsername = $_POST['username'];
       $postPassword = $_POST['password'];
       if(isset($postUsername) && isset($postPassword)) {
-        if(isset($this->passwords[$postUsername]) == true && $this->passwords[$postUsername] == sha1($postPassword)) {
+        if(file_exists($this->path . '/users/' . $postUsername . '.xml')){
+          $xml = simplexml_load_file($this->path . '/users/' . $postUsername . '.xml');
+        }
+        if((file_exists($this->path . '/users/' . $postUsername . '.xml') == true) && ($xml->password == md5($postPassword))) {
           $_SESSION['authed'] = true;
           $_SESSION['username'] = $postUsername;
           $this->redirect_home();
@@ -74,12 +73,7 @@ class Pico_Private {
   }
 
   private function redirect_home() {
-    header('Location: /LAN-LMS/'); 
-    exit;
-  }
-
-  private function redirect_login() {
-    header('Location: /LAN-LMS/login'); 
+    header('Location: /pico'); 
     exit;
   }
 
