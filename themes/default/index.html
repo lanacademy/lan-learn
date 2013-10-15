@@ -22,10 +22,11 @@
 			$disco.trackPage("{{ current_url }}", "{{ username }}");
 		});
 	</script>
-	
-</head>
-<body>
+	<script src="{{ theme_url }}/scripts/time.js"></script>
 
+</head>
+
+<body onload="setInterval('updateClock()', 10000);">
 	<div id="left-sidebar">
  	   <div id="left-content">
 		<h1><a href="{{ base_url }}">{{ site_title }}</a></h1>
@@ -37,11 +38,19 @@
 		</div>
 	</div>
 
-<div class="wrapper">
-  <div class="time">12:50</div>
-{{ content }}
-</div>
+	{% if is_front_page %} <!-- Front page -->
+		<div class="wrapper">
+		  	  	{{ include('front-dash.html') }}
+		</div>
 
+	{% else %} <!-- Non-front pages -->
+		<div class="wrapper">
+				<div id="time"></div>
+				{{ content }}
+		</div>
+		
+	{% endif %}
+	
 <div class="footer">
 			<p>	LAN-LMS is based off <a href="http://pico.dev7studios.com">Pico</a>.</p>
 </div>

@@ -250,10 +250,16 @@ a:hover, a:active {
  	display: block;
  	background: rgba(0, 0, 0, 0.1);
  }
-.time {
+#time {
 position: absolute;
 top: 10px;
 right: 40px;
+color: rgb(0, 129, 0);
+}
+#lefty {
+position: absolute;
+top: 10px;
+left: 40px;
 color: rgb(0, 129, 0);
 }
 
