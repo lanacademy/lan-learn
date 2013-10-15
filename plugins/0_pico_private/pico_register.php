@@ -12,7 +12,6 @@ class Pico_Register {
   private $theme;
 
   public function __construct() {
-    global $plugin_path;
     $plugin_path = dirname(__FILE__);
     session_start();
 	$this->path = $plugin_path;
@@ -23,18 +22,11 @@ class Pico_Register {
   }
 
   public function request_url(&$url) {
-    if($url == 'register') {
-      if($_SESSION['authed'] == false) {
-        return;
-      } else {
-        $this->redirect_home();
-        exit;
-      }
-    }
+	$this->url = $url;
   }
 
   public function before_render(&$twig_vars, &$twig) {
-    if(!isset($_SESSION['authed']) || $_SESSION['authed'] == false) {
+    if((!isset($_SESSION['authed']) || $_SESSION['authed'] == false) && $this->url == 'register') {
       // shortHand $_POST variables
       $postUsername = $_POST['username'];
       $postPassword = $_POST['password'];
@@ -78,9 +70,9 @@ class Pico_Register {
 
       header($_SERVER['SERVER_PROTOCOL'].' 200 OK');
       $loader = new Twig_Loader_Filesystem(THEMES_DIR . $this->theme);
-      $twig_login = new Twig_Environment($loader, $twig_vars);   
+      $twig_register = new Twig_Environment($loader, $twig_vars);   
       $twig_vars['meta']['title'] = "Register";
-      echo $twig_login->render('register.html', $twig_vars);
+      echo $twig_register->render('register.html', $twig_vars);
       exit;
     }
 

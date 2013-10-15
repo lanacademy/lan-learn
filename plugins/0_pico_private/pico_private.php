@@ -12,7 +12,6 @@ class Pico_Private {
   private $theme;
 
   public function __construct() {
-    global $plugin_path;
     $plugin_path = dirname(__FILE__);
     session_start();
 	$this->path = $plugin_path;
@@ -23,26 +22,11 @@ class Pico_Private {
   }
 
   public function request_url(&$url) {
-    if($url == 'login') {
-      if($_SESSION['authed'] == false) {
-        return;
-      } else {
-        $this->redirect_home();
-        exit;
-      }
-    }
-
-    if($url == 'logout') {
-      session_destroy();
-      $this->redirect_home();
-    }
-    /*if(!isset($_SESSION['authed']) || $_SESSION['authed'] == false) {
-      $this->redirect_home();
-    }*/
+	$this->url = $url;
   }
 
   public function before_render(&$twig_vars, &$twig) {
-    if(!isset($_SESSION['authed']) || $_SESSION['authed'] == false) {
+    if((!isset($_SESSION['authed']) || $_SESSION['authed'] == false) && $this->url && 'login') {
       // shortHand $_POST variables
       $postUsername = $_POST['username'];
       $postPassword = $_POST['password'];
@@ -73,7 +57,7 @@ class Pico_Private {
   }
 
   private function redirect_home() {
-    header('Location: /pico'); 
+    header('Location: /'); 
     exit;
   }
 
