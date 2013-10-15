@@ -147,7 +147,7 @@ private function dump_quiz_summary($id) {
 
 private function dump_quiz() {
   $htmlcode = $this->dump_quizhelper();
-  return $htmlcode . $quiz_title;
+  return $htmlcode;
 } // function dump_quiz
 
 private function dump_quizhelper() {
@@ -160,84 +160,79 @@ private function dump_quizhelper() {
   $title_split = explode(' ', $title);
   $quiz_order = $title_split[0];
   $quiz_title = substr($title, strlen($quiz_order));
-?>
-  <h1><span class="quiz-order"><?php echo $quiz_order ?> - </span> <?php echo $quiz_title ?></h1>
-  <p>
-    The deadline for this assignment is <?php echo $quiz['meta']['deadline'] ?>.
-    The hard deadline for this assignment is <?php echo $quiz['meta']['hard_deadline'] ?>.
-  </p>
-  <form class="quiz-form" id="<?php echo $id ?>-form" method="post" action="<?php echo $_SERVER['SCRIPT_NAME'] ?>">
-    <script>var editor = null;</script>
-    <?php
-      for ($i = 0; $i < count($quiz['quizzes']); ++$i):
+  $result = '
+  <form class="quiz-form" id="' . $id . '-form" method="post" action="/processquiz">
+    <script>var editor = null;</script>';
+      for ($i = 0; $i < count($quiz['quizzes']); ++$i) {
         $q = $quiz['quizzes'][$i];
         $number = $i + 1;
-    ?>
-      <h2>
-        Problem <?php echo $number ?>
-        <span class="credit"> - <?php echo $q['credit'] ?> Credit(s)</span>
-      </h2>
-      <?php echo $q['description'] ?>
-      <?php if ($q['type'] == 'single'): ?>
-        <ul>
-          <?php for ($j = 0; $j < count($q['choices']); ++$j): ?>
-            <?php $choice = $q['choices'][$j] ?>
+		$result = $result . 
+      '<h2>
+        Problem '. $number .'
+        <span class="credit"> - '. $q['credit'] .' Point(s)</span>
+      </h2>' ;
+       if ($q['type'] == 'single'):
+        $result = $result . '<ul>';
+          for ($j = 0; $j < count($q['choices']); ++$j):
+            $choice = $q['choices'][$j];
+			$result = $result . '
             <li>
-              <label for="problem-<?php echo $i ?>-choice-<?php echo $j ?>">
+              <label for="problem-'. $i .'-choice-'. $j .'">
                 <input
                   type="radio"
-                  value="<?php echo $j ?>"
-                  name="problem-<?php echo $i ?>"
-                  id="problem-<?php echo $i ?>-choice-<?php echo $j ?>"
-                />
-                <?php echo trim(substr($choice, 1, strlen($choice) - 1)) ?>
+                  value="'. $j .'"
+                  name="problem-'. $i .'"
+                  id="problem-'. $i .'-choice-'. $j .'"
+                />'.
+                 trim(substr($choice, 1, strlen($choice) - 1)) .'
               </label>
-            </li>
-          <?php endfor // each choice ?>
-        </ul>
-      <?php elseif ($q['type'] == 'multiple'): ?>
-        <ul>
-          <?php for ($j = 0; $j < count($q['choices']); ++$j): ?>
-            <?php $choice = $q['choices'][$j] ?>
+            </li>';
+         endfor;
+        $result = $result . '</ul>';
+      elseif ($q['type'] == 'multiple'):
+        $result = $result . '<ul>';
+          for ($j = 0; $j < count($q['choices']); ++$j):
+            $choice = $q['choices'][$j];
+			$result = $result . '
             <li>
-              <label for="problem-<?php echo $i ?>-choice-<?php echo $j ?>">
+              <label for="problem-'. $i .'-choice-'. $j .'">
                 <input
                   type="checkbox"
                   value="true"
-                  id="problem-<?php echo $i ?>-choice-<?php echo $j ?>"
-                  name="problem-<?php echo $i ?>-choice-<?php echo $j ?>"
+                  id="problem-'. $i .'-choice-'. $j .'"
+                  name="problem-'. $i .'-choice-'. $j .'"
                 />
-                <?php echo trim(substr($choice, 1, strlen($choice) - 1)) ?>
+                '. trim(substr($choice, 1, strlen($choice) - 1)) . '
               </label>
-            </li>
-          <?php endfor // each choice ?>
-        </ul>
-      <?php elseif ($q['type'] == 'text'): ?>
-        <textarea
+            </li>';
+          endfor;
+        $result = $result . '</ul>';
+      elseif ($q['type'] == 'text'):
+        $result = $result . '<textarea
           class="text-editor"
-          id="problem-<?php echo $i ?>"
-          name="problem-<?php echo $i ?>"
-        ></textarea>
-      <?php elseif ($q['type'] == 'code'): ?>
-        <div
+          id="problem-'. $i .'"
+          name="problem-'. $i .'"
+        ></textarea><br><br>';
+      elseif ($q['type'] == 'code'):
+        $result = $result . '<div
           class="code-editor"
-          id="problem-<?php echo $i ?>"
+          id="problem-'. $i .'"
         ></div>
         <script>
-          editor = ace.edit("problem-<?php echo $i ?>");
+          editor = ace.edit("problem-'. $i .'");
           editor.setHighlightActiveLine(false);
-          editor.getSession().setMode('ace/mode/c_cpp');
-        </script>
-      <?php endif // if quiz type ?>
-    <?php endfor ?>
+          editor.getSession().setMode("ace/mode/c_cpp");
+        </script>';
+      endif;
+    }
+	$result = $result . '
     <div class="form-tail">
       <input type="hidden" name="action" value="submit" />
-      <input type="hidden" name="quiz-id" value="<?php echo $id ?>" />
+      <input type="hidden" name="quiz-id" value="'. $id .'" />
       <input type="submit" class="button submit" value="Submit" />
       <input type="button" class="button" onclick="window.history.back()" value="Cancel" />
     </div>
-  </form>
-<?php
-} // function dump_quiz
-
+  </form>';
+	return $result;
+	}
 }
