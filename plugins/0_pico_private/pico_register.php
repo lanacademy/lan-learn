@@ -21,8 +21,16 @@ class Pico_Register {
     $this->theme = $settings['theme'];
   }
 
-  public function request_url(&$url) {
+ public function request_url(&$url) {
 	$this->url = $url;
+	if($url == 'register') {
+      if($_SESSION['authed'] == false) {
+        return;
+      } else {
+        $this->redirect_home();
+        exit;
+      }
+    }
   }
 
   public function before_render(&$twig_vars, &$twig) {
@@ -34,7 +42,7 @@ class Pico_Register {
       $postGrade = $_POST['grade'];
       $postName = $_POST['name'];
       if(isset($postUsername) && isset($postPassword) && isset($postPassword2) && isset($postGrade) && isset($postName)) {
-          if(!preg_match('/[^a-z_\-0-9]/i', $postUsername)) {
+          if(!preg_match('/^[A-Za-z_\-0-9]/', $postUsername)) {
               $twig_vars['login_error'] = 'Make sure username only consists of alphanumeric characters and underscores.';
               $twig_vars['username'] = $postUsername;
               $twig_vars['grade'] = $postGrade;

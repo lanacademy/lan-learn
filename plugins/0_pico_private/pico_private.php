@@ -23,10 +23,22 @@ class Pico_Private {
 
   public function request_url(&$url) {
 	$this->url = $url;
+	if($url == 'login') {
+      if($_SESSION['authed'] == false) {
+        return;
+      } else {
+        $this->redirect_home();
+        exit;
+      }
+    }
+	if($url == 'logout') {
+      session_destroy();
+      $this->redirect_home();
+    }
   }
 
   public function before_render(&$twig_vars, &$twig) {
-    if((!isset($_SESSION['authed']) || $_SESSION['authed'] == false) && $this->url && 'login') {
+    if((!isset($_SESSION['authed']) || $_SESSION['authed'] == false) && $this->url == 'login') {
       // shortHand $_POST variables
       $postUsername = $_POST['username'];
       $postPassword = $_POST['password'];
