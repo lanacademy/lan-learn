@@ -63,7 +63,7 @@ class Pico_Private {
       exit;
     }
 
-    if(isset($_SESSION['authed'] && $_SESSION['username']) {
+    if(isset($_SESSION['authed']) && isset($_SESSION['username'])) {
 		$twig_vars['authed'] = $_SESSION['authed'];
 		$twig_vars['username'] =  $_SESSION['username'];
 	}
