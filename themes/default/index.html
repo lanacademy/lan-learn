@@ -29,7 +29,11 @@
 	<header id="header">
 		<div class="inner clearfix">
 			<h1><a href="{{ base_url }}">{{ site_title }}</a></h1>
-			{{ at_navigation.navigation }}
+			<ul class="nav">
+			    {% for page in pages %}
+			    <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+			    {% endfor %}
+			</ul>
 		</div>
 	</header>
 
