@@ -24,7 +24,7 @@ $config['custom_setting'] = 'Hello'; 	// Can be accessed by {{ config.custom_set
 $config['at_navigation']['exclude']['single'] = array('a/site', 'another/site');
 $config['at_navigation']['exclude']['folder'] = array('a/folder', 'another/folder');
 */
-$config['base_url'] = ''; 
+$config['base_url'] = '/LAN-LMS'; 
 $config['at_navigation']['id'] = 'at-navigation';
 $config['at_navigation']['class'] = 'nav';
 $config['at_navigation']['exclude']['folder'] = array('media');
