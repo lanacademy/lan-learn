@@ -1,12 +1,12 @@
 <?php
-
 /**
- * A plugin that let you create a private Pico with authentication form
+ * A plugin that generates a quiz from certain Markdown files
  *
  * @author Timothy Su
  * @link http://www.timofeo.com/
  * @license http://opensource.org/licenses/MIT
  */
+ 
 class Pico_Quiz {
 
   private $theme;
