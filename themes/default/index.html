@@ -11,6 +11,8 @@
 {% endif %}
 
 	<link rel="stylesheet" href="{{ theme_url }}/style2.css" type="text/css" />
+	<link rel="stylesheet" href="{{ theme_url }}/quiz.css" type="text/css" />
+	
 	
 	<script src="{{ theme_url }}/scripts/modernizr-2.6.1.min.js"></script>
 	<script src="{{ theme_url }}/scripts/discolytics.js"></script>
@@ -23,14 +25,10 @@
 		});
 	</script>
 	<script src="{{ theme_url }}/scripts/time.js"></script>
-	{% if meta.layout == "quiz" %}<script
-      type="text/javascript"
-      src="http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js"
-    ></script><link
-      rel="stylesheet"
-      type="text/css"
-      href="{{ theme_url }}/quiz.css"
-    />{% endif %}
+	{% if meta.layout == "quiz" %}
+	<script src="{{ theme_url }}/scripts/ace.js"></script>
+	
+	{% endif %}
 
 </head>
 
