@@ -38,7 +38,12 @@
  
 	<!-- 3. skin -->
 	<link rel="stylesheet" href="{{ theme_url }}/minimalist.css">
-
+	
+	<script>
+	flowplayer.conf = {
+		adaptiveRatio: true;
+	};
+	</script>
 </head>
 
 <body onload="setInterval('updateClock()', 10000);">
