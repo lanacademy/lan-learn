@@ -13,7 +13,6 @@ class Pico_Quiz {
 
   public function __construct() {
     $plugin_path = dirname(__FILE__);
-    session_start();
 	$this->path = $plugin_path;
 	$this->small_cases = array(
   'a', 'in', 'the', 'with', 'out', 'an', 'on', 'of', 'off', 'under', 'above'

@@ -7,3 +7,5 @@ RewriteRule . index.php [L]
 
 # Prevent file browsing
 Options -Indexes
+
+AddType video/mp4 .mp4
