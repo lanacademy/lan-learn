@@ -1,5 +1,4 @@
 <?php
-
 /**
  * A plugin that uses flowplayer to embed videos referenced in markdown
  *
@@ -7,16 +6,12 @@
  * @link http://www.benoverholts.com/
  * @license http://opensource.org/licenses/MIT
  */
+ 
 class Pico_Flowplayer {
 
 	public function __construct() {
 		$plugin_path = dirname(__FILE__);
 		$this->path = $plugin_path;
-	}
-
-	public function before_read_file_meta(&$headers)
-	{
-		$headers['subject'] = 'Subject';
 	}
 
 	public function config_loaded(&$settings) {
@@ -59,9 +54,5 @@ class Pico_Flowplayer {
 				$content = $content . $this->lines[$i] . "<br>";
 			}
 		}
-	}
-
-	public function get_page_data(&$data, $page_meta) {
-
 	}
 }
