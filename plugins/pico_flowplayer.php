@@ -23,36 +23,30 @@ class Pico_Flowplayer {
 		$this->subject = $meta['subject'];
 	}
 
-	public function before_load_content(&$file) {
-
-		if (file_exists($file)) {
-			$this->lines = explode("\n", file_get_contents($file));
-		}
-	}
-
 	public function content_parsed(&$content)
 	{
 		$videotitle = "";
-		$content = "";
+		$this->lines = explode("<p>", $content);
+
 		for($i = 0; $i < count($this->lines); ++$i) {
 			if (preg_match("/^!!/", $this->lines[$i])) {
     			$videotitle = $this->lines[$i];
+    			$videotitle = str_replace("!!", "", $videotitle);
+    			$videotitle = str_replace("</p>", "", $videotitle);
     			$this->videopath = str_replace(" ", "_", strtolower($this->subject));
 				$this->videopath = "/content/" . $this->videopath . "/media/";
-				$videotitle = str_replace("!!", "", $videotitle);
 				$this->videopath = $this->videopath . $videotitle;
 
 
-				//$content = $content . $_SERVER['DOCUMENT_ROOT'] . $this->videopath;
-				$content = $content .  '<div class="flowplayer">
-   											<video>
-      											<source type="video/mp4" src="' . $config['base_url'] . $this->videopath . '">
-   											</video>
-										</div>';
-
-			} else {
-				$content = $content . $this->lines[$i] . "<br>";
+				/* Need to re-add $config['base-url'] to the path, once config.php problems are solved */
+				$this->lines[$i] = '<div class="flowplayer">
+											<video>
+												<source type="video/mp4" src="' . $this->videopath . '">
+											</video>
+									</div>';
 			}
 		}
+
+		$content = implode("<p>", $this->lines);
 	}
 }
