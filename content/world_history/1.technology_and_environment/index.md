@@ -1,5 +1,6 @@
 /*
 Title: Chapter 1 Index
+layout: chapter
 */
 
 ## This is a Sub Page Index

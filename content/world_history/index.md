@@ -1,5 +1,6 @@
 /*
 Title: World History
+layout: course
 */
 
 ## This is a Sub Page Index

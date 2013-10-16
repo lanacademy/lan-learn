@@ -24,6 +24,25 @@
 			$disco.trackPage("{{ current_url }}", "{{ username }}");
 		});
 	</script>
+	<script type="text/javascript">
+	startList = function() {
+
+	if (document.getElementById) {
+		navRoot = document.getElementById("nav2");
+		for (i=0; i<navRoot.childNodes.length; i++) {
+			node = navRoot.childNodes[i];
+			if (node.nodeName=="LI") {
+			node.onclick=function() {
+		
+	this.className = (this.className == "on") ? "off" : "on";
+
+				}
+	   		}
+	  	}
+	 }
+	}
+	window.onload=startList;
+	</script>
 	<script src="{{ theme_url }}/scripts/time.js"></script>
 	{% if meta.layout == "quiz" %}
 	<script src="{{ theme_url }}/scripts/ace.js"></script>
@@ -39,7 +58,26 @@
 		
 		{{ at_navigation.navigation }}
 			 
+		<!--  So the problem is this only works if index.md is actually 0.index.md, which is stupid. Also the page v meta bit will cause problems once you need to add in page.url
+	<ul class="nav">
+	    {% for page, meta in pages %}
+			{% if meta.layout == "chapter" %} 
+			<li>{{ meta.title }}<ul>	 
+				
+				{% for page, meta in pages %} 
+					{% if meta.layout == "content" %} 
+						<li>{{ meta.title }}</li>
+					{% elseif meta.layout == "quiz" %} 
+						<li> {{ meta.title }}</li>
+					{% endif %}
+				{% endfor %}
+			</ul></li>
+			
+			{% endif %}		
+					
+	    {% endfor %}
 		</ul>
+		-->
 		</div>
 	</div>
 
