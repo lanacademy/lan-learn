@@ -46,7 +46,7 @@ class Pico_Flowplayer {
 				$content = $content . $_SERVER['DOCUMENT_ROOT'] . $this->videopath;
 				$content = $content .  '<div class="flowplayer">
    											<video>
-      											<source type="video/mp4" src="' . $_SERVER['DOCUMENT_ROOT'] . $this->videopath . '">
+      											<source type="video/mp4" src="' . $config['base_url'] . $this->videopath . '">
    											</video>
 										</div>';
 
