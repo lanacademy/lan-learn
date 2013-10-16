@@ -1,12 +1,12 @@
 <?php
-
 /**
- * A plugin that allows optional site-wide authentication via. flat file database
+ * A plugin that allows for site-wide authentication via. a flat-file database
  *
  * @author Timothy Su
  * @link http://www.timofeo.com/
  * @license http://opensource.org/licenses/MIT
  */
+ 
 class Pico_Private {
 
   private $theme;

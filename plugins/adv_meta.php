@@ -24,8 +24,8 @@ class Adv_Meta {
                 'keywords' => 'Keywords',
                 // image for page icon -- (theme/images/)
                 'icon' => 'Icon',
-                //use custom page template(s)
-                'tpl' => 'Tpl'
+                // subject meta
+                'subject' => 'Subject'
                     ),
             $content = null,
             $config = null,

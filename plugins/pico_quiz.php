@@ -1,19 +1,18 @@
 <?php
-
 /**
- * A plugin that let you create a private Pico with authentication form
+ * A plugin that generates a quiz from certain Markdown files
  *
  * @author Timothy Su
  * @link http://www.timofeo.com/
  * @license http://opensource.org/licenses/MIT
  */
+ 
 class Pico_Quiz {
 
   private $theme;
 
   public function __construct() {
     $plugin_path = dirname(__FILE__);
-    session_start();
 	$this->path = $plugin_path;
 	$this->small_cases = array(
   'a', 'in', 'the', 'with', 'out', 'an', 'on', 'of', 'off', 'under', 'above'

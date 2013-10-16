@@ -49,6 +49,20 @@
 	
 	{% endif %}
 
+	<!-- 1. jquery library -->
+	<script src="{{ theme_url }}/scripts/jquery.min.js"></script>
+ 
+	<!-- 2. flowplayer -->
+	<script src="{{ theme_url }}/scripts/flowplayer.min.js"></script>
+ 
+	<!-- 3. skin -->
+	<link rel="stylesheet" href="{{ theme_url }}/minimalist.css">
+	
+	<script>
+	flowplayer.conf = {
+		adaptiveRatio: true;
+	};
+	</script>
 </head>
 
 <body onload="setInterval('updateClock()', 10000);">

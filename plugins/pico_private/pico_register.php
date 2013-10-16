@@ -1,12 +1,12 @@
 <?php
-
 /**
- * A plugin that let you create a private Pico with authentication form
+ * A plugin that allows users to be created for usage with Pico_Private.
  *
  * @author Timothy Su
  * @link http://www.timofeo.com/
  * @license http://opensource.org/licenses/MIT
  */
+ 
 class Pico_Register {
 
   private $theme;
@@ -82,14 +82,6 @@ class Pico_Register {
       echo $twig_register->render('register.html', $twig_vars);
       exit;
     }
-	if(isset($_SESSION['authed']) && isset($_SESSION['username'])) {
-		$twig_vars['authed'] = $_SESSION['authed'];
-		$twig_vars['username'] =  $_SESSION['username'];
-	}
-	else {
-		$twig_vars['authed'] = false;
-		$twig_vars['username'] =  '';
-	}
   }
 
   private function redirect_home() {
