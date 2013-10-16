@@ -1,10 +1,7 @@
 /*
 Title: World History
-<<<<<<< HEAD
 layout: course
-=======
 Subject: World History
->>>>>>> 3f758f916754ace7a56ec64fecdf23d9a3ac2385
 */
 
 ## This is a Sub Page Index
