@@ -285,6 +285,15 @@ color: rgb(0, 129, 0);
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 }
+.sibling_nav {
+    text-align: center;
+}
+.sibling_nav a {
+    margin: 5px;
+    background-color: rgb(221, 221, 221);
+    padding: 5px;
+    border-radius: 5px;
+}
 
 .footer {
 	position: relative;

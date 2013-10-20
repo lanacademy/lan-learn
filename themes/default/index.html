@@ -43,8 +43,9 @@
 	<!-- 1. jquery library -->
 	<script src="{{ theme_url }}/scripts/jquery.min.js"></script>
  
-	<!-- 2. flowplayer -->
+	<!-- 2. flowplayer 	-->
 	<script src="{{ theme_url }}/scripts/flowplayer.min.js"></script>
+	
  
 	<!-- 3. skin -->
 	<link rel="stylesheet" href="{{ theme_url }}/minimalist.css">
@@ -97,9 +98,10 @@
 	<h1>{{ current_page.title }}</h1>	
 			{{ content }}
 	<br/>
-	<a href="{{ next_page.url }}">{{ next_page.title }}</a>			
-	<a href="{{ prev_page.url }}">{{ prev_page.title }}</a>	
-	
+	<div class="sibling_nav">
+	<a href="{{ next_page.url }}">< {{ next_page.title }}</a>			
+	<a href="{{ prev_page.url }}">{{ prev_page.title }} ></a>	
+	</div>
 			
 	</div>
 	{% else %} <!-- Non-front pages -->

@@ -1,11 +1,17 @@
 /*
-Title: Welcome
-Description: This description will go in the meta description tag
+Title: World History
+layout: course
+Subject: World History
 */
 
 ## Welcome to Pico
 
 Congratulations, you have successfully installed [Pico](http://pico.dev7studios.com). Pico is a stupidly simple, blazing fast, flat file CMS.
+
+
+!!test.mp4
+
+Fyi, you can't have a header directly after a video.
 
 ### Creating Content
 

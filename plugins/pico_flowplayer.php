@@ -17,11 +17,11 @@ class Pico_Flowplayer {
 	public function config_loaded(&$settings) {
 		$this->theme = $settings['theme'];
 	}
-
+	/* This isn't needed with one course, but I'm keeping it in for next release
 	public function file_meta(&$meta)
 	{
-		$this->subject = $meta['subject'];
-	}
+		$this->subject = $meta['subject'] . "/";
+	}*/
 
 	public function content_parsed(&$content)
 	{
@@ -33,12 +33,12 @@ class Pico_Flowplayer {
     			$videotitle = $this->lines[$i];
     			$videotitle = str_replace("!!", "", $videotitle);
     			$videotitle = str_replace("</p>", "", $videotitle);
-    			$this->videopath = str_replace(" ", "_", strtolower($this->subject));
-				$this->videopath = "/content/" . $this->videopath . "/media/";
+    			$this->videopath = str_replace(" ", "_", strtolower($this->subject)); 
+				/* Need to add $config['base-url'] to the path, once config.php problems are solved, for now hard coding */
+				$this->videopath = "/LAN-LMS/content/" . $this->videopath . "media/";
 				$this->videopath = $this->videopath . $videotitle;
 
 
-				/* Need to re-add $config['base-url'] to the path, once config.php problems are solved */
 				$this->lines[$i] = '<div class="flowplayer">
 											<video>
 												<source type="video/mp4" src="' . $this->videopath . '">
@@ -47,6 +47,6 @@ class Pico_Flowplayer {
 			}
 		}
 
-		$content = implode("<p>", $this->lines);
+		$content = implode("</p>", $this->lines);
 	}
 }
