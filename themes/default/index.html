@@ -1,116 +1,38 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
-<head>
-	<meta charset="utf-8" />
-	
-	<title>{% if meta.title %}{{ meta.title }} | {% endif %}{{ site_title }}</title>
-{% if meta.description %}
-	<meta name="description" content="{{ meta.description }}"> 
-{% endif %}{% if meta.robots %}
-	<meta name="robots" content="{{ meta.robots }}">
-{% endif %}
+<html lang="en">
 
-	<link rel="stylesheet" href="{{ theme_url }}/style2.css" type="text/css" />
-	<link rel="stylesheet" href="{{ theme_url }}/quiz.css" type="text/css" />
-	
-	
-	<script src="{{ theme_url }}/scripts/modernizr-2.6.1.min.js"></script>
-	<script src="{{ theme_url }}/scripts/discolytics.js"></script>
-	<script>
-		$disco.init({
-			apiKey: "09652fbf06b44c2c9bad5349a900c2cd"
-		});
-		$(function () {
-			$disco.trackPage("{{ current_url }}", "{{ username }}");
-		});
-	</script>
-	
-	<script src="{{ theme_url }}/scripts/jquery.hoveraccordion.js"></script>
-	
-	<script type="text/javascript">
-	$(document).ready(function(){ 
-	    $('#at-navigation').hoverAccordion({ 
-	        keepHeight: true, 
-	        speed: 'fast' 
-	     }); 
-	</script>
-	<script src="{{ theme_url }}/scripts/time.js"></script>
-	{% if meta.layout == "quiz" %}
-	<script src="{{ theme_url }}/scripts/ace.js"></script>
-	
-	{% endif %}
+{{ include('head.html') }}
 
-	<!-- 1. jquery library -->
-	<script src="{{ theme_url }}/scripts/jquery.min.js"></script>
- 
-	<!-- 2. flowplayer 	-->
-	<script src="{{ theme_url }}/scripts/flowplayer.min.js"></script>
-	
- 
-	<!-- 3. skin -->
-	<link rel="stylesheet" href="{{ theme_url }}/minimalist.css">
-	
-
-</head>
-
-<body onload="setInterval('updateClock()', 10000);">
+<body>
 	<div id="left-sidebar">
  	   <div id="left-content">
 		<h1><a href="{{ base_url }}">{{ site_title }}</a></h1>
-		
-		<ul class="nav">
-		    {% for page in pages %}
-		    <li><a href="{{ page.url }}">{{ page.title }}</a></li>
-		    {% endfor %}
-		</ul>
-		
-					 
-		<!--  So the problem is this only works if index.md is actually 0.index.md, which is stupid. Also the page v meta bit will cause problems once you need to add in page.url
-	<ul class="nav">
-	    {% for page, meta in pages %}
-			{% if meta.layout == "chapter" %} 
-			<li>{{ meta.title }}<ul>	 
-				
-				{% for page, meta in pages %} 
-					{% if meta.layout == "content" %} 
-						<li>{{ meta.title }}</li>
-					{% elseif meta.layout == "quiz" %} 
-						<li> {{ meta.title }}</li>
-					{% endif %}
-				{% endfor %}
-			</ul></li>
-			
-			{% endif %}		
-					
-	    {% endfor %}
-		</ul>
-		-->
+		<!--Login/logout goes here-->
+			{{ at_navigation.navigation }}
 		</div>
 	</div>
 
-	{% if is_front_page %} <!-- Front page -->
-		<div class="wrapper">
-		  	  	{{ include('front-dash.html') }}
-		</div>
-	{% elseif meta.layout == "content" %} <!--Content Page -->
 	<div class="wrapper">
-			<div id="time"></div>
+	{% if is_front_page %} <!-- Front page -->
+		  	  	{{ include('dashboard.html') }}
+	</div>
+	{% else %}
+				{% if meta.layout == "content" %} <!--Content Page -->
+									<div id="time"></div>
+									<div id="wiki_switcher" class="lefty">Woo</div>
+				{% else %}
+				{% endif %}
 	<h1>{{ current_page.title }}</h1>	
-			{{ content }}
-	<br/>
-	<div class="sibling_nav">
-	<a href="{{ next_page.url }}">< {{ next_page.title }}</a>			
-	<a href="{{ prev_page.url }}">{{ prev_page.title }} ></a>	
-	</div>
-			
-	</div>
-	{% else %} <!-- Non-front pages -->
-		<div class="wrapper">
-				<div id="time"></div>
-				{{ content }}
+		{{ content }}
+		<br/>
+		<div class="sibling_nav">
+			<a href="{{ next_page.url }}">< {{ next_page.title }}</a>			
+			<a href="{{ prev_page.url }}">{{ prev_page.title }} ></a>	
 		</div>
+	</div>
 		
 	{% endif %}
+	</div>
 	
 <div class="footer">
 			<p>	LAN-LMS is based off <a href="http://pico.dev7studios.com">Pico</a>.</p>

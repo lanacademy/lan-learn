@@ -1,0 +1,19 @@
+	<!--  So the problem is this only works if index.md is actually 0.index.md, which is stupid. Also the page v meta bit will cause problems once you need to add in page.url -->
+<ul class="nav">
+    {% for page, meta in pages %}
+		{% if meta.layout == "chapter" %} 
+		<li>{{ meta.title }}<ul>	 
+			
+			{% for page, meta in pages %} 
+				{% if meta.layout == "content" %} 
+					<li>{{ meta.title }}</li>
+				{% elseif meta.layout == "quiz" %} 
+					<li> {{ meta.title }}</li>
+				{% endif %}
+			{% endfor %}
+		</ul></li>
+		
+		{% endif %}		
+				
+    {% endfor %}
+	</ul>
