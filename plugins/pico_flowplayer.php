@@ -26,6 +26,13 @@ class Pico_Flowplayer {
 	public function content_parsed(&$content)
 	{
 		$videotitle = "";
+		$pathheader = "";
+
+		/* This allows the plugin to work regardless of how config.php ends up */
+		if (isset($config['base_url'])) {
+			$pathheader = $config['base_url'];
+		}
+
 		$this->lines = explode("<p>", $content);
 
 		for($i = 0; $i < count($this->lines); ++$i) {
@@ -33,13 +40,20 @@ class Pico_Flowplayer {
     			$videotitle = $this->lines[$i];
     			$videotitle = str_replace("!!", "", $videotitle);
     			$videotitle = str_replace("</p>", "", $videotitle);
-    			$this->videopath = str_replace(" ", "_", strtolower($this->subject)); 
-				/* Need to add $config['base-url'] to the path, once config.php problems are solved, for now hard coding */
-				$this->videopath = "/LAN-LMS/content/" . $this->videopath . "media/";
+
+    			/* This code is for the single-course LMS format */
+				$this->videopath = $pathheader . "/content/media/";
+
+				/* This code is for the full release */
+				/*
+				$this->videopath = str_replace(" ", "_", strtolower($this->subject));
+				$this->videopath = $pathheader . "/" . $this->subject . "/media";
+				*/
+
 				$this->videopath = $this->videopath . $videotitle;
 
 
-				$this->lines[$i] = '<div class="flowplayer">
+				$this->lines[$i] = $this->videopath . '<br> <div class="flowplayer">
 											<video>
 												<source type="video/mp4" src="' . $this->videopath . '">
 											</video>
