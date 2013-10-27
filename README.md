@@ -33,12 +33,12 @@ Tested on modern Chrome
 Supporting Projects
 -------------------
 LAN-LMS is based upon several open source pieces
-	https://github.com/gilbitron/Pico
-	https://github.com/euyuil/php-quiz-generator
-	https://github.com/flowplayer/flowplayer
-	https://github.com/ajaxorg/ace
-	https://github.com/jquery/jquery
-	https://github.com/Modernizr/Modernizr
+- https://github.com/gilbitron/Pico
+- https://github.com/euyuil/php-quiz-generator
+- https://github.com/flowplayer/flowplayer
+- https://github.com/ajaxorg/ace
+- https://github.com/jquery/jquery
+- https://github.com/Modernizr/Modernizr
 
 
 License
