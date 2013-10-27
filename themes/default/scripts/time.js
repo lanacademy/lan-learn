@@ -6,6 +6,7 @@
                // Get the hours, minutes and seconds from the current time
                var hours = now.getHours();
                var minutes = now.getMinutes();
+			   var seconds = now.getSeconds();
 
                // Format hours, minutes and seconds
                if (hours < 10) {
@@ -14,10 +15,15 @@
                if (minutes < 10) {
                    minutes = "0" + minutes;
                }
-
-               // Gets the element we want to inject the clock into
-               var elem = document.getElementById('time');
+			   if (seconds < 10) {
+					seconds = "0" + seconds;
+				}
 
                // Sets the elements inner HTML value to our clock data
-               elem.innerHTML = hours + ':' + minutes ;
+               document.getElementById('time').innerHTML = hours + ':' + minutes + ':' + seconds;
+			   
+			   setTimeout(updateClock, 250);
            }
+		   window.onload = function() {
+			updateClock();
+			}

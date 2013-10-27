@@ -16,6 +16,10 @@ class Pico_Flowplayer {
 
 	public function config_loaded(&$settings) {
 		$this->theme = $settings['theme'];
+		$this->pathheader = "";
+		if (isset($settings['base_url'])) {
+			$this->pathheader = $settings['base_url'];
+		}	
 	}
 	/* This isn't needed with one course, but I'm keeping it in for next release
 	public function file_meta(&$meta)
@@ -26,12 +30,6 @@ class Pico_Flowplayer {
 	public function content_parsed(&$content)
 	{
 		$videotitle = "";
-		$pathheader = "";
-
-		/* This allows the plugin to work regardless of how config.php ends up */
-		if (isset($config['base_url'])) {
-			$pathheader = $config['base_url'];
-		}
 
 		$this->lines = explode("<p>", $content);
 
@@ -42,12 +40,12 @@ class Pico_Flowplayer {
     			$videotitle = str_replace("</p>", "", $videotitle);
 
     			/* This code is for the single-course LMS format */
-				$this->videopath = $pathheader . "/content/media/";
+				$this->videopath = $this->pathheader . "/content/media/";
 
 				/* This code is for the full release */
 				/*
 				$this->videopath = str_replace(" ", "_", strtolower($this->subject));
-				$this->videopath = $pathheader . "/" . $this->subject . "/media";
+				$this->videopath = $this->pathheader . "/" . $this->subject . "/media";
 				*/
 
 				$this->videopath = $this->videopath . $videotitle;
