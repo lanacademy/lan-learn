@@ -6,6 +6,8 @@
 <body>
 	<div id="left-sidebar">
  	   <div id="left-content">
+	   <div id="date"></div>
+	   <div id="time"></div>
 		<h1><a href="{{ base_url }}">{{ site_title }}</a></h1>
 		<!--Login/logout goes here-->
 			{{ at_navigation.navigation }}
@@ -18,7 +20,6 @@
 	</div>
 	{% else %}
 				{% if meta.layout == "content" %} <!--Content Page -->
-									<div id="time"></div>
 									<div id="wiki_switcher" class="lefty">Woo</div>
 				{% else %}
 				{% endif %}

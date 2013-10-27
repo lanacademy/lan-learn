@@ -7,6 +7,8 @@
                var hours = now.getHours();
                var minutes = now.getMinutes();
 			   var seconds = now.getSeconds();
+			   var date = now.getDate();
+			   var month = now.getMonth();
 
                // Format hours, minutes and seconds
                if (hours < 10) {
@@ -18,9 +20,16 @@
 			   if (seconds < 10) {
 					seconds = "0" + seconds;
 				}
+				if (date < 10) {
+					date = "0" + date;
+				}
+				if (month < 10) {
+					month = "0" + month;
+				}
 
                // Sets the elements inner HTML value to our clock data
-               document.getElementById('time').innerHTML = hours + ':' + minutes + ':' + seconds;
+			   document.getElementById('date').innerHTML = date + '.' + month + '.' + now.getFullYear();
+               document.getElementById('time').innerHTML =  hours + ':' + minutes + ':' + seconds;
 			   
 			   setTimeout(updateClock, 250);
            }

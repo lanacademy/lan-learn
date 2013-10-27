@@ -1,12 +1,13 @@
 LAN-LMS
 =======
-A flat-file learning management system, intended for small-scale production use
+LAN-LMS is an open source learning management system designed to work around the world
 
 
 Features
 --------
-- Flat-file
-- Extensible via plugins
+- Flat file model (XML database + Markdown content)
+- Extensible and customizable via plugins, twig templating, and arbitrary metadata
+- 'Offline' functionality; works without a connection to the internet
 - + more
 
 Requirements
@@ -16,7 +17,6 @@ Apache web server with PHP (Tested/Developed on Apache 2.4 + PHP 5.5)
 
 Installing
 ----------
-
 - Copy into web directory, make a copy of backup.'config.php' and name it 'config.php'
 - Read/edit 'config.php' values
 - You're done!

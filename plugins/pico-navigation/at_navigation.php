@@ -71,8 +71,8 @@ class AT_Navigation {
 		if (isset($navigation['_child']))
 		{
 			$_child = $navigation['_child'];
-			array_multisort($_child);
-			
+			//array_multisort($_child);
+			usort($_child, function (array $a, array $b) { return strcmp($a["url"], $b["url"]); });
 			foreach ($_child as $c)
 			{
 				$child .= $this->at_build_navigation($c);

@@ -182,9 +182,7 @@ private function dump_quizhelper() {
                   value="'. $j .'"
                   name="problem-'. $i .'"
                   id="problem-'. $i .'-choice-'. $j .'"
-                />'.
-                 trim(substr($choice, 1, strlen($choice) - 1)) .'
-              </label>
+                /> '. trim(substr($choice, 1, strlen($choice) - 1)) . '</label>
             </li>';
          endfor;
         $result = $result . '</ul>';
@@ -199,9 +197,7 @@ private function dump_quizhelper() {
                   type="checkbox"
                   value="true"
                   id="problem-'. $i .'-choice-'. $j .'"
-                  name="problem-'. $i .'-choice-'. $j .'"
-                />
-                '. trim(substr($choice, 1, strlen($choice) - 1)) . '
+                  name="problem-'. $i .'-choice-'. $j .'"/> '. trim(substr($choice, 1, strlen($choice) - 1)) . '
               </label>
             </li>';
           endfor;
@@ -210,13 +206,11 @@ private function dump_quizhelper() {
         $result = $result . '<textarea
           class="text-editor"
           id="problem-'. $i .'"
-          name="problem-'. $i .'"
-        ></textarea><br><br>';
+          name="problem-'. $i .'"></textarea><br><br>';
       elseif ($q['type'] == 'code'):
         $result = $result . '<div
           class="code-editor"
-          id="problem-'. $i .'"
-        ></div>
+          id="problem-'. $i .'"></div>
         <script>
           editor = ace.edit("problem-'. $i .'");
           editor.setHighlightActiveLine(false);
