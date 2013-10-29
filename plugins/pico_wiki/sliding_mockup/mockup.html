@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>Fixed left-sidebar</title>
+<link rel="stylesheet" href="./layout.css" type="text/css">
+<link rel="icon" href="/img/favicon.png" type="image/png">
+<link rel="stylesheet" type="text/css" href="./jquery.pageslide.css">
+<script src="./jquery-1.7.1.min.js"></script>
+
+</head>
+
+
+<body>
+	<div id="left-sidebar">
+ 	   <div id="left-content">
+<h1>World History</h1>
+
+		</div>
+	</div>
+	<div id="right-sidebar">  </div>
+	
+	<div id="content">
+	 <h1>Farming and Agriculture</h1>
+		
+	 <h2>Farming</h2>
+	 <p>The Fertile Crescent of Western Asia, Egypt, and India were sites of the earliest planned sowing and harvesting of plants that had previously been gathered in the wild. Independent development of agriculture occurred in northern and southern China, Africa's Sahel, New Guinea and several regions of the Americas. The eight so-called Neolithic founder crops of agriculture appear: first emmer wheat and einkorn wheat, then hulled barley, peas, lentils, bitter vetch, chick peas and flax.
+By 7000 BC, small-scale agriculture reached Egypt. From at least 7000 BC the Indian subcontinent saw farming of wheat and barley, as attested by archaeological excavation at Mehrgarh in Balochistan. By 6000 BC, mid-scale farming was entrenched on the banks of the Nile. About this time, agriculture was developed independently in the Far East, with rice, rather than wheat, as the primary crop. Chinese and Indonesian farmers went on to domesticate taro and beans including mung, soy and azuki. To complement these new sources of carbohydrates, highly organized net fishing of rivers, lakes and ocean shores in these areas brought in great volumes of essential protein. Collectively, these new methods of farming and fishing inaugurated a human population boom that dwarfed all previous expansions and continues today.
+By 5000 BC, the Sumerians had developed core agricultural techniques including large-scale intensive cultivation of land, monocropping, organized irrigation, and the use of a specialized labor force, particularly along the waterway now known as the Shatt al-Arab, from its Persian Gulf delta to the confluence of the Tigris and Euphrates. Domestication of wild aurochs and mouflon into cattle and sheep, respectively, ushered in the large-scale use of animals for food/fiber and as beasts of burden. The shepherd joined the farmer as an essential provider for sedentary and seminomadic societies. Maize, manioc, and arrowroot were first domesticated in the Americas as far back as 5200 BC.[26]
+The potato, tomato, pepper, squash, several varieties of bean, tobacco, and several other plants were also developed in the New World, as was extensive terracing of steep hillsides in much of Andean South America. The Greeks and Romans built on techniques pioneered by the Sumerians, but made few fundamentally new advances. Southern Greeks struggled with very poor soils, yet managed to become a dominant society for years. The Romans were noted for an emphasis on the cultivation of crops for trade. </p>
+
+<p>
+In the Americas, a parallel agricultural revolution occurred, resulting in some of the most important crops grown today. In Mesoamerica wild teosinte was transformed through human selection into the ancestor of modern maize, more than 6000 years ago. It gradually spread across North America and was the major crop of Native Americans at the time of European exploration.[27] Other Mesoamerican crops include hundreds of varieties of squash and beans. Cocoa was also a major crop in domesticated Mexico and Central America. The turkey, one of the most important meat birds, was probably domesticated in Mexico or the U.S. Southwest. In the Andes region of South America the major domesticated crop was potatoes, domesticated perhaps 5000 years ago. Large varieties of beans were domesticated, in South America, as well as animals, including llamas, alpacas, and guinea pigs. Coca, still a major crop, was also domesticated in the Andes.
+A minor center of domestication, the indigenous people of the Eastern U.S. appear to have domesticated numerous crops. Sunflowers, tobacco,[28] varieties of squash and Chenopodium, as well as crops no longer grown, including marshelder and little barley were domesticated.[29][30] Other wild foods may have undergone some selective cultivation, including wild rice and maple sugar. The most common varieties of strawberry were domesticated from Eastern North America.[31]</p>
+
+	<p>A lot more combinations are possible, of course, but it would become impossible to create and list them all. After you understand the theory, you will be fine.
+	</p>
+	<p> <a href="http://library.kiwix.org/wikipedia_en_all_nopic/A/History%20of%20the%20world.html" class="second">Open wiki</a></p><p><a href="http://library.kiwix.org/wikipedia_en_wp1/A/Farming.html">Wiki with images</a></p><p><a href="javascript:$.pageslide.close()">Close</a>
+	</p>
+	
+
+		
+		</div>
+	<!-- Highlight -->
+	<script src="./jquery.highlight.js"></script>
+	<script>
+		$("body p").highlight(["farming", "grain agriculture", "writing", "Egypt", "China", "bananas", "indus river valley", "mesopotamia"], { element: 'a', className: 'wikilink'});
+		$("body p a.wikilink").attr({ href: 'http://library.kiwix.org/wikipedia_en_wp1/A/' + this.text + '.html' });
+	</script>
+	<!-- Slider -->
+	<script src="./jquery.pageslide.min.js"></script>
+    <script>
+        $('a').pageslide({ direction: "left" });
+    </script>
+	<script>
+	$('#right-sidebar').click(function() {
+	  $.pageslide({ direction: "left", href: 'http://library.kiwix.org/wikipedia_en_wp1/A/Farming.html' });
+	});
+	</script>
+</body>
+</html>
