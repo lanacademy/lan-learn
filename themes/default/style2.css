@@ -225,8 +225,11 @@ a:hover, a:active {
  #left-content .nav li {
  	position: relative;
  }
+ #nav2 > li a {
+     margin-left: -10px;
+ }
 
- #left-content .nav li ul li {
+ #left-content .nav ul li {
  	margin-left: -10px;
  	padding: 2px 10px;
  	display: block;

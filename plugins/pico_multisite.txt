@@ -1,0 +1,38 @@
+<?php
+/**
+ * Creates the twig templates 'sub_pages' 
+ *
+ * Maybe the way we should do the nav with lan is mod the at_nav plugin to exclude pages that doesn't have the same /baseurl/2lvlurl as the current page. And then for the front page we extend the pages function to make a sub_pages function or something. Kinda like this but recognizing titles and crap.
+ *
+ * @author John Williams
+ * @link http://johncomposed.com
+ * @license http://opensource.org/licenses/MIT
+ */
+ 
+class Pico_Multisite {
+	public function before_render(&$twig_vars, &$twig)
+	{
+		$twig_vars = array(
+			'sub_pages' => $scan_dir(settings.[base_url]),
+		);
+	}
+
+	//Lists only the pages within the current level dir
+
+    private function scan_dir($d)
+    {
+   return array_filter(scandir($d), function ($f) use($d) {
+       return ! is_dir($d . DIRECTORY_SEPARATOR . $f);
+   });
+    }
+		
+}
+
+
+
+
+
+
+
+
+?>
