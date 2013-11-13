@@ -27,9 +27,12 @@ class Pico_Register
     {
         $this->url = $url;
         if ($url == 'register') {
+            session_start();
             if ($_SESSION['authed'] == false) {
+                session_write_close();
                 return;
             } else {
+                session_write_close();
                 $this->redirect_home();
                 exit;
             }
@@ -67,9 +70,12 @@ class Pico_Register
                     $xml->addChild('grade', $postGrade);
                     $xml->addChild('name', $postName);
                     $xml->asXML($this->path . '/users/' . $postUsername . '.xml');
+                    session_start();
                     $_SESSION['authed']   = true;
                     $_SESSION['username'] = $postUsername;
+                    session_write_close();
                     $this->redirect_home();
+                    exit;
                 }
             } else {
                 $twig_vars['login_error'] = 'Check inputs, please fill out every field.  Assure that the username consists of only alphanumeric characters and underscores.';

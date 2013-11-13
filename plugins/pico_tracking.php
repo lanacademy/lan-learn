@@ -11,7 +11,7 @@ class Pico_Tracking {
     
     public function __construct()
     {
-        $plugin_path = dirname(__FILE__);
+        $plugin_path = dirname(dirname(__FILE__));
         $this->path  = $plugin_path;
     }
     
@@ -30,15 +30,23 @@ class Pico_Tracking {
 	{
 		if ($twig_vars['authed'] && $this->tracking) {
             $page = $_SERVER['REQUEST_URI'];
+            if (strpos($page, ".mp4") !== false) {
+                exit;
+            }
+            if (strpos($page, ".map") !== false) {
+                exit;
+            }
+            if (strpos($page, ".png") !== false) {
+                exit;
+            }
             $user = $twig_vars['username'];
             $data = "[HIT] - ";
             $data = $data . date('Y/m/d H:i:s');
             $data = $data . " - " . $user . " - " . $page . "\n";
-            if (file_exists('../' . $this->path . '/log/' . $user . '.log')) {
-                $data = file_get_contents('../' . $this->path . '/log/' . $user . '.log') . $data;
+            if (file_exists($this->path . '/log/' . $user . '.log')) {
+                $data = file_get_contents($this->path . '/log/' . $user . '.log') . $data;
             }
-            file_put_contents('../' . $this->path . '/log/' . $user . '.log', $data);
+            file_put_contents($this->path . '/log/' . $user . '.log', $data);
         }
-        echo $_SESSION['authed'] ? 'true' : 'false';
 	}
 }

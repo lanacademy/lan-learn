@@ -27,14 +27,18 @@ class Pico_Private
     {
         $this->url = $url;
         if ($url == 'login') {
+            session_start();
             if ($_SESSION['authed'] == false) {
+                session_write_close();
                 return;
             } else {
+                session_write_close();
                 $this->redirect_home();
                 exit;
             }
         }
         if ($url == 'logout') {
+            session_start();
             session_destroy();
             $this->redirect_home();
         }
@@ -42,6 +46,7 @@ class Pico_Private
     
     public function before_render(&$twig_vars, &$twig)
     {
+        session_start();
         if ((!isset($_SESSION['authed']) || $_SESSION['authed'] == false) && $this->url == 'login') {
             // shortHand $_POST variables
             $postUsername = $_POST['username'];
@@ -53,6 +58,7 @@ class Pico_Private
                 if ((file_exists($this->path . '/users/' . $postUsername . '.xml') == true) && ($xml->password == md5($postPassword))) {
                     $_SESSION['authed']   = true;
                     $_SESSION['username'] = $postUsername;
+                    session_write_close();
                     $this->redirect_home();
                 } else {
                     $twig_vars['login_error'] = 'Invalid login';
@@ -71,6 +77,7 @@ class Pico_Private
         if (isset($_SESSION['authed']) && isset($_SESSION['username'])) {
             $twig_vars['authed']   = $_SESSION['authed'];
             $twig_vars['username'] = $_SESSION['username'];
+            session_write_close();
         } else {
             $twig_vars['authed']   = false;
             $twig_vars['username'] = '';
