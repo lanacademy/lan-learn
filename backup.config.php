@@ -31,4 +31,4 @@ $config['at_navigation']['id'] = 'at-navigation';
 $config['at_navigation']['class'] = 'nav';
 $config['at_navigation']['exclude']['folder'] = array('media');
 $config['pages_order_by'] = 'alpha';	// Order pages by "alpha" or "date"
-
+$config['tracking'] = true;
