@@ -8,7 +8,7 @@
                var minutes = now.getMinutes();
 			   var seconds = now.getSeconds();
 			   var date = now.getDate();
-			   var month = now.getMonth();
+			   var month = now.getMonth() + 1;
 
                // Format hours, minutes and seconds
                if (hours < 10) {
