@@ -1,0 +1,42 @@
+<head>
+    <meta charset="utf-8" />
+    
+    <title>{% if meta.title %}{{ meta.title }} | {% endif %}{{ site_title }}</title>
+{% if meta.description %}
+    <meta name="description" content="{{ meta.description }}"> 
+{% endif %}{% if meta.robots %}
+    <meta name="robots" content="{{ meta.robots }}">
+{% endif %}
+
+    <link rel="stylesheet" href="{{ theme_url }}/style2.css" type="text/css" />
+    
+    <!-- 1. jquery library -->
+    <script src="{{ theme_url }}/scripts/jquery.min.js"></script>
+    
+    <script src="{{ theme_url }}/scripts/modernizr-2.6.1.min.js"></script>
+        
+    {% if meta.layout == "quiz" %}
+    <script src="{{ theme_url }}/scripts/ace.js"></script>
+    <link rel="stylesheet" href="{{ theme_url }}/quiz.css" type="text/css" />
+    {% endif %}
+    
+    {% if meta.layout == "content" %}
+    <script src="{{ theme_url }}/scripts/jQuizMe-2.2.1.js"></script>
+    <link rel="stylesheet" href="{{ theme_url }}/jQuizMe.css" type="text/css" />
+    {% endif %}
+
+    <!-- 2. flowplayer  -->
+    <script src="{{ theme_url }}/scripts/flowplayer.min.js"></script>
+    <!-- 3. skin -->
+    <link rel="stylesheet" href="{{ theme_url }}/minimalist.css">
+    <script src="{{ theme_url }}/scripts/jquery.hoveraccordion.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){ 
+            $('#at-navigation > ul').hoverAccordion({ 
+                keepHeight: false, 
+                speed: 'fast',
+                onClickOnly: false
+            }); 
+        });
+    </script>
+</head>ools con

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{{ include('head.html') }}
+
+<body>
+	<div id="left-sidebar">
+ 	   <div id="left-content">
+	   <div id="date"></div>
+	   <div id="time"></div>
+		<h1><a href="{{ base_url }}">{{ site_title }}</a></h1>
+		<!--Login/logout goes here-->
+			{{ at_navigation.navigation }}
+			<div id="quizArea"></div>
+		</div>
+	</div>
+
+	<div class="wrapper">
+	{% if is_front_page %} <!-- Front page -->
+		  	  	{{ include('dashboard.html') }}
+	</div>
+	{% else %}
+				{% if meta.layout == "content" %} <!--Content Page -->
+									<div id="wiki_switcher" class="lefty">Woo</div>
+				{% else %}
+				{% endif %}
+	<h1>{{ current_page.title }}</h1>	
+		{{ content }}
+		<br/>
+		<div class="sibling_nav">
+			<a href="{{ next_page.url }}">< {{ next_page.title }}</a>			
+			<a href="{{ prev_page.url }}">{{ prev_page.title }} ></a>	
+		</div>
+	</div>
+		
+	{% endif %}
+	</div>
+	
+<div class="footer">
+			<p>	LAN-LMS is based off <a href="http://pico.dev7studios.com">Pico</a>.</p>
+</div>
+
+    
+</body>
+</html>
