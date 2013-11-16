@@ -35,6 +35,7 @@ class Pico_Pagequiz {
         if ($this->type == "content") {
             $this->request = substr($this->request, 1, stripos($this->request, '/', 2));
             $this->path = $this->path . '/content/' . $this->request . 'keywords.xml';
+            echo $this->path;
             if (file_exists($this->path)) {
                 $this->data = simplexml_load_file($this->path);
                 $n = 0;
@@ -80,10 +81,9 @@ class Pico_Pagequiz {
         allRandom: true,
         title: "Quiz",
         disableDelete: true,
-        quizType: "multi",
         numOfQuizQues: ';
-        if (count($this->qlist) < 4) {
-            $output = $output . (count($this->qlist) + 1);
+        if (count($this->qlist) < 5) {
+            $output = $output . (count($this->qlist));
         }
         else {
         $output = $output . '5';
