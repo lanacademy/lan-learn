@@ -46,7 +46,6 @@ class Pico_Pagequiz {
         if ($this->type == "content") {
             $this->request = substr($this->request, 1 + $this->offset, stripos($this->request, '/', 1 + $this->offset) - $this->offset);
             $this->path = $this->path . '/content/' . $this->request . 'keywords.xml';
-            echo $this->path;
             if (file_exists($this->path)) {
                 $this->data = simplexml_load_file($this->path);
                 $n = 0;
@@ -73,7 +72,7 @@ class Pico_Pagequiz {
                     $(function($){
     
     var quiz = {
-        multi: [';
+        multiList: [';
         for ($i = 0; $i < count($this->qlist); $i++) {
             $output = $output . '
             {
@@ -91,6 +90,7 @@ class Pico_Pagequiz {
         intro: "Click below to begin quiz!",
         allRandom: true,
         title: "Quiz",
+        multiLen: 4,
         disableDelete: true,
         numOfQuizQues: ';
         if (count($this->qlist) < 5) {
