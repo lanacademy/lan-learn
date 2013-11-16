@@ -21,6 +21,14 @@ class Pico_Pagequiz {
     {
         $this->type = $meta['layout'];
     }
+
+    public function before_load_content(&$file)
+    {
+        if (file_exists($file)) {
+            $this->yes = true;
+            $this->quizcontent = file_get_contents($file);
+        }
+    }
 	
 	public function content_parsed(&$content)
 	{
@@ -30,12 +38,16 @@ class Pico_Pagequiz {
             if (file_exists($this->path)) {
                 $this->data = simplexml_load_file($this->path);
                 $n = 0;
+                $o = 0;
                 for($i = 0; $i < count($this->data->title); $i++) {
-                //echo $content;
-                if (strpos($content, $this->data->title[$i]) !== FALSE) {
+                if (strpos($this->quizcontent, (String) $this->data->title[$i]) !== FALSE) {
                     $this->alist[$n] = $this->data->title[$i];
                     $this->qlist[$n] = $this->data->text[$i];
                     $n++;
+                }
+                else {
+                    $this->plist[$o] = $this->data->title[$i];
+                    $o++;
                 }
             }
             }
@@ -44,30 +56,40 @@ class Pico_Pagequiz {
 	
 	public function after_render(&$output)
 	{
-        if ($this->type == "content" && file_exists($this->path)) {
-            echo '<script type="text/javascript">
+        if ($this->type == "content" && $this->yes) {
+            $output = $output . '<script type="text/javascript">
                     $(function($){
     
     var quiz = {
         multi: [';
         for ($i = 0; $i < count($this->qlist); $i++) {
-            echo '
+            $output = $output . '
             {
                 ques: "' . $this->qlist[$i] . '",
                 ans: "' . $this->alist[$i] . '"
-            },
-            ';
+            }';
+            if ($i != count($this->qlist) - 1) {
+                $output = $output . ",";
+            }
         }
-        echo '
+        $output = $output . '
         ]
     },
     options = {
         intro: "Click below to begin quiz!",
         allRandom: true,
         title: "Quiz",
-        disableDelete = true,
-        numOfQuizQues = 5;
-    };
+        disableDelete: true,
+        quizType: "multi",
+        numOfQuizQues: ';
+        if (count($this->qlist) < 4) {
+            $output = $output . (count($this->qlist) + 1);
+        }
+        else {
+        $output = $output . '5';
+    }
+    $output = $output . '
+};
     
     $("#quizArea").jQuizMe(quiz, options);
 });
