@@ -17,6 +17,17 @@ class Pico_Pagequiz {
         $this->request = $requestpath;
     }
 	
+    public function config_loaded(&$settings)
+    {
+        $this->settings = $settings;
+        if (isset($settings['base_url']) && stripos($settings['base_url'], "http") === FALSE) {
+            $this->offset = strlen($settings['base_url']);
+        }
+        else {
+            $this->offset = 0;
+        }
+    }
+
 	public function file_meta(&$meta)
     {
         $this->type = $meta['layout'];
@@ -33,9 +44,9 @@ class Pico_Pagequiz {
 	public function content_parsed(&$content)
 	{
         if ($this->type == "content") {
-            $this->request = substr($this->request, 1, stripos($this->request, '/', 2));
+            echo $this->offset;
+            $this->request = substr($this->request, 1, stripos($this->request, '/', 2 + $this->offset));
             $this->path = $this->path . '/content/' . $this->request . 'keywords.xml';
-            echo $this->path;
             if (file_exists($this->path)) {
                 $this->data = simplexml_load_file($this->path);
                 $n = 0;
