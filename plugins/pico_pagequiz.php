@@ -44,9 +44,9 @@ class Pico_Pagequiz {
 	public function content_parsed(&$content)
 	{
         if ($this->type == "content") {
-            echo $this->offset;
             $this->request = substr($this->request, 1, stripos($this->request, '/', 2 + $this->offset));
             $this->path = $this->path . '/content/' . $this->request . 'keywords.xml';
+            echo $this->path;
             if (file_exists($this->path)) {
                 $this->data = simplexml_load_file($this->path);
                 $n = 0;
