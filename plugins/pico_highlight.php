@@ -69,15 +69,15 @@ class Pico_Highlight {
     {
         if ($this->type == "content" && $this->yes) {
             $output = $output . '<script>
-        $(\'#wrapper\').highlight([';
+        $(\'body div.wrapper\').highlight([';
             for ($i = 0; $i < count($this->alist); $i++) {
             $output = $output . '"' . $this->alist[$i] . '"';
             if ($i != count($this->qlist) - 1) {
                 $output = $output . ", ";
             }
         }
-            $output = $output . '], { element: "a", className: "href" });
-        $("#wrapper a.href").attr({ href: "http://library.kiwix.org/wikipedia_en_wp1/A/" + this.text + ".html" });
+            $output = $output . '], { element: "a", className: "jQueryLink" });
+        $("body div.wrapper a.jQueryLink").attr({ href: "http://library.kiwix.org/wikipedia_en_wp1/A/" + $("body div.wrapper a.jQueryLink").text() + ".html" });
     </script>';
         }
     }

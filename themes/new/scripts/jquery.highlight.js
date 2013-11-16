@@ -1,14 +1,5 @@
 /*
  * jQuery Highlight plugin
- * 
- * John's notes, more in commit description. I added in the bottom of the file something like this, which almost works. The problem with this is that this.text isn't a real thing for what I'm trying to do. The underlying problem with this is that I don't know jquery. 
- * <!-- Highlight -->
- *	 <script src="./jquery.highlight.js"></script>
- * 	<script>
- *		$("body p").highlight(["farming", "grain agriculture", "writing", "Egypt", "China", "bananas", "indus river valley", "mesopotamia"], { element: 'a', className: 'wikilink'});
- *		$("body p a.wikilink").attr({ href: 'http://library.kiwix.org/wikipedia_en_wp1/A/' + this.text + '.html' });
- *	</script>
- *
  *
  * Based on highlight v3 by Johann Burkard
  * http://johannburkard.de/blog/programming/javascript/highlight-javascript-text-higlighting-jquery-plugin.html
@@ -114,4 +105,3 @@ jQuery.fn.highlight = function (words, options) {
         jQuery.highlight(this, re, settings.element, settings.className);
     });
 };
-
