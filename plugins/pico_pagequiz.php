@@ -16,46 +16,6 @@ class Pico_Pagequiz {
         $this->path  = $base_path;
         $this->request = $requestpath;
     }
-
-	public function plugins_loaded()
-	{
-		
-	}
-	
-	public function request_url(&$url)
-	{
-		
-	}
-	
-	public function before_load_content(&$file)
-	{
-		
-	}
-	
-	public function after_load_content(&$file, &$content)
-	{
-		
-	}
-	
-	public function before_404_load_content(&$file)
-	{
-		
-	}
-	
-	public function after_404_load_content(&$file, &$content)
-	{
-		
-	}
-	
-	public function config_loaded(&$settings)
-	{
-		
-	}
-	
-	public function before_read_file_meta(&$headers)
-	{
-		
-	}
 	
 	public function file_meta(&$meta)
     {
@@ -67,45 +27,24 @@ class Pico_Pagequiz {
         if ($this->type == "content") {
             $this->request = substr($this->request, 1, stripos($this->request, '/', 2));
             $this->path = $this->path . '/content/' . $this->request . 'keywords.xml';
-            if (!file_exists($this->path)) {
-                exit;
-            }
-            $this->data = simplexml_load_file($this->path);
-            $n = 0;
-            for($i = 0; $i < count($this->data->title); $i++) {
-                echo $this->data->title[$i];
+            if (file_exists($this->path)) {
+                $this->data = simplexml_load_file($this->path);
+                $n = 0;
+                for($i = 0; $i < count($this->data->title); $i++) {
+                //echo $content;
                 if (strpos($content, $this->data->title[$i]) !== FALSE) {
                     $this->alist[$n] = $this->data->title[$i];
                     $this->qlist[$n] = $this->data->text[$i];
                     $n++;
                 }
             }
+            }
         }
-	}
-	
-	public function get_page_data(&$data, $page_meta)
-	{
-		
-	}
-	
-	public function get_pages(&$pages, &$current_page, &$prev_page, &$next_page)
-	{
-		
-	}
-	
-	public function before_twig_register()
-	{
-		
-	}
-	
-	public function before_render(&$twig_vars, &$twig)
-	{
-		
 	}
 	
 	public function after_render(&$output)
 	{
-        if ($this->type == "content") {
+        if ($this->type == "content" && file_exists($this->path)) {
             echo '<script type="text/javascript">
                     $(function($){
     
