@@ -14,7 +14,15 @@
     <script src="{{ theme_url }}/scripts/jquery.min.js"></script>
     
     <script src="{{ theme_url }}/scripts/modernizr-2.6.1.min.js"></script>
-        
+   
+	<!-- easytabs -->
+    <script src="{{ theme_url }}/scripts/jquery.hashchange.js" type="text/javascript"></script> 
+    <script src="{{ theme_url }}/jquery.easytabs.js" type="text/javascript"></script>  
+    
+    <script type="text/javascript"> 
+      $(document).ready(function(){ $('#tab-container').easytabs(); });
+    </script>      
+		
     {% if meta.layout == "quiz" %}
     <script src="{{ theme_url }}/scripts/ace.js"></script>
     <link rel="stylesheet" href="{{ theme_url }}/quiz.css" type="text/css" />
