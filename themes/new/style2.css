@@ -186,7 +186,7 @@ a:hover, a:active {
 }
 
 #left-sidebar{
- background: #2EAE9B;
+ background: #5C5C5C;
  position:absolute;
  top:0;
  left:0;
@@ -199,7 +199,7 @@ a:hover, a:active {
 	background: url(https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQSlDxx0WEv4JeRCUqU0LTAzAiNb0_0_N89TPdPI9l2c1cTzYunEQ) no-repeat top center;
  }
  #left-content a {
-	  color: inherit; 
+	  color: #E6E6E6; 
   }
  #left-content h1 a,
  #left-content a:hover { color: inherit; text-decoration: none;}
