@@ -8,8 +8,21 @@
  	   <div id="left-content">
 		<h1><a href="{{ base_url }}">{{ site_title }}</a></h1>
 		<!--Login/logout goes here-->
-			{{ at_navigation.navigation }}
-			<div id="quizArea"></div>
+		
+	   	<div id="tabs">
+			<ul id="switcher">
+	 	   		<li><a href="#quiz">Quiz</a></li>
+	 	   		<li><a href="#nav">Nav</a></li>
+			</ul>
+			
+			<div id="nav">
+				{{ at_navigation.navigation }}
+			</div>	
+			<div id="quiz">
+				<div id="quizArea"></div>
+			</div>
+		</div>
+		
 		</div>
 	</div>
 
@@ -19,7 +32,15 @@
 	</div>
 	{% else %}
 				{% if meta.layout == "content" %} <!--Content Page -->
-									<div id="wiki_switcher" class="lefty">Woo</div>
+					 <ul id="wiki_switcher">
+						 <li id="" class=""><a href="#" style="
+    color: inherit;
+">Read</a></li>
+						 <li id="" class=""><a href="#" style="
+    color: inherit;
+">Research</a></li>
+					 </ul>
+									
 				{% else %}
 				{% endif %}
 	<h1>{{ current_page.title }}</h1>	
@@ -37,7 +58,6 @@
 <div class="footer">
 			<p>	LAN-LMS is based off <a href="http://pico.dev7studios.com">Pico</a>.</p>
 </div>
-
-    
+	
 </body>
 </html>

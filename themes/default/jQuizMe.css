@@ -4,13 +4,30 @@
 * @version 2.2.1
 * @date 10/09/2012
 */	
+input {
+    /* float: left; */
+    width: auto;
+    padding: 5px 8px;
+    color:#ffffff;
+    background-color:#444;
+    cursor: pointer;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+        text-decoration: none;
+    margin-right: 5px;
+}
+input:hover {
+    background-color:#888;
+}
 .quiz-el{
-	background: #ffaa33;
+	background: white;
 	font-size: 1.1em;
 	font-family: Arial, Verdana, Helvetica, sans-serif;
 	position: relative;
 	padding: 0.2em;
-	width: 17em;
+	width: 100%;
+	min-height: 300px;
 }
 .quiz-el div{
 	padding: 0.2em;
@@ -20,7 +37,7 @@
 }
 /* .q-innerArea = .q-header, .q-help, .q-prob, .q-intro, .q-gameOver */
 .q-innerArea{
-	background: #ffdd77;
+	/* background: rgb(236, 236, 236); */
 	position:relative;
 	clear: both;
 	color: black;
@@ -93,8 +110,9 @@
 	padding: 0;
 	margin: 0;
 }
-.q-ol-li{
-	margin: 0.4em auto 0.4em auto;
+.q-ol-li {
+margin: 0.4em auto 0.4em auto;
+cursor: pointer;
 }
 .q-ol-hover{
 	background: #777777;
