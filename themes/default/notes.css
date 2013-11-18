@@ -1,0 +1,29 @@
+#notes{
+	width: 268px;
+	padding-left: 0px;
+	margin-left: -25px;
+	position: relative;
+}
+
+#notes .mce-tinymce{
+	padding-bottom: 2px;
+
+}
+
+#notesArea{
+	padding-bottom: 35px;
+	border-bottom: 1px dotted black;
+}
+#notesArea input{
+	float:right;
+	margin-top: 5px;
+}
+#notesList{
+	padding-top:5px;
+}
+#notesList input{
+	width: 100%;
+}
+#notesList ul{
+	style: none;
+}
