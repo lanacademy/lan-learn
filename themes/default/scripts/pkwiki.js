@@ -29,6 +29,13 @@
 			$('.pkwikilink').live('click',function(e){
 				$('#pane_wiki').attr('src',urls[settings.loc] + $(this).text() + urlback[settings.loc]);
 				settings.display();
+				$.ajax({
+					url: "../../plugins/pkwiki_service/toXML.php",
+					type: "GET", 
+					data: {user : 'default', keyword: $(this).text()}
+				}).done(function(msg){
+					console.log('Sent to XML: ' + msg);
+				});
 			});
 		});
 	}
