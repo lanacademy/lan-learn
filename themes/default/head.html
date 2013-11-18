@@ -12,7 +12,7 @@
     
     <!-- 1. jquery library -->
     <script src="{{ theme_url }}/scripts/jquery.min.js"></script>
-    
+    <script src="{{ theme_url }}/scripts/jquery-ui.min.js"></script>
     <script src="{{ theme_url }}/scripts/modernizr-2.6.1.min.js"></script>
    
 	<!-- easytabs -->
@@ -42,6 +42,7 @@
                 speed: 'fast',
                 onClickOnly: false
             }); 
+            $('#tabbed_content').tabs();
         });
     </script>
 	<script type="text/javascript">
