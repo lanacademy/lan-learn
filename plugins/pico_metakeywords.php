@@ -1,13 +1,14 @@
 <?php
 /**
- * On-page dynamically generated quizzes
+ * Populates 'my_keywords' twig variable to contain all the keywords
+ * found on the current page, seperated by delimiter ','
  *
  * @author Timothy Su
  * @link http://www.timofeo.com/
  * @license http://opensource.org/licenses/MIT
  */
  
-class Pico_Pagequiz {
+class Pico_MetaKeywords {
 
     public function __construct()
     {
@@ -75,55 +76,14 @@ class Pico_Pagequiz {
 
     public function before_render(&$twig_vars, &$twig)
     {
-        if ($this->yes === false) {
-            $twig_vars['noquiz'] = true;
-        }
-        else {
-            $twig_vars['noquiz'] = false;
-        }
-    }
-	
-	public function after_render(&$output)
-	{
-        if ($this->type == "content" && $this->yes) {
-            $output = $output . '<script type="text/javascript">
-                    $(function($){
-    
-    var quiz = {
-        multiList: [';
-        for ($i = 0; $i < count($this->qlist); $i++) {
-            $output = $output . '
-            {
-                ques: "' . $this->qlist[$i] . '",
-                ans: "' . $this->alist[$i] . '"
-            }';
-            if ($i != count($this->qlist) - 1) {
-                $output = $output . ",";
+        $twig_vars['my_keywords'] = '';
+        if ($this->yes) {
+            for($i = 0; $i < count($this->alist); $i++) {
+                $twig_vars['my_keywords'] = $twig_vars['my_keywords'] . $this->alist[$i];
+                if ($i != count($this->alist) - 1) {
+                    $twig_vars['my_keywords'] = $twig_vars['my_keywords'] . ",";
+                }
             }
         }
-        $output = $output . '
-        ]
-    },
-    options = {
-        intro: "Click below to begin quiz!",
-        allRandom: true,
-        title: "Quiz",
-        multiLen: 4,
-        disableDelete: true,
-        numOfQuizQues: ';
-        if (count($this->qlist) < 5) {
-            $output = $output . (count($this->qlist));
-        }
-        else {
-        $output = $output . '5';
     }
-    $output = $output . '
-};
-    
-    $("#quizArea").jQuizMe(quiz, options);
-});
-</script>';
-        }
-	}
-	
 }
