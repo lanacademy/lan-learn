@@ -50,17 +50,17 @@ class Pico_Register
             $postName      = $_POST['name'];
             if (isset($postUsername) && isset($postPassword) && isset($postPassword2) && isset($postGrade) && isset($postName)) {
                 if (!preg_match('/^[A-Za-z_\-0-9]/', $postUsername)) {
-                    $twig_vars['login_error'] = 'Make sure username only consists of alphanumeric characters and underscores.';
+                    $twig_vars['register_error'] = 'Make sure username only consists of alphanumeric characters and underscores.';
                     $twig_vars['username']    = $postUsername;
                     $twig_vars['grade']       = $postGrade;
                     $twig_vars['name']        = $postName;
                 } else if (file_exists($this->path . '/users/' . $postUsername . '.xml')) {
-                    $twig_vars['login_error'] = 'Username is already taken.  Please choose a different one.';
+                    $twig_vars['register_error'] = 'Username is already taken.  Please choose a different one.';
                     $twig_vars['username']    = $postUsername;
                     $twig_vars['grade']       = $postGrade;
                     $twig_vars['name']        = $postName;
                 } else if ($postPassword != $postPassword2) {
-                    $twig_vars['login_error'] = 'The passwords do not match.  Please re-enter.';
+                    $twig_vars['register_error'] = 'The passwords do not match.  Please re-enter.';
                     $twig_vars['username']    = $postUsername;
                     $twig_vars['grade']       = $postGrade;
                     $twig_vars['name']        = $postName;
@@ -72,14 +72,25 @@ class Pico_Register
                     $xml->asXML($this->path . '/users/' . $postUsername . '.xml');
                     session_start();
                     $_SESSION['authed']   = true;
+                    if (isset($_SESSION['register_error'])) {
+                        unset($_SESSION['register_error']);
+                    }
                     $_SESSION['username'] = $postUsername;
                     session_write_close();
                     $this->redirect_home();
                     exit;
                 }
+                $_SESSION['register_error'] = $twig_vars['register_error'];
+                session_write_close();
+                $this->redirect_home();
+                exit;
             } else {
-                $twig_vars['login_error'] = 'Check inputs, please fill out every field.  Assure that the username consists of only alphanumeric characters and underscores.';
+                $twig_vars['register_error'] = 'Check inputs, please fill out every field.  Assure that the username consists of only alphanumeric characters and underscores.';
+                $_SESSION['register_error'] = 'Check inputs, please fill out every field.  Assure that the username consists of only alphanumeric characters and underscores.';
                 $twig_vars['username']    = $postUsername;
+                session_write_close();
+                $this->redirect_home();
+                exit;
             }
             
             header($_SERVER['SERVER_PROTOCOL'] . ' 200 OK');
@@ -89,11 +100,19 @@ class Pico_Register
             echo $twig_register->render('register.html', $twig_vars);
             exit;
         }
+        if (isset($_SESSION['register_error'])) {
+            $twig_vars['register_error'] = $_SESSION['register_error'];
+        }
     }
     
     private function redirect_home()
     {
-        header('Location: /');
+        if (isset($_SESSION['register_error'])) {
+            header('Location: /#registerform');
+        }
+        else {
+            header('Location: /');
+        }
         exit;
     }
     

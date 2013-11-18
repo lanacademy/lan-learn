@@ -317,6 +317,7 @@ color: rgb(255, 255, 255);
 	position: relative;
 	top: 80px;
 	clear: both;
+    z-index: 500;
 	
 	box-shadow: 0 1px 3px rgba(0,0,0,0.25);
 	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.25);
@@ -385,6 +386,16 @@ color: rgb(255, 255, 255);
 	bottom: 24px;
 }
 
+.button-container form,
+.button-container form div {
+    display: inline;
+}
+
+.button-container button {
+    display: inline;
+    vertical-align: middle;
+}
+
 /*****END MAIN ONLY*****/
 
 
@@ -407,7 +418,7 @@ color: rgb(255, 255, 255);
 	width: 100px;
 	padding: 30px;
 	position: fixed;
-	z-index: 100000;
+	z-index: 1000;
 	border-left:20px solid #000;
 	
 	box-shadow: 1px 0 3px rgba(0,0,0,0.25);
@@ -447,3 +458,40 @@ color: rgb(255, 255, 255);
 
 
 /*****END WIKI PANEL*****/
+
+#loginform {
+width: 175px;
+     padding-bottom: 2px;
+     padding-left: 5px;
+
+    display:none;
+
+
+    background: #FFF;
+        border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
+        box-shadow: 0px 0px 4px rgba(0,0,0,0.7); -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.7); -moz-box-shadow: 0 0px 4px rgba(0,0,0,0.7);
+}
+
+#registerform {
+width: 175px;
+     padding-bottom: 2px;
+     padding-left: 5px;
+
+    display:none;
+
+
+    background: #FFF;
+        border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
+        box-shadow: 0px 0px 4px rgba(0,0,0,0.7); -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.7); -moz-box-shadow: 0 0px 4px rgba(0,0,0,0.7);
+}
+
+#lean_overlay {
+    position: fixed;
+    z-index: 10000;
+    top: 0px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    display: none;
+}
