@@ -29,6 +29,10 @@ if (file_exists($fn)){
 	$doc = simplexml_load_file($fn);
 }
 
+// At this point the basic XML structure has been
+// either created or loaded. We will now add a new
+// record.
+
 $xml = $doc->addChild('record');
 
 $xml->addChild('user',$_GET['user']); 

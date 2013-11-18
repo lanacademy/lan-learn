@@ -8,6 +8,17 @@ dependencies:
 
 (function($){
 
+	/* Can add custom entires by including a new item.
+	Example: 
+		mobile: "http://en.m.wikipedia.org/wiki/"
+
+		to urls and 
+
+		mobile: ""
+
+		to urlback. 
+
+	*/
 	var urls = {
 		local : "/",
 		lib : "http://library.kiwix.org/wikipedia_en_wp1/A/",
@@ -37,6 +48,8 @@ dependencies:
 			$('.pkwikilink').live('click',function(e){
 				$('#pane_wiki').attr('src',urls[settings.loc] + $(this).text() + urlback[settings.loc]);
 				settings.display();
+
+				/* This should probably be handled via a higher order function */
 				$.ajax({
 					url: "../../plugins/pkwiki_service/toXML.php",
 					type: "GET", 

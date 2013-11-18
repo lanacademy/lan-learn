@@ -6,11 +6,6 @@
 
 <body>
 
-<script type="text/javascript">
-var blah = 'hello';
-var asdf = '{{meta.keywords}}';
-</script>
-
 	<div id="left-sidebar">
  	   <div id="left-content">
 		<h1><a href="{{ base_url }}">{{ site_title }}</a></h1>
@@ -40,7 +35,7 @@ var asdf = '{{meta.keywords}}';
 	{% else %}
 
 				{% if meta.layout == "content" %} <!--Content Page -->
-				<div id="tabbed_content">
+				<div id="tabbed_content"> <!-- need this setup for jquery-ui.tabs -->
 					 <ul id="wiki_switcher">
 						 <li class=""><a href="#pane_read" style="
     color: inherit;
