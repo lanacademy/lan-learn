@@ -19,6 +19,9 @@ dependencies:
 		to urlback. 
 
 	*/
+	this.capitalize = function(s){
+		return s.trim().charAt(0).toUpperCase() + s.trim().slice(1);
+	}
 	var urls = {
 		local : "/",
 		lib : "http://library.kiwix.org/wikipedia_en_wp1/A/",
@@ -41,21 +44,24 @@ dependencies:
 
 		return this.each( function(){
 			// do for each
-			console.log("pkWiki keywords: "+settings.keywords);
 
-			$(this).highlight(settings.keywords.split(','),{element: 'a', className: 'pkwikilink'});
+			var words = settings.keywords.split(',').map(function(v){return capitalize(v);});
+			console.log("pkWiki keywords: " + words);
+
+			$(this).highlight(words,{element: 'a', className: 'pkwikilink'});
 
 			$('.pkwikilink').live('click',function(e){
-				$('#pane_wiki').attr('src',urls[settings.loc] + $(this).text() + urlback[settings.loc]);
+				$('#pane_wiki').attr('src',urls[settings.loc] + capitalize($(this).text()) + urlback[settings.loc]);
 				settings.display();
 
 				/* This should probably be handled via a higher order function */
 				$.ajax({
 					url: "../../plugins/pkwiki_service/toXML.php",
 					type: "GET", 
-					data: {user : 'default', keyword: $(this).text()}
+					/* the user field should be determined in toXML's php, not here */
+					data: {user : 'default', keyword: capitalize($(this).text())}
 				}).done(function(msg){
-					console.log('Sent to XML: ' + msg);
+					console.log('Sent to XML, got:' + msg);
 				});
 			});
 		});

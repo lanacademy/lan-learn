@@ -1,3 +1,4 @@
 config.php
 *.log
 phpinfo.php
+plugins/pkwiki_service/*.xml
