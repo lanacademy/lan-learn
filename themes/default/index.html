@@ -3,7 +3,9 @@
 
 {{ include('head.html') }}
 
+
 <body>
+
 	<div id="left-sidebar">
  	   <div id="left-content">
 		<h1><a href="{{ base_url }}">{{ site_title }}</a></h1>
@@ -31,20 +33,40 @@
 		  	  	{{ include('dashboard.html') }}
 	</div>
 	{% else %}
+
 				{% if meta.layout == "content" %} <!--Content Page -->
+				<div id="tabbed_content"> <!-- need this setup for jquery-ui.tabs -->
 					 <ul id="wiki_switcher">
-						 <li id="" class=""><a href="#" style="
+						 <li class=""><a href="#pane_read" style="
     color: inherit;
 ">Read</a></li>
-						 <li id="" class=""><a href="#" style="
+						 <li  class=""><a href="#pane_research" style="
     color: inherit;
 ">Research</a></li>
 					 </ul>
+					 <div id="pane_read">
 									
 				{% else %}
 				{% endif %}
 	<h1>{{ current_page.title }}</h1>	
 		{{ content }}
+
+
+		{% if meta.layout == "content" %}
+			</div>
+			<style>
+				#pane_wiki{
+					width: 100%;
+					height: 100%;
+				}
+			</style>
+			<div id="pane_research">
+				<iframe id="pane_wiki" src="http://library.kiwix.org/wikipedia_en_all_nopic/A/History%20of%20the%20world.html"></iframe>
+			</div>
+			</div> <!---end tabbed content-->
+		{% else %}
+		{% endif %}
+
 		<br/>
 		<div class="sibling_nav">
 			<a href="{{ next_page.url }}">< {{ next_page.title }}</a>			
