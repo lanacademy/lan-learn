@@ -9,7 +9,7 @@
 
 class Pico_Register
 {
-    
+
     private $theme;
     
     public function __construct()
@@ -64,6 +64,11 @@ class Pico_Register
                     $twig_vars['username']    = $postUsername;
                     $twig_vars['grade']       = $postGrade;
                     $twig_vars['name']        = $postName;
+                } else if ($postName == '') {
+                    $twig_vars['register_error'] = 'Please enter a full name.';
+                    $twig_vars['username']    = $postUsername;
+                    $twig_vars['grade']       = $postGrade;
+                    $twig_vars['name']        = $postName;
                 } else {
                     $xml = new SimpleXMLElement('<user></user>');
                     $xml->addChild('password', md5($postPassword));
@@ -74,6 +79,9 @@ class Pico_Register
                     $_SESSION['authed']   = true;
                     if (isset($_SESSION['register_error'])) {
                         unset($_SESSION['register_error']);
+                    }
+                    if (isset($_SESSION['login_error'])) {
+                        unset($_SESSION['login_error']);
                     }
                     $_SESSION['username'] = $postUsername;
                     session_write_close();
@@ -108,7 +116,7 @@ class Pico_Register
     private function redirect_home()
     {
         if (isset($_SESSION['register_error'])) {
-            header('Location: /#registerform');
+            header('Location: /#displayregister');
         }
         else {
             header('Location: /');

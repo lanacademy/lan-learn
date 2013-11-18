@@ -62,6 +62,9 @@ class Pico_Private
                     if (isset($_SESSION['login_error'])) {
                         unset($_SESSION['login_error']);
                     }
+                    if (isset($_SESSION['register_error'])) {
+                        unset($_SESSION['register_error']);
+                    }
                     session_write_close();
                     $this->redirect_home();
                     exit;
@@ -99,7 +102,7 @@ class Pico_Private
     private function redirect_home()
     {
         if (isset($_SESSION['login_error'])) {
-            header('Location: /#loginform');
+            header('Location: /#displaylogin');
         }
         else {
             header('Location: /');
