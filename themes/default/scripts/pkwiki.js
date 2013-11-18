@@ -1,3 +1,11 @@
+/*
+author:		Paarth Chadha
+plugin: 	pkwiki.js
+dependencies:
+	* jquery
+	* highlight.js 
+*/
+
 (function($){
 
 	var urls = {
