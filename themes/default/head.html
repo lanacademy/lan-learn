@@ -12,7 +12,6 @@
     
     <!-- 1. jquery library -->
     <script src="{{ theme_url }}/scripts/jquery.min.js"></script>
-    <script src="{{ theme_url }}/scripts/jquery-ui.min.js"></script>
     <script src="{{ theme_url }}/scripts/modernizr-2.6.1.min.js"></script>
    
 	<!-- easytabs -->
@@ -27,7 +26,17 @@
     
     {% if meta.layout == "content" %}
     <script src="{{ theme_url }}/scripts/jQuizMe-2.2.1.js"></script>
+    <script src="{{ theme_url }}/scripts/jquery-ui.min.js"></script>
+    <script src="{{ theme_url }}/scripts/jquery.highlight.js"></script>
+    <script src="{{ theme_url }}/scripts/pkWiki.js"></script>
     <link rel="stylesheet" href="{{ theme_url }}/jQuizMe.css" type="text/css" />
+
+    <script type="text/javascript">
+    $(function() {
+        $('#tabbed_content').tabs();
+        $('#tabbed_content').pkwiki({loc: 'main', keywords: "{{ meta.keywords }}" });
+    });
+    </script>
     {% endif %}
 
     <!-- 2. flowplayer  -->
@@ -42,7 +51,7 @@
                 speed: 'fast',
                 onClickOnly: false
             }); 
-            $('#tabbed_content').tabs();
+            
         });
     </script>
 	<script type="text/javascript">
