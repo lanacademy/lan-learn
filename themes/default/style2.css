@@ -182,6 +182,11 @@ a:hover, a:active {
 	text-decoration: none;
 }
 
+#noquiz {
+    text-shadow: none;
+    color: #FFFFFF;
+}
+
 #left-sidebar{
  background: #5C5C5C;
  position:absolute;

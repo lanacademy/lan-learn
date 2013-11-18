@@ -55,7 +55,7 @@
 				{{ at_navigation.navigation }}
                 <br />
 			</div>	
-			<div id="quiz">
+			<div id="quiz">{% if noquiz %}<div id="noquiz">No keywords found - No Quiz!</div>{% endif %}
 				<div id="quizArea"></div>
 			</div>
 		</div>

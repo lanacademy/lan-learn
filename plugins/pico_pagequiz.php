@@ -28,17 +28,16 @@ class Pico_Pagequiz {
         }
     }
 
-	public function file_meta(&$meta)
-    {
-        $this->type = $meta['layout'];
-    }
-
     public function before_load_content(&$file)
     {
         if (file_exists($file)) {
-            $this->yes = true;
             $this->quizcontent = file_get_contents($file);
         }
+    }
+
+	public function file_meta(&$meta)
+    {
+        $this->type = $meta['layout'];
     }
 	
 	public function content_parsed(&$content)
@@ -60,10 +59,29 @@ class Pico_Pagequiz {
                     $this->plist[$o] = $this->data->title[$i];
                     $o++;
                 }
-            }
+                }
+                if (count($this->alist) == 0) {
+                    $this->yes = false;
+                }
+                else {
+                    $this->yes = true;
+                }
             }
         }
+        else {
+            $this->yes = false;
+        }
 	}
+
+    public function before_render(&$twig_vars, &$twig)
+    {
+        if ($this->yes === false) {
+            $twig_vars['noquiz'] = true;
+        }
+        else {
+            $twig_vars['noquiz'] = false;
+        }
+    }
 	
 	public function after_render(&$output)
 	{
