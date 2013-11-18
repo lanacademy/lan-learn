@@ -17,8 +17,6 @@
 	<!-- easytabs -->
 
    
-    
-  
     {% if meta.layout == "quiz" %}
     <script src="{{ theme_url }}/scripts/ace.js"></script>
     <link rel="stylesheet" href="{{ theme_url }}/quiz.css" type="text/css" />
@@ -26,6 +24,8 @@
     
     {% if meta.layout == "content" %}
     <script src="{{ theme_url }}/scripts/jQuizMe-2.2.1.js"></script>
+    <!-- Note: I added all of jquery UI for development purposes. The only thing
+    I've used is the tabs functionality. Feel free to replace this with ui.tabs-->
     <script src="{{ theme_url }}/scripts/jquery-ui.min.js"></script>
     <script src="{{ theme_url }}/scripts/jquery.highlight.js"></script>
     <script src="{{ theme_url }}/scripts/pkWiki.js"></script>
