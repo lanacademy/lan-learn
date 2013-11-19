@@ -23,6 +23,7 @@ class AT_Navigation
     {
         $this->type = $meta['layout'];
         $this->coursename = $meta['coursename'];
+        $this->excludes = $this->settings['at_navigation']['exclude'];
         $this->excludes['single'][] = $this->coursename;
     }
     
@@ -87,6 +88,7 @@ class AT_Navigation
     public function before_render(&$twig_vars, &$twig)
     {
         $twig_vars['at_navigation']['navigation'] = $this->at_build_navigation($this->navigation, true);
+        //$twig_vars['at_navigation']['navigation'] = $twig_vars['at_navigation']['navigation'] . '<div id="tohome"><a href=' . $this->settings['base_url'] . ' title="Home"><- Home</a></div>'
     }
     
     //#
@@ -121,7 +123,8 @@ class AT_Navigation
     
     private function at_exclude($page)
     {
-        $exclude = $this->settings['at_navigation']['exclude'];
+        //$exclude = $this->settings['at_navigation']['exclude'];
+        $exclude = $this->excludes;
         $url     = substr($page['url'], strlen($this->settings['base_url']) + 1);
         $url     = (substr($url, -1) == '/') ? $url : $url . '/';
         
