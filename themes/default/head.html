@@ -9,6 +9,7 @@
 {% endif %}
 
     <link rel="stylesheet" href="{{ theme_url }}/style2.css" type="text/css" />
+    <link rel="stylesheet" href="{{ theme_url }}/jQuizMe.css" type="text/css" />
     
     <!-- 1. jquery library -->
     <script src="{{ theme_url }}/scripts/jquery.min.js"></script>
@@ -16,8 +17,15 @@
     <script src="{{ theme_url }}/scripts/tinymce/tinymce.min.js"></script>
    
 	<!-- easytabs -->
+    {% if authed == false %}
+    <script src="{{ theme_url }}/scripts/jquery.leanModal.min.js"></script>
+    <script type="text/javascript">
+            $(function() {
+                $('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".modal_close" });       
+            });
+    </script>
+    {% endif %}
 
-   
     {% if meta.layout == "quiz" %}
     <script src="{{ theme_url }}/scripts/ace.js"></script>
     <link rel="stylesheet" href="{{ theme_url }}/quiz.css" type="text/css" />
@@ -30,12 +38,11 @@
     <script src="{{ theme_url }}/scripts/jquery-ui.min.js"></script>
     <script src="{{ theme_url }}/scripts/jquery.highlight.js"></script>
     <script src="{{ theme_url }}/scripts/pkWiki.js"></script>
-    <link rel="stylesheet" href="{{ theme_url }}/jQuizMe.css" type="text/css" />
 
     <script type="text/javascript">
     $(function() {
         $('#tabbed_content').tabs();
-        $('#tabbed_content').pkwiki({loc: 'lib', keywords: "{{ meta.keywords }}" });
+        $('#tabbed_content').pkwiki({loc: 'lib', keywords: "{{ my_keywords }}" });
     });
     </script>
     {% endif %}
@@ -119,5 +126,15 @@
     });
     </script>
   
-		
+        <script type="text/javascript">
+            $(document).ready(function(){
+                var x = window.location.hash.substr(1);
+                if (x == 'displaylogin') {
+                    $('a[href=#loginform]').trigger("click");
+                }
+                if (x == 'displayregister') {
+                    $('a[href=#registerform]').trigger("click");
+                }
+            });
+    </script>
 </head>

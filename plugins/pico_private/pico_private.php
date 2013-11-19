@@ -41,6 +41,7 @@ class Pico_Private
             session_start();
             session_destroy();
             $this->redirect_home();
+            exit;
         }
     }
     
@@ -58,11 +59,22 @@ class Pico_Private
                 if ((file_exists($this->path . '/users/' . $postUsername . '.xml') == true) && ($xml->password == md5($postPassword))) {
                     $_SESSION['authed']   = true;
                     $_SESSION['username'] = $postUsername;
+                    if (isset($_SESSION['login_error'])) {
+                        unset($_SESSION['login_error']);
+                    }
+                    if (isset($_SESSION['register_error'])) {
+                        unset($_SESSION['register_error']);
+                    }
                     session_write_close();
                     $this->redirect_home();
+                    exit;
                 } else {
                     $twig_vars['login_error'] = 'Invalid login';
+                    $_SESSION['login_error'] = 'Invalid login';
                     $twig_vars['username']    = $postUsername;
+                    session_write_close();
+                    $this->redirect_home();
+                    exit;
                 }
             }
             
@@ -81,12 +93,20 @@ class Pico_Private
         } else {
             $twig_vars['authed']   = false;
             $twig_vars['username'] = '';
+            if (isset($_SESSION['login_error'])) {
+                $twig_vars['login_error'] = $_SESSION['login_error'];
+            }
         }
     }
     
     private function redirect_home()
     {
-        header('Location: /');
+        if (isset($_SESSION['login_error'])) {
+            header('Location: /#displaylogin');
+        }
+        else {
+            header('Location: /');
+        }
         exit;
     }
     

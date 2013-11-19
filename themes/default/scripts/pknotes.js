@@ -3,14 +3,11 @@
 		$(this).children().fadeTo(0,.3);
 		$(this).children().filter(function(){
 			var contains = function(str1, str2){
-				console.log('comparing: '+str1+' '+str2);
 				if (str1.toLowerCase().indexOf(str2.toLowerCase()) != -1){
-					console.log("it's true!");
 					return true;
 				}
 				return false;
 			};
-			console.log('filtering on: '+term);
 			var result = contains($(this).children('a').text(),term);
 			var result2 = contains($(this).attr('title'),term);
 			return result || result2;

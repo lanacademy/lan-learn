@@ -5,7 +5,32 @@
 
 
 <body>
-
+    <div id="loginform">
+            <a class="modal_close" href="#">X Close</a>
+            <form method="post" action="/login/">
+                {% if login_error %}<p class="error">{{ login_error }}</p>{% endif %}
+                <input type="text" name="username" id="username" placeholder="Username" value="{{ username }}"/>
+                <input type="password" name="password" id="password" placeholder="Password"/>
+                <input class="alignright" type="submit" value="Login" />
+            </form>
+            </div>
+            <div id="registerform">
+            <a class="modal_close" href="#">X Close</a>
+            <form method="post" action="/register/">
+                {% if register_error %}<p class="error">{{ register_error }}</p>{% endif %}
+                <input type="text" name="username" id="username" placeholder="Username" value="{{ username }}"/>
+                 <input type="password" name="password" id="password" placeholder="Password"/>
+                <input type="password" name="password2" id="password2" placeholder="Confirm Password"/>
+                Grade: <select name="grade" id="grade">
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                </select>
+                <input type="text" name="name" id="name" placeholder="Full Name"/>
+                <input class="alignright" type="submit" value="Register" />
+            </form>
+            </div>
 	<div id="left-sidebar">
  	   <div id="left-content">
 		<h1><a href="{{ base_url }}">{{ site_title }}</a></h1>
@@ -19,9 +44,18 @@
 			</ul>
 			
 			<div id="nav">
+            {% if authed == false %}
+            <a id="go" rel="leanModal" name="loginform" href="#loginform">Login</a>
+            <a id="go" rel="leanModal" name="registerform" href="#registerform">Register</a>
+                {% else %}
+                <div id ="userwelcome"><b>Welcome {{ username }}</b> - <a href="/logout/">Logout</a></div>
+                {% endif %}
+                <br />
+                <br />
 				{{ at_navigation.navigation }}
+                <br />
 			</div>	
-			<div id="quiz">
+			<div id="quiz">{% if noquiz %}<div id="noquiz">No keywords found - No Quiz!</div>{% endif %}
 				<div id="quizArea"></div>
 			</div>
 			<div id="notes">
@@ -50,8 +84,8 @@
 	</div>
 
 	<div class="wrapper">
-	{% if is_front_page %} <!-- Front page -->
-		  	  	{{ include('dashboard.html') }}
+	{% if meta.layout == "course" %} 
+		  	  	{{ dashboard }}
 	</div>
 	{% else %}
 
@@ -75,12 +109,6 @@
 
 		{% if meta.layout == "content" %}
 			</div>
-			<style>
-				#pane_wiki{
-					width: 100%;
-					height: 100%;
-				}
-			</style>
 			<div id="pane_research">
 				<iframe id="pane_wiki" src="http://library.kiwix.org/wikipedia_en_all_nopic/A/History%20of%20the%20world.html"></iframe>
 			</div>
