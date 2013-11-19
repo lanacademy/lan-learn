@@ -18,7 +18,35 @@ class AT_Navigation
     //#
     // HOOKS
     //#
+
+    public function file_meta(&$meta)
+    {
+        $this->type = $meta['layout'];
+        $this->coursename = $meta['coursename'];
+        $this->excludes['single'][] = $this->coursename;
+    }
     
+    public function get_pages(&$pages, &$current_page, &$prev_page, &$next_page)
+    {
+        $navigation = array();
+        foreach ($pages as $page) {
+            if (!$this->at_exclude($page)) {
+                //echo $page['url'];
+                //echo $this->coursename;
+                if (stripos((String) $page['url'], (String) $this->coursename) !== FALSE && $this->coursename != '') {
+                    $_split     = explode('/', substr($page['url'], strlen($this->settings['base_url']) + 1));
+                    $navigation = array_merge_recursive($navigation, $this->at_recursive($_split, $page, $current_page));
+                }
+            }
+        }
+        
+        array_multisort($navigation);
+        $this->navigation = $navigation;
+        var_dump($this->excludes);
+        //var_dump($this->navigation);
+    }
+    
+    /*
     public function get_pages(&$pages, &$current_page, &$prev_page, &$next_page)
     {
         $navigation = array();
@@ -33,7 +61,8 @@ class AT_Navigation
         array_multisort($navigation);
         $this->navigation = $navigation;
     }
-    
+    */
+
     public function config_loaded(&$settings)
     {
         $this->settings = $settings;
