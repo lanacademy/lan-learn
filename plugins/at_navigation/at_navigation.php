@@ -42,7 +42,7 @@ class AT_Navigation
         
         array_multisort($navigation);
         $this->navigation = $navigation;
-        var_dump($this->excludes);
+        //var_dump($this->excludes);
         //var_dump($this->navigation);
     }
     
