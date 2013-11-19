@@ -40,6 +40,7 @@
 			<ul id="switcher">
 	 	   		<li><a href="#quiz">Quiz</a></li>
 	 	   		<li><a href="#nav">Nav</a></li>
+	 	   		<li><a href="#notes">Notes</a></li>
 			</ul>
 			
 			<div id="nav">
@@ -56,6 +57,26 @@
 			</div>	
 			<div id="quiz">{% if noquiz %}<div id="noquiz">No keywords found - No Quiz!</div>{% endif %}
 				<div id="quizArea"></div>
+			</div>
+			<div id="notes">
+				<div id="notesArea">
+					<form>
+					<input type="text" placeholder="Title"/>
+					<textarea id="editor_side"></textarea>
+					<input type="button" value="Save as New"/>
+					<input type="button" value="Save"/>
+					<input type="button" value="Discard"/>
+					</form>
+				</div>
+				
+				<div id="notesList">
+					<form>
+						<input type="button" id="pkSaveAll" value="Save All Notes"/>
+						<input type="text" name="search" placeholder="search"/>
+					</form>
+					<ul>
+					</ul>
+				</div>
 			</div>
 		</div>
 		

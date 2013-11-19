@@ -14,6 +14,7 @@
     <!-- 1. jquery library -->
     <script src="{{ theme_url }}/scripts/jquery.min.js"></script>
     <script src="{{ theme_url }}/scripts/modernizr-2.6.1.min.js"></script>
+    <script src="{{ theme_url }}/scripts/tinymce/tinymce.min.js"></script>
    
 	<!-- easytabs -->
     {% if authed == false %}
@@ -77,6 +78,54 @@
 	    });
 	});
 	</script>
+
+    <script src="{{ theme_url }}/scripts/pknotes.js"></script>
+    <link rel="stylesheet" href="{{ theme_url }}/notes.css">
+    <script type="text/javascript">
+    $(function(){
+        tinymce.init({
+            selector: "textarea#editor_side",
+            menubar: false,
+            statusbar: false,
+            plugins: [
+                "advlist autolink lists link image charmap print preview anchor",
+                "searchreplace visualblocks code fullscreen",
+                "insertdatetime media table contextmenu paste"
+            ],
+            toolbar: "bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent link image"
+        });
+
+        var notelist = $('#notesList ul');
+        notelist.pkLoadNotes();
+        $('#notesArea input[type=button][value=Discard]').click(function(){
+            $('#notesArea input[type=text]').val('');
+            tinyMCE.activeEditor.setContent('');
+            $(notelist).pkClearOpenNotes;
+        });
+        $('#notesArea input[type=button][value=Save]').click(function(){
+            if($('#pknote_editing').length == 0){
+                $("#notesArea input[type=button][value='Save as New']").click();
+                return;
+            }
+            notelist.pkSaveNote($('#notesArea input[type=text]').val(),tinyMCE.activeEditor.getContent());
+            $('#notesArea input[type=text]').val('');
+            tinyMCE.activeEditor.setContent('');
+        });
+        $('#notesList input[type=button]#pkSaveAll').click(function(){
+            notelist.pkSaveAllNotes();
+        })
+        $("#notesArea input[type=button][value='Save as New']").click(function(){
+            notelist.pkAddNote($('#notesArea input[type=text]').val(), tinyMCE.activeEditor.getContent());
+        });
+        $("#notesList input[type=text]").keydown(function(){
+            notelist.pkFilterNotes($(this).val());
+        })
+        $("#notesList input[type=text]").keyup(function(){
+            notelist.pkFilterNotes($(this).val());
+        })
+    });
+    </script>
+  
         <script type="text/javascript">
             $(document).ready(function(){
                 var x = window.location.hash.substr(1);
