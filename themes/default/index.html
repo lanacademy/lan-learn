@@ -63,8 +63,8 @@
 	</div>
 
 	<div class="wrapper">
-	{% if is_front_page %} <!-- Front page -->
-		  	  	{{ include('dashboard.html') }}
+	{% if meta.layout == "course" %} 
+		  	  	{{ dashboard }}
 	</div>
 	{% else %}
 
