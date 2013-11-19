@@ -100,7 +100,7 @@
         $('#notesArea input[type=button][value=Discard]').click(function(){
             $('#notesArea input[type=text]').val('');
             tinyMCE.activeEditor.setContent('');
-            $(notelist).pkClearOpenNotes;
+            $(notelist).pkClearOpenNotes();
         });
         $('#notesArea input[type=button][value=Save]').click(function(){
             if($('#pknote_editing').length == 0){
@@ -110,12 +110,12 @@
             notelist.pkSaveNote($('#notesArea input[type=text]').val(),tinyMCE.activeEditor.getContent());
             $('#notesArea input[type=text]').val('');
             tinyMCE.activeEditor.setContent('');
-        });
-        $('#notesList input[type=button]#pkSaveAll').click(function(){
             notelist.pkSaveAllNotes();
-        })
+        });
         $("#notesArea input[type=button][value='Save as New']").click(function(){
             notelist.pkAddNote($('#notesArea input[type=text]').val(), tinyMCE.activeEditor.getContent());
+            notelist.pkSaveAllNotes();
+            $('#notesArea input[type=button][value=Discard]').click();
         });
         $("#notesList input[type=text]").keydown(function(){
             notelist.pkFilterNotes($(this).val());
@@ -123,6 +123,7 @@
         $("#notesList input[type=text]").keyup(function(){
             notelist.pkFilterNotes($(this).val());
         })
+        $("#notesArea input[type=button][value=Save]").prop('disabled',true);
     });
     </script>
   
