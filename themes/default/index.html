@@ -52,7 +52,11 @@
                 {% endif %}
                 <br />
                 <br />
-				{{ at_navigation.navigation }}
+				{% if meta.layout == "home" %}
+                    {{ course_navigation }}
+                {% else %}
+                   {{ at_navigation.navigation }}
+                {% endif %}
                 <br />
 			</div>	
 			<div id="quiz">{% if noquiz %}<div id="noquiz">No keywords found - No Quiz!</div>{% endif %}

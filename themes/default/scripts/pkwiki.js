@@ -55,14 +55,14 @@ dependencies:
 				settings.display();
 
 				/* This should probably be handled via a higher order function */
-				$.ajax({
-					url: "../../plugins/pkwiki_service/toXML.php",
-					type: "GET", 
-					/* the user field should be determined in toXML's php, not here */
-					data: {user : 'default', keyword: capitalize($(this).text())}
-				}).done(function(msg){
-					console.log('Sent to XML, got:' + msg);
-				});
+                $.ajax({
+                    url: "../../plugins/pkwiki_service/toXML.php",
+                    type: "GET", 
+                    /* the user field should be determined in toXML's php, not here */
+                    data: {user : 'default', keyword: capitalize($(this).text())}
+                }).done(function(msg){
+                    console.log('Sent to XML, got:' + msg);
+                });
 			});
 		});
 	}
