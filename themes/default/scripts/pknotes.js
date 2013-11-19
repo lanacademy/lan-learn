@@ -18,15 +18,21 @@
 						<input type='button' value='edit'/></li>");
 		newnote.attr('title',$(text).text());
 		newnote.appendTo(this);
+
+				//make buttons active
+		newnote.children('input[type=button][value=edit]').click(make_current);
+		newnote.children('input[type=button][value=del]').click(delete_note);
 		return this;
 	}
 	$.fn.pkClearOpenNotes = function(){
 		$('#pknote_editing').removeAttr('id');
+		$("#notesArea input[type=button][value=Save]").prop('disabled',true);
 	}
 	$.fn.pkSaveNote = function(title,text){
 		$('#pknote_editing a').text(title);
 		$('#pknote_editing').attr('title',$(text).text());
 		$('#pknote_editing').removeAttr('id');
+		$("#notesArea input[type=button][value=Save]").prop('disabled',true);
 	}
 	$.fn.pkLoadNotes = function (options){
 		var settings = $.extend({
@@ -41,7 +47,7 @@
 
 			$("#notesArea input[type=text]").val($('#'+editingstring + ' a').text());
 			tinyMCE.activeEditor.setContent($('#'+editingstring).attr('title'));
-
+			$("#notesArea input[type=button][value=Save]").prop('disabled',false);
 		};
 
 		delete_note = function(){

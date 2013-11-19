@@ -32,7 +32,9 @@
 	margin-bottom:10px;
 	border:1px solid #aaa;
 }
-
+input[type=button]:disabled{
+	opacity:.2;
+}
 #notesList{
 	padding-top:5px;
 }
