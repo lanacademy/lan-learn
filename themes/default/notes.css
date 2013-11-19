@@ -14,16 +14,38 @@
 	padding-bottom: 35px;
 	border-bottom: 1px dotted black;
 }
-#notesArea input{
+#notesArea input[type=text]{
+	width:250px;
+	margin-bottom:10px;
+}
+#notesArea input[type=button]{
 	float:right;
 	margin-top: 5px;
 }
+#notesArea input[type=button][value='Save as New']{
+	float:left;
+}
+#notesList #pkSaveAll{
+	float:none;
+	width:250px;
+	height:50px;
+	margin-bottom:10px;
+	border:1px solid #aaa;
+}
+
 #notesList{
 	padding-top:5px;
 }
-#notesList input{
-	width: 100%;
+#notesList input[type=text]{
+	width: 250px;
+}
+#notesList input[type=button]{
+	float: right;
 }
 #notesList ul{
 	style: none;
+}
+#notesList ul li{
+	height:30px;
+	padding: 10px;
 }

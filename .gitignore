@@ -2,3 +2,4 @@ config.php
 *.log
 phpinfo.php
 plugins/pkwiki_service/*.xml
+plugins/pknote_service/*.xml
