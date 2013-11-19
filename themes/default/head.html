@@ -96,6 +96,16 @@
         });
 
         var notelist = $('#notesList ul');
+
+        check_populated = function(){
+            if($('#notesArea input[type=text]').val().length == 0){
+                return false;
+                if( $(tinymce.activeEditor.getContent()).text() == ''){
+                    return false;
+                }
+            }
+            return true;
+        };
         notelist.pkLoadNotes();
         $('#notesArea input[type=button][value=Discard]').click(function(){
             $('#notesArea input[type=text]').val('');
@@ -103,6 +113,10 @@
             $(notelist).pkClearOpenNotes();
         });
         $('#notesArea input[type=button][value=Save]').click(function(){
+            if(!check_populated()){
+                alert("Note not filled out");
+                return;
+            }
             if($('#pknote_editing').length == 0){
                 $("#notesArea input[type=button][value='Save as New']").click();
                 return;
@@ -113,6 +127,10 @@
             notelist.pkSaveAllNotes();
         });
         $("#notesArea input[type=button][value='Save as New']").click(function(){
+            if(!check_populated()){
+                alert("Note not filled out");
+                return;
+            }
             notelist.pkAddNote($('#notesArea input[type=text]').val(), tinyMCE.activeEditor.getContent());
             notelist.pkSaveAllNotes();
             $('#notesArea input[type=button][value=Discard]').click();
