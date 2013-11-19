@@ -18,6 +18,10 @@
 						<input type='button' value='edit'/></li>");
 		newnote.attr('title',$(text).text());
 		newnote.appendTo(this);
+
+				//make buttons active
+		newnote.children('input[type=button][value=edit]').click(make_current);
+		newnote.children('input[type=button][value=del]').click(delete_note);
 		return this;
 	}
 	$.fn.pkClearOpenNotes = function(){
