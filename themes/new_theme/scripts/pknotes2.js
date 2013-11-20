@@ -3,6 +3,8 @@
             selector: "textarea#editor_side",
             menubar: false,
             statusbar: false,
+            encoding: "xml",
+            entity_encoding: "named",
             plugins: [
                 "advlist autolink lists link image charmap print preview anchor",
                 "searchreplace visualblocks code fullscreen",
@@ -37,7 +39,7 @@
                 $("#notesArea input[type=button][value='Save as New']").click();
                 return;
             }
-            notelist.pkSaveNote($('#notesArea input[type=text]').val(),tinyMCE.activeEditor.getContent());
+            notelist.pkSaveNote($('#notesArea input[type=text]').val(),tinyMCE.activeEditor.getContent(),tinyMCE.activeEditor.getContent({format: 'text'}));
             $('#notesArea input[type=text]').val('');
             tinyMCE.activeEditor.setContent('');
             notelist.pkSaveAllNotes();
@@ -47,7 +49,7 @@
                 alert("Note not filled out");
                 return;
             }
-            notelist.pkAddNote($('#notesArea input[type=text]').val(), tinyMCE.activeEditor.getContent());
+            notelist.pkAddNote($('#notesArea input[type=text]').val(), tinyMCE.activeEditor.getContent(), tinyMCE.activeEditor.getContent({format: 'text'}));
             notelist.pkSaveAllNotes();
             $('#notesArea input[type=button][value=Discard]').click();
         });
