@@ -34,7 +34,8 @@ class AT_Navigation
             if (!$this->at_exclude($page)) {
                 //echo $page['url'];
                 //echo $this->coursename;
-                if (stripos((String) $page['url'], (String) $this->coursename) !== FALSE && $this->coursename != '') {
+                //echo substr($page['url'], strlen($this->settings['base_url']), strlen($this->coursename) + 1);
+                if (stripos(substr($page['url'], strlen($this->settings['base_url']), strlen($this->coursename) + 1), (String) $this->coursename) !== FALSE && $this->coursename != '') {
                     $_split     = explode('/', substr($page['url'], strlen($this->settings['base_url']) + 1));
                     $navigation = array_merge_recursive($navigation, $this->at_recursive($_split, $page, $current_page));
                 }
