@@ -55,11 +55,12 @@ class Pico_Dashboard {
 	{
 		
 	}
-	
-	public function get_page_data(&$data, $page_meta)
-	{
-		
-	}
+
+    public function file_meta(&$meta)
+    {
+        $this->coursename = $meta['title'];
+        $this->layout = $meta['layout'];
+    }
 	
 	public function get_pages(&$pages, &$current_page, &$prev_page, &$next_page)
 	{
@@ -73,8 +74,11 @@ class Pico_Dashboard {
 	
 	public function before_render(&$twig_vars, &$twig)
 	{
-		$twig->addExtension(new Twig_Extension_StringLoader());
-		$twig_vars['dashboard'] = $this->buildDash();
+        if ($this->layout = 'course') {
+            $twig_vars['current_page']['title'] = $this->coursename;
+            $this->authed = $twig_vars['authed'];
+		    $twig_vars['dashboard'] = $this->buildDash();
+        }
 	}
 	
 	public function after_render(&$output)
@@ -83,7 +87,14 @@ class Pico_Dashboard {
 	}
 	
     private function buildDash() {
-        return 'Dashboard Placeholder';
+        if ($this->authed) {
+            $dashCode = '<h1>' . $this->coursename . '</h1>';
+        }
+        else {
+            $dashCode = '<div class="col-md-12"><div class="well"><h2>Please login to view course dashboard!</h2></div></div>';
+        }
+
+        return $dashCode;
     }
 }
 

@@ -66,6 +66,8 @@ class Pico_MultiCourse {
     public function before_render(&$twig_vars, &$twig)
     {
         $twig_vars['course_navigation'] = $this->build_course_navigation($this->listcourses());
+        $withspaces = str_replace('_', ' ', $this->coursename);
+        $twig_vars['coursehomelink'] = $this->settings['base_url'] . '/' . $this->coursename;
     }
 	
     private function listcourses() {
