@@ -50,10 +50,6 @@ class Pico_Dashboard {
 		
 	}
 	
-	public function file_meta(&$meta)
-	{
-		
-	}
 	
 	public function content_parsed(&$content)
 	{
@@ -77,7 +73,8 @@ class Pico_Dashboard {
 	
 	public function before_render(&$twig_vars, &$twig)
 	{
-		$twig_vars['dashboard'] = 'Dashboard goes here';
+        $this->authed = $twig_vars['authed'];
+		$twig_vars['dashboard'] = $this->buildDash();
 	}
 	
 	public function after_render(&$output)
@@ -85,6 +82,9 @@ class Pico_Dashboard {
 		
 	}
 	
+    private function buildDash() {
+        return 'Dashboard Placeholder';
+    }
 }
 
 ?>

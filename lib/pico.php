@@ -187,7 +187,8 @@ class Pico {
 			'base_url' => $this->base_url(),
 			'theme' => 'default',
 			'date_format' => 'jS M Y',
-			'twig_config' => array('cache' => ROOT_DIR . '/lib/cache', 'autoescape' => false, 'debug' => false),
+			//'twig_config' => array('cache' => ROOT_DIR . '/lib/cache', 'autoescape' => false, 'debug' => false),
+            'twig_config' => array('cache' => false, 'autoescape' => false, 'debug' => false),
 			'pages_order_by' => 'alpha',
 			'pages_order' => 'asc',
 			'excerpt_length' => 50
