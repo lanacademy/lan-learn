@@ -1,0 +1,33 @@
+#notes{
+	position: relative;
+}
+
+#notesArea{
+	padding-bottom: 35px;
+	border-bottom: 1px dotted black;
+}
+#notesArea input[type=text]{
+	margin-bottom:10px;
+}
+#notesArea input[type=button]{
+	float:right;
+}
+#notesArea input[type=button][value='Save as New']{
+	float:left;
+}
+input[type=button]:disabled{
+	opacity:.4;
+}
+#notesList{
+	padding-top:5px;
+}
+#notesList input[type=button]{
+	float: right;
+}
+#notesList ul{
+	style: none;
+}
+#notesList ul li{
+	height:30px;
+	padding: 10px;
+}
