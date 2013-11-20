@@ -62,12 +62,8 @@
   	 
 	
 	<!--Notes-->
-    <script src="{{ theme_url }}/scripts/pknotes.js"></script>
-    <script type="text/javascript">$(function() {window.pkConfig = {base_url: "{{attribute(config,'base_url')}}"};});</script>
-    <script src="{{ theme_url }}/scripts/pknotes2.js"></script>
+    {{include(template_from_string(common_theme_header))}}
     <link rel="stylesheet" href="{{ theme_url }}/css/notes.css">
-
-    {{include 'js.html'}}
   
     <script type="text/javascript">
             $(document).ready(function(){

@@ -1,6 +1,8 @@
 #notes{
-	width: 268px;
+	width: auto;
 	padding-left: 0px;
+	margin-left:0;
+	margin-top:3px;
 	position: relative;
 }
 
@@ -10,13 +12,14 @@
 }
 
 #notesArea{
-	padding-bottom: 35px;
-	border-bottom: 1px dotted black;
-	padding-left: 20px;
+	padding-bottom: 55px;
+	border-bottom: 1px solid #888;
+	padding-left: 0px;
 }
 #notesArea input[type=text]{
-	width:250px;
-	margin-bottom:10px;
+	width:100%;
+	margin-left:-20px;
+	margin-bottom:2px;
 }
 #notesArea input[type=button]{
 	float:right;
@@ -25,29 +28,39 @@
 #notesArea input[type=button][value='Save as New']{
 	float:left;
 }
-#notesList #pkSaveAll{
-	float:none;
-	width:250px;
-	height:50px;
-	margin-bottom:10px;
-	border:1px solid #aaa;
-}
+
 input[type=button]:disabled{
-	opacity:.2;
+	opacity:.5;
 }
 #notesList{
-	padding-top:5px;
+	padding-top:10px;
 }
 #notesList input[type=text]{
-	width: 250px;
+	width: 90%;
+	margin-left:-10px;
 }
 #notesList input[type=button]{
 	float: right;
 }
 #notesList ul{
 	style: none;
+	padding-left:0px;
 }
 #notesList ul li{
-	height:30px;
-	padding: 10px;
+	height: 60px;
+	padding: 0px;
+	position: relative;
+}
+#notesList ul li a{
+	height: 50px;
+	padding: 0px;
+
+}
+#notesList ul li input[type=button]{
+	position:absolute;
+	right:0px;
+	top:2px;
+}
+#notesList ul li input[type=button][value=edit]{
+	right:40px;
 }

@@ -73,7 +73,7 @@ class Pico_Dashboard {
 	
 	public function before_render(&$twig_vars, &$twig)
 	{
-        $this->authed = $twig_vars['authed'];
+		$twig->addExtension(new Twig_Extension_StringLoader());
 		$twig_vars['dashboard'] = $this->buildDash();
 	}
 	
