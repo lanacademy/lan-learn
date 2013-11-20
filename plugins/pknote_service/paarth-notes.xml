@@ -1,2 +1,11 @@
 <?xml version="1.0"?>
-<root><note><title>zvx</title><text>zxcv</text></note><note><title>the organization</title><text>Is no longer GREEN</text></note><note><title>cannot be </title><text>blue</text></note><note><title>Napoleon 1700s</title><text>purple</text></note><note><title>Sound of Music</title><text>yellow</text></note><note><title>asdf</title><text>asdf</text></note><note><title>new note</title><text>test new note creation</text></note><note><title>asdf</title><text>fasdf</text></note><note><title>gfad</title><text>adf</text></note><note><title>zvx</title><text>zxcvcxC</text></note><note><title>false</title><text>false</text></note><note><title>asdf</title><text>asf</text></note><note><title>afasdf</title><text>asdf</text></note><note><title>asdf</title><text>false</text></note><note><title>aaa</title><text/></note></root>
+<root><note><title>aa</title><text>&lt;p&gt;I &lt;strong&gt;hope this works&lt;pknbsp&gt;&lt;em&gt;even better&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;</text></note><note><title>aa</title><text>&lt;p&gt;eh.&lt;/p&gt;</text></note><note><title>let</title><text>&lt;ul style="list-style-type: disc;"&gt;
+&lt;li&gt;a
+&lt;ul&gt;
+&lt;li&gt;ba&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;b&lt;/li&gt;
+&lt;li&gt;c&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;</text></note></root>

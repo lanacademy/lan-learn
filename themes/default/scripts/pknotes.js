@@ -1,4 +1,13 @@
 (function($){
+
+	prepHTML = function(str){
+		return str.replace("&nbsp;",'<pknbsp>');
+		//return "<![CDATA[" + str + "]]>";
+	}
+	unprepHTML = function(str){
+		return str.replace('<pknbsp>',"&nbsp;");
+		//return str.substring( 9, str.length - 3);
+	}
 	$.fn.pkFilterNotes = function(term){
 		$(this).children().fadeTo(0,.3);
 		$(this).children().filter(function(){
@@ -13,10 +22,11 @@
 			return result || result2;
 		}).fadeTo(0,1);
 	}
-	$.fn.pkAddNote = function(title,text){
+	$.fn.pkAddNote = function(title,text, plaintext){
 		var newnote = $("<li><a>"+title+"</a><input type='button' value='del'/> \
 						<input type='button' value='edit'/></li>");
-		newnote.attr('title',$(text).text());
+		newnote.data('notetext', text);
+		newnote.attr('title',plaintext);
 		newnote.appendTo(this);
 
 				//make buttons active
@@ -28,9 +38,10 @@
 		$('#pknote_editing').removeAttr('id');
 		$("#notesArea input[type=button][value=Save]").prop('disabled',true);
 	}
-	$.fn.pkSaveNote = function(title,text){
+	$.fn.pkSaveNote = function(title,text, plaintext){
 		$('#pknote_editing a').text(title);
-		$('#pknote_editing').attr('title',$(text).text());
+		$('#pknote_editing').data('notetext', text);
+		$('#pknote_editing').attr('title',plaintext);
 		$('#pknote_editing').removeAttr('id');
 		$("#notesArea input[type=button][value=Save]").prop('disabled',true);
 	}
@@ -46,7 +57,7 @@
 			$(this).parent().attr('id',editingstring);
 
 			$("#notesArea input[type=text]").val($('#'+editingstring + ' a').text());
-			tinyMCE.activeEditor.setContent($('#'+editingstring).attr('title'));
+			tinyMCE.activeEditor.setContent($('#'+editingstring).data('notetext'));
 			$("#notesArea input[type=button][value=Save]").prop('disabled',false);
 		};
 
@@ -57,16 +68,22 @@
 		ulist = this;
 
 		$.ajax({
-			url: "../../plugins/pknote_service/note_storage.php",
+			url: "plugins/pknote_service/note_storage.php",
 			type: "GET",
 			data: {method: 'getNotes', user : 'paarth'}
 		}).done(function(result){
-			var wrapper = $.parseJSON( result );
+			console.log("result: "+result);
+			var wrapper = JSON.parse( result );
 			var notelist = wrapper.notes;
 			notelist.forEach(function(v){
 				var newnote = $("<li><a>"+v.title+"</a><input type='button' value='del'/> \
 					<input type='button' value='edit'/></li>");
-				newnote.attr('title',v.text);
+				
+				console.log("Loading text: "+v.text);
+				console.log("Which turns into "+unprepHTML(v.text));
+
+				newnote.data('notetext',unprepHTML(v.text));
+				newnote.attr('title', $(unprepHTML(v.text)).text());
 				newnote.appendTo(ulist);
 				/* this is window, for some reason*/
 
@@ -81,13 +98,19 @@
 	$.fn.pkSaveAllNotes = function(){
 		var nlist = [];
 		$(this).children().each(function(){
-			nlist.push({title: $(this).children('a').text(), text: $(this).attr('title')});
+			nlist.push({title: $(this).children('a').text(), text: $(this).data('notetext')});
 		});
+		console.log("saving nlist: ");
+		console.log(nlist);
+		
 		var jsobj = {notes: nlist};
+		console.log(JSON.stringify(jsobj));
+		jsstr = prepHTML(JSON.stringify(jsobj));
+		console.log(jsstr);
 		$.ajax({
-			url: "../../plugins/pknote_service/note_storage.php",
+			url: "plugins/pknote_service/note_storage.php",
 			type: "GET",
-			data: {method: 'saveNotes', user : 'paarth', notes: JSON.stringify(jsobj)}
+			data: {method: 'saveNotes', user : 'paarth', notes: jsstr}
 		});
 	}
 }(jQuery));

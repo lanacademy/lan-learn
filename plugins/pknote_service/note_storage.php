@@ -21,6 +21,9 @@ if($_GET['method'] == 'saveNotes'){
 
 	$notedata = json_decode($_GET['notes']);
 
+	echo "<script display='block' type='text/plain'>";
+	var_dump($_GET['notes']);
+	echo "</script>";
 	var_dump($notedata);
 	echo "hello\n";
 
@@ -40,6 +43,7 @@ if($_GET['method'] == 'getNotes'){
 	$noteset = array('notes' => array());
 	if(file_exists($fn)){
 		$doc = simplexml_load_file($fn);
+		//var_dump($doc);
 		$notes = $doc->root->children();
 		foreach($doc as $n){
 			array_push($noteset["notes"], array(
