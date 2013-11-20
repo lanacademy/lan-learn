@@ -68,7 +68,7 @@
 		ulist = this;
 
 		$.ajax({
-			url: "plugins/pknote_service/note_storage.php",
+			url: window.pkConfig.base_url + "/plugins/pknote_service/note_storage.php",
 			type: "GET",
 			data: {method: 'getNotes', user : 'paarth'}
 		}).done(function(result){
@@ -108,7 +108,7 @@
 		jsstr = prepHTML(JSON.stringify(jsobj));
 		console.log(jsstr);
 		$.ajax({
-			url: "plugins/pknote_service/note_storage.php",
+			url: window.pkConfig.base_url + "/plugins/pknote_service/note_storage.php",
 			type: "GET",
 			data: {method: 'saveNotes', user : 'paarth', notes: jsstr}
 		});

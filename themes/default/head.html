@@ -83,6 +83,10 @@
     <link rel="stylesheet" href="{{ theme_url }}/notes.css">
     <script type="text/javascript">
     $(function(){
+        // Send Config to JS
+
+        window.pkConfig = {base_url: "{{attribute(config,'base_url')}}"};
+
         tinymce.init({
             selector: "textarea#editor_side",
             menubar: false,
