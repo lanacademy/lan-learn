@@ -1,7 +1,2 @@
 <?xml version="1.0"?>
-<root><note><title>asdf</title><text>![CDATA[&lt;ol style="list-style-type: upper-roman;"&gt;
-&lt;li&gt;asdf&lt;/li&gt;
-&lt;li&gt;as&lt;/li&gt;
-&lt;li&gt;aaga&lt;/li&gt;
-&lt;li&gt;as&lt;/li&gt;
-&lt;/ol&gt;]]</text></note></root>
+<root><note><title>aa</title><text>&lt;p&gt;I&lt;pknbsp&gt;&lt;strong&gt;hope this works&lt;/strong&gt;&lt;/p&gt;</text></note></root>
