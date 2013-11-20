@@ -67,20 +67,25 @@ class Pico_Pagequiz {
                     $this->yes = true;
                 }
             }
+            else {
+                $this->yes = false;
+            }
         }
         else {
             $this->yes = false;
         }
+        //echo $this->yes ? 'yes' : 'no';
 	}
 
     public function before_render(&$twig_vars, &$twig)
     {
-        if ($this->yes === false) {
+        if ($this->yes == false) {
             $twig_vars['noquiz'] = true;
         }
         else {
             $twig_vars['noquiz'] = false;
         }
+        //echo $twig_vars['noquiz'] ? 'yes' : 'no';
     }
 	
 	public function after_render(&$output)
