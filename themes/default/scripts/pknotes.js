@@ -109,7 +109,7 @@
 		console.log(jsstr);
 		$.ajax({
 			url: "plugins/pknote_service/note_storage.php",
-			type: "POST",
+			type: "GET",
 			data: {method: 'saveNotes', user : 'paarth', notes: jsstr}
 		});
 	}
