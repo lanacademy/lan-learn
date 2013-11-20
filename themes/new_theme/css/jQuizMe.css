@@ -4,22 +4,7 @@
 * @version 2.2.1
 * @date 10/09/2012
 */	
-input {
-    /* float: left; */
-    width: auto;
-    padding: 5px 8px;
-    color:#ffffff;
-    background-color:#444;
-    cursor: pointer;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-        text-decoration: none;
-    margin-right: 5px;
-}
-input:hover {
-    background-color:#888;
-}
+
 .quiz-el{
 	background: white;
 	font-size: 1.1em;
