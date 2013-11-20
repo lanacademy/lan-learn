@@ -1,0 +1,83 @@
+<head>
+    <meta charset="utf-8" />
+    
+    <title>{% if meta.title %}{{ meta.title }} | {% endif %}{{ site_title }}</title>
+
+	<!--Styles-->
+    <link rel="stylesheet" href="{{ theme_url }}/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="{{ theme_url }}/css/bootstrap.css" type="text/css" />
+    
+    <!-- 1. jquery library -->
+    <script src="{{ theme_url }}/scripts/jquery.min.js"></script>
+    <script src="{{ theme_url }}/scripts/bootstrap.js"></script>
+    <script src="{{ theme_url }}/scripts/modernizr-2.6.1.min.js"></script>
+    <script src="{{ theme_url }}/scripts/tinymce/tinymce.min.js"></script>
+   
+	<!-- Log in -->
+    {% if authed == false %}
+    <script src="{{ theme_url }}/scripts/jquery.leanModal.min.js"></script>
+    <script type="text/javascript">
+            $(function() {
+                $('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".modal_close" });       
+            });
+    </script>
+    {% endif %}
+
+	<!--For Exams, not currently functional-->
+    <!-- >{% if meta.layout == "quiz" %}
+    <script src="{{ theme_url }}/scripts/ace.js"></script>
+    <link rel="stylesheet" href="{{ theme_url }}/css/quiz.css" type="text/css" />
+    {% endif %} -->
+    
+<!-- Javascript for content pages only -->
+    {% if meta.layout == "content" %}
+    <script src="{{ theme_url }}/scripts/jQuizMe-2.2.1.js"></script>
+    <link rel="stylesheet" href="{{ theme_url }}/css/jQuizMe.css" type="text/css" />	
+	<!--<script src="{{ theme_url }}/scripts/jquery-ui.min.js"></script>-->
+    <script src="{{ theme_url }}/scripts/jquery.highlight.js"></script>
+    <script src="{{ theme_url }}/scripts/pkWiki.js"></script>
+	<!-- Tab functionality = -->
+    <script src="{{ theme_url }}/scripts/tabs.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        $('#tabbed_content').tabs();
+        $('#tabbed_content').pkwiki({loc: 'lib', keywords: "{{ my_keywords }}" });
+    });
+    </script>
+
+	<!-- Menu functionality-->
+	<script type="text/javascript">
+      $(document).ready(function(){ 
+          $('#at-navigation > ul').hoverAccordion({ 
+              keepHeight: false, 
+              speed: 'fast',
+              onClickOnly: false
+          });    
+      });
+  	</script>
+	
+    	<!-- 2. flowplayer  -->
+   	 	<script src="{{ theme_url }}/scripts/flowplayer.min.js"></script>
+   	 	<link rel="stylesheet" href="{{ theme_url }}/css/functional.css">
+  	  	<script src="{{ theme_url }}/scripts/jquery.hoveraccordion.js"></script>
+  	 
+	
+	<!--Notes-->
+    <script src="{{ theme_url }}/scripts/pknotes.js"></script>
+    <script src="{{ theme_url }}/scripts/pknotes2.js"></script>
+    <link rel="stylesheet" href="{{ theme_url }}/css/notes.css">
+
+	{% endif %}
+  
+    <script type="text/javascript">
+            $(document).ready(function(){
+                var x = window.location.hash.substr(1);
+                if (x == 'displaylogin') {
+                    $('a[href=#loginform]').trigger("click");
+                }
+                if (x == 'displayregister') {
+                    $('a[href=#registerform]').trigger("click");
+                }
+            });
+    </script>
+</head>
