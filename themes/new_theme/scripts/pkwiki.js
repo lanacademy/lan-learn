@@ -23,13 +23,13 @@ dependencies:
 		return s.trim().charAt(0).toUpperCase() + s.trim().slice(1);
 	}
 	var urls = {
-		local : "/",
-		lib : "http://library.kiwix.org/wikipedia_en_wp1/A/",
+		local : "http://library.kiwix.org/search?content=wikipedia_en_wp1&pattern=",
+		lib : "http://library.kiwix.org/search?content=wikipedia_en_wp1&pattern=",
 		main : "http://en.wikipedia.org/wiki/"
 	};
 	var urlback = {
-		local : ".html",
-		lib : ".html",
+		local : "",
+		lib : "",
 		main : ""
 	};
 

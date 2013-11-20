@@ -30,20 +30,17 @@
     {% endif %} -->
     
 <!-- Javascript for content pages only -->
-    {% if meta.layout == "content" %}
     <script src="{{ theme_url }}/scripts/jQuizMe-2.2.1.js"></script>
     <link rel="stylesheet" href="{{ theme_url }}/css/jQuizMe.css" type="text/css" />	
-	<!--<script src="{{ theme_url }}/scripts/jquery-ui.min.js"></script>-->
     <script src="{{ theme_url }}/scripts/jquery.highlight.js"></script>
+    {% if meta.layout == "content" %}
     <script src="{{ theme_url }}/scripts/pkWiki.js"></script>
-	<!-- Tab functionality = -->
-    <script src="{{ theme_url }}/scripts/tabs.js"></script>
     <script type="text/javascript">
     $(function() {
-        $('#tabbed_content').tabs();
-        $('#tabbed_content').pkwiki({loc: 'lib', keywords: "{{ my_keywords }}" });
+        $('#pane_read').pkwiki({loc: 'lib', keywords: "{{ my_keywords }}" });
     });
     </script>
+    {% endif %}
 
 	<!-- Menu functionality-->
 	<script type="text/javascript">
@@ -57,7 +54,9 @@
   	</script>
 	
     	<!-- 2. flowplayer  -->
+        {% if meta.layout == "content" %}
    	 	<script src="{{ theme_url }}/scripts/flowplayer.min.js"></script>
+        {% endif %}
    	 	<link rel="stylesheet" href="{{ theme_url }}/css/functional.css">
   	  	<script src="{{ theme_url }}/scripts/jquery.hoveraccordion.js"></script>
   	 
@@ -66,8 +65,6 @@
     <script src="{{ theme_url }}/scripts/pknotes.js"></script>
     <script src="{{ theme_url }}/scripts/pknotes2.js"></script>
     <link rel="stylesheet" href="{{ theme_url }}/css/notes.css">
-
-	{% endif %}
   
     <script type="text/javascript">
             $(document).ready(function(){
