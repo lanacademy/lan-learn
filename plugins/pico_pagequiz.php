@@ -49,6 +49,8 @@ class Pico_Pagequiz {
                 $this->data = simplexml_load_file($this->path);
                 $n = 0;
                 $o = 0;
+                //echo($this->path);
+                //var_dump($this->data);
                 for($i = 0; $i < count($this->data->title); $i++) {
                 if (stripos($this->quizcontent, (String) $this->data->title[$i]) !== FALSE) {
                     $this->alist[$n] = $this->data->title[$i];
@@ -99,8 +101,8 @@ class Pico_Pagequiz {
         for ($i = 0; $i < count($this->qlist); $i++) {
             $output = $output . '
             {
-                ques: "' . $this->qlist[$i] . '",
-                ans: "' . $this->alist[$i] . '"
+                ques: "' . addslashes($this->qlist[$i]) . '",
+                ans: "' . addslashes($this->alist[$i]) . '"
             }';
             if ($i != count($this->qlist) - 1) {
                 $output = $output . ",";

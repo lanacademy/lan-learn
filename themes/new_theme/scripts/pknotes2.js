@@ -10,7 +10,7 @@
                 "searchreplace visualblocks code fullscreen",
                 "insertdatetime media table contextmenu paste"
             ],
-            toolbar: "bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent link image"
+            toolbar: "false";
         });
 
         var notelist = $('#notesList ul');
