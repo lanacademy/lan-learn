@@ -9,3 +9,5 @@ RewriteRule . index.php [L]
 Options -Indexes
 
 AddType video/mp4 .mp4
+AddType image/svg+xml svg svgz
+AddEncoding gzip svgz
