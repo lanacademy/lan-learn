@@ -67,6 +67,9 @@
     <link rel="stylesheet" href="{{ theme_url }}/css/notes.css">
   
     <script type="text/javascript">
+            $(function()) {
+                window.pkConfig = {base_url: "{{attribute(config,'base_url')}}"};
+            }
             $(document).ready(function(){
                 var x = window.location.hash.substr(1);
                 if (x == 'displaylogin') {
