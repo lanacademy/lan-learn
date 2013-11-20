@@ -47,25 +47,36 @@
 							{{ site_title }}
 						</h3>
 					</li>
+                    <div class="nav nav-tabs" id="navitab" data-tabs="navitab">
+                            <a href="#user" data-toggle="user" class="btn btn-stuff" role="button">Home</a> 
+                            <a class="btn btn-stuff" href="#quiz" data-toggle="quiz" role="button">Quiz</a> 
+                            <a class="btn btn-stuff" href="#notes" data-toggle="quiz" role="button">Notes</a> 
+                            <a class="btn btn-stuff" href="#nav" data-toggle="quiz" role="button">Nav</a>
+                        </div>
 					<li style="list-style: none">
-						<div class="btn-group stuff btn-group-justified">
-							<a class="btn btn-stuff" href="#admin" role="button">Admin</a> 
-							<a class="btn btn-stuff" href="#quiz" role="button">Quiz</a> 
-							<a class="btn btn-stuff" href="#notes" role="button">Notes</a> 
-							<a class="btn btn-stuff" href="#nav" role="button">Nav</a>
-						</div>
-						<div id="admin">
+						
+                        <div class="tab-content">
+                        {% if meta.layout == "home" %}
+						<div id="user" class="tab-pane fade in active">
+                        {% else %}
+                        <div id="user" class="tab-pane fade">
+                        {% endif %}
 							{% if authed == false %} 
 							<a id="go" rel="leanModal" name="loginform" href="#loginform">Login</a> 
 							<a id="go" rel="leanModal" name="registerform" href="#registerform">Register</a> 
 							{% else %}
 							<div id="userwelcome">
-								<b>Welcome {{ username }}</b> - <a href="/logout/">Logout</a>
+								<b>Welcome {{ username }}</b><a href="/logout/">Logout</a>
 							</div>
-							{% endif %}
+							{% endif %}<br />
+                            {{ course_navigation }}
 							<br>
 						</div>
-						<div id="nav">
+                        {% if meta.layout == "home" %}
+						<div id="nav" class="tab-pane fade">
+                        {% else %}
+                        <div id="nav" class="tab-pane fade in active">
+                        {% endif %}
 							<br>
 							{% if meta.layout == "home" %} 
 							{{ course_navigation }} 
@@ -74,7 +85,7 @@
 							{% endif %}
 							<br>
 						</div>
-						<div id="quiz">
+						<div id="quiz" class="tab-pane fade">
 							{% if noquiz %}
 							<div id="noquiz">
 								No quiz for this page! (No keywords found)
@@ -82,7 +93,7 @@
 							{% endif %}
 							<div id="quizArea"></div>
 						</div>
-						<div id="notes">
+						<div id="notes" class="tab-pane fade">
 							<div id="notesArea">
 								<form>
 									<input type="text" placeholder="Title"> 
@@ -99,6 +110,7 @@
 								</form>
 							</div>
 						</div>
+                        </div>
 					</li>
 				</ul>
 			</div>
@@ -119,37 +131,58 @@
 					<a id="menu-toggle" href="#" class="btn btn-default" name="menu-toggle"></a> 
 					{{ current_page.title }}
 				</h1>
-				
+				</div>
 				{% if meta.layout == "content" %} <!--wiki switcher and panes for content only -->
-				<div id="tabbed_content">
-					<!-- need this setup for jquery-ui.tabs -->
-		  			<div id="research" class="btn-research">
-		  		  	  <a href="#pane_research" class="btn btn-default"><i class="fa fa-cog"></i></a>
-		  		  	  <a href="#pane_read" class="btn btn-default"><i class="fa fa-cog"></i></a>		
-		  		  </div>
-					<div id="pane_read">
-						{{ content }}
+                                    <!-- need this setup for jquery-ui.tabs -->
+                    <div id="research" class="nav nav-tabs" data-tabs="research">
+                      <a href="#pane_research" data-toggle="pane_research" class="btn btn-default"><i class="fa fa-cog"></i></a>
+                      <a href="#pane_read" data-toggle="pane_read" class="btn btn-default"><i class="fa fa-cog"></i></a>        
+                      </div>
+				<div class="tab-content">
+					<div class="tab-pane fade in active" id="pane_read">
+                    <div class="row">
+                    <div class="col-md-12">
+                    <div class="well">{{ content }}
 						<br>
+                        </div>
+                        <div class="well">
 						<div class="sibling_nav">
 							<a href="{{ next_page.url }}">&lt; {{ next_page.title }}</a>
 							<a href="{{ prev_page.url }}">{{ prev_page.title }} &gt;</a>
 						</div>
-					</div>
-					<div id="pane_research">
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+					
+					<div class="tab-pane fade" id="pane_research">
 						<iframe id="pane_wiki" src="http://library.kiwix.org/wikipedia_en_all_nopic/A/History%20of%20the%20world.html"></iframe>
 					</div>
 				</div><!---end tabbed content-->
+                <script>
+                $('#research a').click(function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
+    </script>
 				{% else %} <!--All pages except course get content-->
 				{{ content }} 
 			</div>
+
 				{% endif %}
 				{% endif %}
-				
-		</div>
-		<div class="footer">
-			<p>
-				LAN-LMS is based off <a href="http://pico.dev7studios.com">Pico</a>.
-			</p>
+
+                <script>
+                $('#navitab a').click(function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
+
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("active");
+    });
+    </script>
 		</div>
 	</body>
 </html>
