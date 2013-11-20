@@ -44,7 +44,7 @@
 				<ul class="sidebar-nav">
 					<li class="sidebar-brand">
 						<h3>
-							{{ site_title }}
+							<a href="{{ coursehomelink }}" title="{{ site_title }}">{{ site_title }}</a>
 						</h3>
 					</li>
                     <div class="nav btn-group stuff nav-tabs" id="navitab" data-tabs="navitab">
@@ -120,6 +120,7 @@
 				<div class="content-header">
 					<h1>
 						<a id="menu-toggle" href="#" class="btn btn-default" name="menu-toggle"></a>
+                        {{ current_page.title }}
 					</h1>
 				</div>
 		        <div class="content-header">
