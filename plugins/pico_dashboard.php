@@ -7,7 +7,7 @@
  * @link http://www.timofeo.com/
  * @license http://opensource.org/licenses/MIT
  */
-
+/*
 class Pico_Dashboard {
 
 	public function plugins_loaded()
@@ -97,5 +97,5 @@ class Pico_Dashboard {
         return $dashCode;
     }
 }
-
+*/
 ?>
