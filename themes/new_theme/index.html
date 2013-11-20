@@ -47,11 +47,11 @@
 							{{ site_title }}
 						</h3>
 					</li>
-                    <div class="nav nav-tabs" id="navitab" data-tabs="navitab">
-                            <a href="#user" data-toggle="user" class="btn btn-stuff" role="button">Home</a> 
+                    <div class="nav btn-group stuff nav-tabs" id="navitab" data-tabs="navitab">
+                            <a href="#user" data-toggle="user" class="btn btn-stuff" role="button">Home</a>
+                            <a class="btn btn-stuff" href="#nav" data-toggle="quiz" role="button">Nav</a>
                             <a class="btn btn-stuff" href="#quiz" data-toggle="quiz" role="button">Quiz</a> 
                             <a class="btn btn-stuff" href="#notes" data-toggle="quiz" role="button">Notes</a> 
-                            <a class="btn btn-stuff" href="#nav" data-toggle="quiz" role="button">Nav</a>
                         </div>
 					<li style="list-style: none">
 						
@@ -68,9 +68,8 @@
 							<div id="userwelcome">
 								<b>Welcome {{ username }}</b><a href="/logout/">Logout</a>
 							</div>
-							{% endif %}<br />
+							{% endif %}
                             {{ course_navigation }}
-							<br>
 						</div>
                         {% if meta.layout == "home" %}
 						<div id="nav" class="tab-pane fade">
@@ -148,10 +147,10 @@
 						<br>
                         </div>
                         <div class="well">
-						<div class="sibling_nav">
-							<a href="{{ next_page.url }}">&lt; {{ next_page.title }}</a>
-							<a href="{{ prev_page.url }}">{{ prev_page.title }} &gt;</a>
-						</div>
+						<ul class="sibling_nav pager">
+							<li><a href="{{ next_page.url }}">&lt; {{ next_page.title }}</a></li>
+							<li><a href="{{ prev_page.url }}">{{ prev_page.title }} &gt;</a></li>
+						</ul>
                         </div>
                         </div>
                         </div>

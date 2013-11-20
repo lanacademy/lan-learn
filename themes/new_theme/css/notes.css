@@ -1,7 +1,6 @@
 #notes{
 	width: 268px;
 	padding-left: 0px;
-	margin-left: -25px;
 	position: relative;
 }
 
@@ -13,6 +12,7 @@
 #notesArea{
 	padding-bottom: 35px;
 	border-bottom: 1px dotted black;
+	padding-left: 20px;
 }
 #notesArea input[type=text]{
 	width:250px;
