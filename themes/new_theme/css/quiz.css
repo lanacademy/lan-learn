@@ -1,11 +1,7 @@
-body {
+.quiz-form {
   font-family: Georgia, 'Times New Roman', serif;
   margin-left: 32px;
   margin-bottom: 32px;
-}
-
-.quiz-form {
-  margin-left: 32px;
 }
 
 .quiz-form ul {

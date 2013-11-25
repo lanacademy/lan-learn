@@ -2,45 +2,9 @@
 <html lang="en">
 		{{ include('head.html') }}
 		<body>
-		<div id="loginform">
-			<a class="modal_close" href="#">X Close</a>
-			<form method="post" action="/login/">
-				{% if login_error %}
-				<p class="error">
-					{{ login_error }}
-				</p>
-				{% endif %} <input type="text" name="username" id="username" placeholder="Username" value="{{ username }}"> <input type="password" name="password" id="password" placeholder="Password"> <input class="alignright" type="submit" value="Login">
-			</form>
-		</div>
-		<div id="registerform">
-			<a class="modal_close" href="#">X Close</a>
-			<form method="post" action="/register/">
-				{% if register_error %}
-				<p class="error">
-					{{ register_error }}
-				</p>
-				{% endif %} 
-				<input type="text" name="username" id="username" placeholder="Username" value="{{ username }}"> 
-				<input type="password" name="password" id="password" placeholder="Password"> 
-				<input type="password" name="password2" id="password2" placeholder="Confirm Password"> Grade: 
-				<select name="grade" id="grade">
-					<option value="9">
-						9
-					</option>
-					<option value="10">
-						10
-					</option>
-					<option value="11">
-						11
-					</option>
-					<option value="12">
-						12
-					</option>
-				</select> <input type="text" name="name" id="name" placeholder="Full Name"> <input class="alignright" type="submit" value="Register">
-			</form>
-		</div>
+		{{ include('login_register.html') }}
 		<div id="wrapper">
-			<div id="sidebar-wrapper">
+			<div id="sidebar-wrapper">		
 				<ul class="sidebar-nav">
 					<li class="sidebar-brand">
 						<h3>
@@ -66,125 +30,74 @@
 							<a id="go" rel="leanModal" name="registerform" href="#registerform">Register</a> 
 							{% else %}
 							<div id="userwelcome">
-								<b>Welcome {{ username }}</b><a href="/logout/">Logout</a>
+								<b>Welcome {{ username }}</b>
+								<a href="/logout/">Logout</a>
 							</div>
 							{% endif %}
                             {{ course_navigation }}
 						</div>
                         {% if meta.layout == "home" %}
 						<div id="nav" class="tab-pane fade">
+							{{ course_navigation }} 
                         {% else %}
                         <div id="nav" class="tab-pane fade in active">
-                        {% endif %}
-							<br>
-							{% if meta.layout == "home" %} 
-							{{ course_navigation }} 
-							{% else %} 
 							{{ at_navigation.navigation }} 
-							{% endif %}
-							<br>
+                        {% endif %}
 						</div>
 						<div id="quiz" class="tab-pane fade">
 							{% if noquiz %}
 							<div id="noquiz">
-								No quiz for this page! (No keywords found)
+							No quiz for this page! (No keywords found)
 							</div>
 							{% endif %}
 							<div id="quizArea"></div>
 						</div>
 						<div id="notes" class="tab-pane fade">
-							<div id="notesArea">
-								<form>
-									<input type="text" placeholder="Title"> 
-									<textarea id="editor_side">
-									</textarea> 
-									<input type="button" value="Save as New"> 
-									<input type="button" value="Save"> 
-									<input type="button" value="Discard">
-								</form>
-							</div>
-							<div id="notesList">
-								<form>
-									<input type="text" name="search" placeholder="search"/>
-								</form>
-                                <ul>
-                                </ul>
-							</div>
+							{{ include('notes.html') }}
 						</div>
                         </div>
 					</li>
 				</ul>
 			</div>
 			<div id="page-content-wrapper">
-				{% if meta.layout == "course" %}
 				<div class="content-header">
-					<h1>
-						<a id="menu-toggle" href="#" class="btn btn-default" name="menu-toggle"></a>
-                        {{ current_page.title }}
-					</h1>
-				</div>
-		        <div class="content-header">
-				{{ include('dashboarddemo.html') }}
-				</div>
-				</div>
-				{% else %}
-				<div class="content-header">
-				<h1> <!--all non course pages get a title-->
-					<a id="menu-toggle" href="#" class="btn btn-default" name="menu-toggle"></a> 
-					{{ current_page.title }}
-				</h1>
-				</div>
-				{% if meta.layout == "content" %} <!--wiki switcher and panes for content only -->
-                                    <!-- need this setup for jquery-ui.tabs -->
-                    <div id="research" class="nav nav-tabs" data-tabs="research">
-                      <a href="#pane_research" data-toggle="pane_research" class="btn btn-default"><i class="fa fa-cog"></i></a>
-                      <a href="#pane_read" data-toggle="pane_read" class="btn btn-default"><i class="fa fa-cog"></i></a>        
-                      </div>
-				<div class="tab-content">
-					<div class="tab-pane fade in active" id="pane_read">
-                    <div class="row">
-                    <div class="col-md-12">
-                    <div class="well">{{ content }}
-						<br>
-                        </div>
-                        <div class="well">
-						<ul class="sibling_nav pager">
-							<li><a href="{{ next_page.url }}">&lt; {{ next_page.title }}</a></li>
-							<li><a href="{{ prev_page.url }}">{{ prev_page.title }} &gt;</a></li>
-						</ul>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-					
-					<div class="tab-pane fade" id="pane_research">
-						<iframe id="pane_wiki" src="http://library.kiwix.org/wikipedia_en_all_nopic/A/History%20of%20the%20world.html"></iframe>
-					</div>
-				</div><!---end tabbed content-->
-                <script>
-                $('#research a').click(function (e) {
-  e.preventDefault()
-  $(this).tab('show')
-})
-    </script>
-				{% else %} <!--All pages except course get content-->
+				<a id="menu-toggle" href="#" class="btn btn-default" name="menu-toggle"></a>
+				<h1> {{ current_page.title }}</h1>
+				</div> 
+			{% if meta.layout == "course" %}
+	        <div class="content-header">
+			{{ include('dashboarddemo.html') }}
+			</div>
+			{% elseif meta.layout == "content" %} 
+				{{ include('two_pane_content.html') }}
+			{% elseif meta.layout == "quiz" %} 
+				{{ content }} 
+			{% else %} 
+			<div class="well">
 				{{ content }} 
 			</div>
-
-				{% endif %}
-				{% endif %}
-
-                <script>
-                $('#navitab a').click(function (e) {
-  e.preventDefault()
-  $(this).tab('show')
-})
+			{% endif %}	
+			</div><!--ending everything-->
+			
+    <script>
+  	$('#navitab a').click(function (e) {
+  	  	e.preventDefault()
+  	  	$(this).tab('show')
+	})
 
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("active");
     });
     </script>
+	<script>
+	<script type="text/javascript">
+	  function resizeIframe(iframe) {
+	    iframe.height = iframe.contentWindow.document.body.scrollHeight + "px";
+	  }
+	</script> 
+	</script>
+
 		</div>
 	</body>
 </html>
