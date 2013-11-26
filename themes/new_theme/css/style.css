@@ -36,6 +36,8 @@
   height: 65px;
   line-height: 60px;
   font-size: 18px;
+  background: transparent;
+  
 }
 
 .sidebar-nav > .sidebar-brand a {
@@ -53,12 +55,14 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  background:#7292E2;
 }
 
 .sidebar-nav li {
   line-height: 40px;
   text-indent: 20px;
   list-style:none;
+  background:#DFE0E2;
 }
 
 .sidebar-nav li a {
@@ -180,7 +184,7 @@
 	width:100%;
 }
 .btn-stuff {
-    border-left: 1px solid grey;
+    border-left: 1px solid grey!important;
     color: #fff;
 	width:25%;
 }
@@ -261,4 +265,13 @@ iframe {
     width: 100%;
     height: 1000px;
     border: 0px;
+}
+.pkwikilink {
+    color: #333;
+    background: #FCF9B6;
+}
+.pkwikilink:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    color: #333;
 }
