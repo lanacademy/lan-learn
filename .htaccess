@@ -1,8 +1,16 @@
 <IfModule mod_rewrite.c>
 RewriteEngine On
+##Just for fun, here's how we might want to handle this once we're running a local server.  
+RewriteRule ^wikipedia_en_all_nopic(.*)$ http://library.kiwix.org/wikipedia_en_all_nopic$1 [P,L]
+#RewriteRule ^wikipedia_en_simple_all_08_2011(.*)$ http://library.kiwix.org/wikipedia_en_simple_all_08_2011$1 [P,L]
+#RewriteRule ^wikipedia_en_wp1(.*)$ http://library.kiwix.org/wikipedia_en_wp1$1 [P,L]
+
+##Just lms working
+RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d 
 RewriteRule . index.php [L]
+
 </IfModule>
 
 <IfModule mod_speling.c>

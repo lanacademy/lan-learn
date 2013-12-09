@@ -5,7 +5,6 @@
 
 $config['site_title'] = 'Pico';			// Site title
 $config['base_url'] = ''; 				// Override base URL (e.g. http://example.com)
-$config['theme'] = 'default'; 			// Set the theme (defaults to "default")
 $config['date_format'] = 'jS M Y';		// Set the PHP date format
 $config['twig_config'] = array(			// Twig settings
 	'cache' => false,					// To enable Twig caching change this to CACHE_DIR
@@ -24,7 +23,7 @@ $config['custom_setting'] = 'Hello'; 	// Can be accessed by {{ config.custom_set
 $config['at_navigation']['exclude']['single'] = array('a/site', 'another/site');
 $config['at_navigation']['exclude']['folder'] = array('a/folder', 'another/folder');
 */
-$config['site_title'] = 'Example Course';			// Site title
+$config['site_title'] = 'LAN LMS';			// Site title
 
 //$config['base_url'] = '/LAN-LMS'; 
 $config['at_navigation']['id'] = 'at-navigation';
@@ -33,3 +32,4 @@ $config['at_navigation']['exclude']['folder'] = array('media');
 $config['at_navigation']['exclude']['single'] = array('Empty_Course', 'Example_Course');
 $config['pages_order_by'] = 'alpha';	// Order pages by "alpha" or "date"
 $config['tracking'] = true;
+$config['theme'] = 'new_theme'; 			// Set the theme (defaults to "default")
