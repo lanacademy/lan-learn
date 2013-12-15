@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+	{{ include('head.html') }}
+  <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css"  rel="stylesheet" type="text/css" />
+  		<!--[if lt IE 9]>
+     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+  <link href="http://www.bootply.com/bootply/themes/metroid/theme.css" type="text/css" rel="stylesheet" />
+  <!-- CSS code from Bootply.com editor -->
+  <link href="{{ theme_url }}/bootstrap/overrides.css" type="text/css" rel="stylesheet" />
+
+</head>
+<body>			
+    <div class="main padding">
+      <div class="box">
+        <div class="row-fluid">
+          <div class="column span8">
+  		<div class="tabbable"><!--left-->
+              <ul class="nav nav-tabs">	
+				  {% block left-tab %}
+	              <li class="hometab"><a href="{{ coursehomelink }}">[H]</a></li>
+				  {% endblock %}
+              </ul>
+           <div class="tab-content">
+			  {% block left-content %}	
+			  
+			  {% endblock %}		
+          </div>
+        </div>
+      </div>
+      <div class="column span4"><!--right-->
+        <div class="tabbable">
+          <ul class="nav nav-tabs">
+			  {% block right-tab %}
+			  {% endblock %}
+          </ul>
+          <div class="tab-content" style="overflow:initial;">
+			  {% block right-content %}	
+			  {% endblock %}
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+	{% block footer-scripts %}
+	{% endblock %}
+	<script type='text/javascript' src=
+    "http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
+	</script> 
+	<script type='text/javascript' src=
+"http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js">
+	</script> <!-- JavaScript jQuery code from Bootply.com editor -->
+     <script type='text/javascript'>
+        
+        $(document).ready(function() {
+ 
+        });
+
+        $('#show_edit').click(function(){
+	var element = $('#edit-box');
+	if (element.attr('style') == 'display: none !important') {
+        element.attr("style", 'display: block !important');
+   	} 
+	else {
+        element.attr("style", 'display: none !important');
+   	}
+	});
+    </script>
+
+</body>
+{% if meta.layout == "home" %}
+	{% use "home.html" %}	
+{% else %} 
+	{% use "default.html" %}	
+{% endif %}	
+</html>				

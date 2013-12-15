@@ -1,0 +1,47 @@
+
+{% block left-tab %}
+			{{ parent() }}
+            <li class="active"><a href="content" data-toggle="tab">Read</a></li>
+			<li><a href="#research" data-toggle="tab">Research</a></li>
+{% endblock left-tab %}
+
+{% block left-content %}	
+	 <div class="tab-pane active padding" id="content">
+		{{ content }}
+		<div class="row-fixed" style="padding-top: 20px;">
+		  <a href="{{ next_page.url }}" class="btn btn-mini btn-default">&lt; Previous</a>
+		  <a href="#quiz" class="btn btn-large btn-info" style="margin-left: 25%; margin-right: 25%;">Review Section</a>
+		  <a href="{{ prev_page.url }}" class="btn btn-mini btn-default">Next &gt;</a>
+		</div>
+	 </div>
+	 <div class="tab-pane padding" id="research">
+		 <iframe id="pane_wiki" src="/wikipedia_en_all_nopic/A/History%20of%20the%20world.html"></iframe> 
+	 </div>
+	 
+{% endblock left-content %}		
+
+{% block right-tab %}
+	{{ parent() }}
+	<li><a class="active" href="#notes" data-toggle="tab">Notes</a> </li>
+	<li><a href="#quiz" data-toggle="tab">Quiz</a> </li>
+{% endblock %}
+
+{% block right-content %}
+	<div class="tab-pane active padding" id="notes">
+	 <div class="row-fluid">
+	 	{{ include('notes.html') }}
+	 </div>
+	</div>
+	<div class="tab-pane padding" id="quiz">
+		<div class="row-fluid">
+			<div id="quiz" class="span9">
+				{% if noquiz %}
+				<div id="noquiz">
+					No quiz for this page! (No keywords found)
+				</div>
+				{% endif %}
+				<div id="quizArea"></div>
+			</div>
+		</div>
+	</div>	
+{% endblock %}

@@ -1,0 +1,35 @@
+
+{% block left-tab %}
+			{{ parent() }}
+{% endblock left-tab %}
+
+{% block left-content %}	
+	 <div class="tab-pane active padding" id="content">
+		{% if authed == false %} 
+		<a id="go" rel="leanModal" name="loginform" href="#loginform">Login</a> 
+		<a id="go" rel="leanModal" name="registerform" href="#registerform">Register</a> 
+		{% else %}
+		<div id="userwelcome">
+			<b>Welcome {{ username }}</b>
+			<a href="/logout/">Logout</a>
+		</div>
+		{% endif %}
+ 	 	{{ include('dashboarddemo.html') }}
+	 </div>
+	 
+{% endblock left-content %}		
+
+{% block right-tab %}
+	{{ parent() }}
+	<li><a class="active" href="#nav" data-toggle="tab">Course Navigation</a> </li>
+	<li><a href="#allcourse" data-toggle="tab">All Courses</a> </li>
+{% endblock right-tab %}
+
+{% block right-content %}
+	<div class="tab-pane active padding" id="nav">
+		{{ at_navigation.navigation }} 
+	</div>
+	<div class="tab-pane padding" id="allcourse">
+		{{ course_navigation }} 
+	</div>	
+{% endblock right-content %}

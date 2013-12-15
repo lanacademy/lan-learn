@@ -6,7 +6,6 @@ RewriteRule ^wikipedia_en_all_nopic(.*)$ http://library.kiwix.org/wikipedia_en_a
 #RewriteRule ^wikipedia_en_wp1(.*)$ http://library.kiwix.org/wikipedia_en_wp1$1 [P,L]
 
 ##Just lms working
-RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d 
 RewriteRule . index.php [L]
