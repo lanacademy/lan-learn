@@ -10,28 +10,24 @@
 class Pico_Flowplayer
 {
     
-    public function __construct()
-    {
+    public function __construct() {
         $plugin_path = dirname(__FILE__);
         $this->path  = $plugin_path;
     }
     
-    public function config_loaded(&$settings)
-    {
+    public function config_loaded(&$settings) {
         $this->theme      = $settings['theme'];
         $this->pathheader = "";
         if (isset($settings['base_url'])) {
             $this->pathheader = $settings['base_url'];
         }
     }
-    /* This isn't needed with one course, but I'm keeping it in for next release
-    public function file_meta(&$meta)
-    {
-    $this->subject = $meta['subject'] . "/";
-    }*/
+
+    public function file_meta(&$meta) {
+        $this->meta = $meta;
+    }
     
-    public function content_parsed(&$content)
-    {
+    public function content_parsed(&$content) {
         $videotitle = "";
         
         $this->lines = explode("<p>", $content);
@@ -43,7 +39,7 @@ class Pico_Flowplayer
                 $videotitle = str_replace("</p>", "", $videotitle);
                 
                 /* This code is for the single-course LMS format */
-                $this->videopath = $this->pathheader . "/content/media/";
+                $this->videopath = $this->pathheader . "/content/" . $this->meta['coursename'] . "/media/";
                 
                 /* This code is for the full release */
                 /*
