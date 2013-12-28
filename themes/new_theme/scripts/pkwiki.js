@@ -56,7 +56,7 @@ dependencies:
 
 				/* This should probably be handled via a higher order function */
                 $.ajax({
-                    url: "../../plugins/pkwiki_service/toXML.php",
+                    url: "../../plugins/pkwiki_service/wikilog.php",
                     type: "GET", 
                     /* the user field should be determined in toXML's php, not here */
                     data: {user : 'default', keyword: capitalize($(this).text())}
