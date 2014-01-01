@@ -39,10 +39,13 @@ class Pico_Tracking {
             if (strpos($page, ".png") !== false) {
                 exit;
             }
+            if (strpos($page, "/plugins/") !== false) {
+                exit;
+            }
             $user = $twig_vars['username'];
-            $data = "[HIT] - ";
+            $data = "[HIT],";
             $data = $data . date('Y/m/d H:i:s');
-            $data = $data . " - " . $user . " - " . $page . "\n";
+            $data = $data . "," . $page . "\n";
             if (file_exists($this->path . '/log/' . $user . '.log')) {
                 $data = file_get_contents($this->path . '/log/' . $user . '.log') . $data;
             }

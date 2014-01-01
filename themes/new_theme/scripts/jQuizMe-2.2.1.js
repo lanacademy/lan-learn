@@ -564,6 +564,15 @@
 					setupReview();
 				}
 				animateThis( $( ".q-gameOver", currQuiz), 1, sendStatus );
+                var pagetitle = $(document).find("title").text();
+                $.ajax({
+                    url: "../../plugins/helpers/quizlog.php",
+                    type: "GET", 
+                    /* the user field should be determined in toXML's php, not here */
+                    data: {user : 'default', score: (stats.numOfRight + "/" + stats.quesTried), page: pagetitle}
+                }).done(function(msg){
+                    console.log('Sent to XML, got:' + msg);
+                });
 			},
 			// changeProb(): Changes to next problem and updates status.
 			changeProb = function( isReview ){
