@@ -151,6 +151,14 @@
                     var top = (screen.height - settings.popupHeight) / 2;
                     window.open(lookupUrl, appName, "width=" + settings.popupWidth + ",height=" + settings.popupHeight + ",left=" + left + ",top=" + top + ",location=1" + ",scrollbars=1");
                     e.preventDefault();
+                    $.ajax({
+                    url: "../../plugins/pkwiki_service/wikilog.php",
+                    type: "GET", 
+                    /* the user field should be determined in toXML's php, not here */
+                    data: {user : 'default', keyword: text}
+                }).done(function(msg){
+                    console.log('Sent to XML, got:' + msg);
+                });
                     return false;
                });
 
