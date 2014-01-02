@@ -52,8 +52,12 @@ class Pico_Quiz
     
     public function content_parsed(&$content)
     {
-        if ($this->type == 'quiz')
+        if ($this->type == 'quiz' && !isset($_GET['grade']) || $_GET['grade'] != 1) {
             $content = $this->dump_quiz();
+        }
+        else if ($this->type == 'quiz' && isset($_GET['grade']) && $_GET['grade'] == 1) {
+            $content = $this->grade_quiz();
+        }
     }
     
     private function trim_str_array($str_array)
@@ -182,7 +186,7 @@ class Pico_Quiz
         $quiz_order = $title_split[0];
         $quiz_title = substr($title, strlen($quiz_order));
         $result =
-        '<form class="quiz-form" id="' . $id . '-form" method="post" action="/processquiz">
+        '<form class="quiz-form" id="quiz-form" method="post" action="' . $_SERVER[REQUEST_URI] . '?grade=1' . '">
             <script>var editor = null;</script>';
         for ($i = 0; $i < count($quiz['quizzes']); ++$i) {
             $q = $quiz['quizzes'][$i];
@@ -249,4 +253,38 @@ class Pico_Quiz
     </form>';
 	return $result;
 	}
+
+    private function grade_quiz() {
+        $specs = $this->quizcontent;
+        $quiz = $this->parse_quiz($specs);
+        $correctpts = 0;
+        for ($i = 0; $i < count($quiz['quizzes']); ++$i) {
+            $q = $quiz['quizzes'][$i];
+            $totalpts += $q['credit'];
+            if ($q['type'] == "single") {
+                for ($n = 0; $n < count($q['choices']; ++$n) {
+                    if (strpos($q['choices'][$n], "*") !== false) {
+                        $correct = $n;
+                    }
+                }
+                if (isset($_POST["problem-" . $i]) && $_POST["problem-" . $i] == $correct) {
+                    $correctpts += $q['credit'];
+                }
+            }
+            else if($q['type'] == "multiple") {
+                for ($n = 0; $n < count($q['choices']; ++$n) {
+                    if (strpos($q['choices'][$n], "*") !== false) {
+                        $correct[$n] = 1;
+                    }
+                    else {
+                        $correct[$n] = 0;
+                    }
+                }
+            }
+            //var_dump($q['choices']);
+        }
+        //var_dump($_POST);
+        $result = "You scored a " . $correctpts . "/" . $totalpts;
+        return $result;
+    }
 }

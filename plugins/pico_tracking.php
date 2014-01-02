@@ -30,16 +30,13 @@ class Pico_Tracking {
 	{
 		if ($twig_vars['authed'] && $this->tracking) {
             $page = $_SERVER['REQUEST_URI'];
-            if (strpos($page, ".mp4") !== false) {
-                exit;
-            }
             if (strpos($page, ".map") !== false) {
                 exit;
             }
-            if (strpos($page, ".png") !== false) {
+            if (strpos($page, "/plugins/") !== false) {
                 exit;
             }
-            if (strpos($page, "/plugins/") !== false) {
+            if (strpos($page, "/media/") !== false) {
                 exit;
             }
             $user = $twig_vars['username'];
