@@ -262,7 +262,7 @@ class Pico_Quiz
             $q = $quiz['quizzes'][$i];
             $totalpts += $q['credit'];
             if ($q['type'] == "single") {
-                for ($n = 0; $n < count($q['choices']; ++$n) {
+                for ($n = 0; $n < count($q['choices']); ++$n) {
                     if (strpos($q['choices'][$n], "*") !== false) {
                         $correct = $n;
                     }
@@ -272,12 +272,17 @@ class Pico_Quiz
                 }
             }
             else if($q['type'] == "multiple") {
-                for ($n = 0; $n < count($q['choices']; ++$n) {
+                for ($n = 0; $n < count($q['choices']); ++$n) {
                     if (strpos($q['choices'][$n], "*") !== false) {
-                        $correct[$n] = 1;
+                        $correctarray[$n] = 1;
                     }
                     else {
-                        $correct[$n] = 0;
+                        $correctarray[$n] = 0;
+                    }
+                }
+                for ($n = 0; $n < count($q['choices']); ++$n) {
+                    if (isset($_POSt["problem-" . $i ."-choice-" . $n + 1])) {
+
                     }
                 }
             }
