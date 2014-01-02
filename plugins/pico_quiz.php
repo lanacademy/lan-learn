@@ -257,7 +257,8 @@ class Pico_Quiz
     private function grade_quiz() {
         $specs = $this->quizcontent;
         $quiz = $this->parse_quiz($specs);
-        $correctpts = 0;
+        $correctpts = 0.0;
+        $totalpts = 0;
         for ($i = 0; $i < count($quiz['quizzes']); ++$i) {
             $q = $quiz['quizzes'][$i];
             $totalpts += $q['credit'];
@@ -280,15 +281,38 @@ class Pico_Quiz
                         $correctarray[$n] = 0;
                     }
                 }
+                $iscorrect = true;
                 for ($n = 0; $n < count($q['choices']); ++$n) {
-                    if (isset($_POSt["problem-" . $i ."-choice-" . $n + 1])) {
-
+                    if (isset($_POST["problem-" . $i . "-choice-" . $n])) {
+                        if ($correctarray[$n] != 1) {
+                            $iscorrect = false;
+                        }
+                    }
+                    else {
+                        if ($correctarray[$n] != 0) {
+                            $iscorrect = false;
+                        }
                     }
                 }
+                if ($iscorrect) {
+                    $correctpts += $q['credit'];
+                }
+            }
+            else if($q['type'] == "text") {
+                $wordarray = explode(',', $q['answer']);
+                $nummatches = 0;
+                for ($n = 0; $n < count($wordarray); ++$n) {
+                    if (isset($_POST["problem-" . $i]) && preg_match('/\b' . $wordarray[$n] . '\b/', $_POST["problem-" . $i])) {
+                        $nummatches++;
+                    }
+                }
+                $pointsearned = ($nummatches / count($wordarray)) / $q['credit'];
+                $correctpts += $pointsearned;
             }
             //var_dump($q['choices']);
+            //var_dump($q['answer']);
         }
-        var_dump($_POST);
+        //var_dump($_POST);
         $result = "You scored a " . $correctpts . "/" . $totalpts;
         return $result;
     }
