@@ -74,7 +74,7 @@ class Pico_Dashboard {
 	
 	public function before_render(&$twig_vars, &$twig)
 	{
-        if ($this->layout = 'course') {
+        if ($this->layout == 'course') {
             $twig_vars['current_page']['title'] = $this->coursename;
 		    $twig_vars['dashboard'] = $this->buildDash();
         }
@@ -98,17 +98,32 @@ class Pico_Dashboard {
         	$last = NULL;
         	if(($handle = fopen($plugin_path . '/log/' . $user . '.log', "r")) !== FALSE) {
         		while(($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-        			if(strcmp($data[0], "[HIT]") == 0) {
-        				$last = $data[3];
+        			if(strcmp($data[0], '[HIT]') == 0 && preg_match('/^\/Example_Course\/(.*)$/', $data[2]) === 1) {
+        				$last = $data[2];
         			}
         		}
         	}
-        	if($last == NULL){
-        		$last_page = "Visit a page to see your last page here";
-        	} else {
-        		$last_page = "placeholder";
+        	
+        	if (isset($settings['base_url'])) {
+            	$this->pathheader = $settings['base_url'];
         	}
 
+        	if($last == NULL){
+        		$last_page = "Visit a page in this course to see your bookmark here";
+        	} else {
+        		if(strcmp(substr($last, -1),"/") == 0) {
+        			preg_match('/.*\.(\w*)\/\z/', $last, $matches);
+        			$chapter = $matches[1];
+        			$chapter = '<a href=' . $this->pathheader . $last . '>' . $chapter . '</a>';
+        			$last_page = 'You were last at the index of ' . $chapter;
+        		} else {
+        			preg_match('/.*\.(\w*)\/\d+\.(\w*)\z/', $last, $matches);
+        			$page = str_replace("_", " ", $matches[2]);
+        			$chapter = str_replace("_", " ", $matches[1]);
+        			$page = '<a href=' . $this->pathheader . $last . '>' . $page . '</a>';
+        			$last_page = 'You were last at ' . $page . ' in ' . $chapter;
+        		}
+        	}
 
         	// build dashboard html
         	$dashCode = '<div class="row">
