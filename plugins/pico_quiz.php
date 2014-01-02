@@ -52,7 +52,7 @@ class Pico_Quiz
     
     public function content_parsed(&$content)
     {
-        if ($this->type == 'quiz' && !isset($_GET['grade']) || $_GET['grade'] != 1) {
+        if ($this->type == 'quiz' && !isset($_GET['grade']) && $_GET['grade'] != 1) {
             $content = $this->dump_quiz();
         }
         else if ($this->type == 'quiz' && isset($_GET['grade']) && $_GET['grade'] == 1) {
@@ -288,7 +288,7 @@ class Pico_Quiz
             }
             //var_dump($q['choices']);
         }
-        //var_dump($_POST);
+        var_dump($_POST);
         $result = "You scored a " . $correctpts . "/" . $totalpts;
         return $result;
     }
