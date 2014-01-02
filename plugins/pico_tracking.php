@@ -42,6 +42,24 @@ class Pico_Tracking {
             if (strpos($page, "/themes/") !== false) {
                 exit;
             }
+            if (strpos($page, ".png") !== false) {
+                exit;
+            }
+            if (strpos($page, ".js") !== false) {
+                exit;
+            }
+            if (strpos($page, ".gif") !== false) {
+                exit;
+            }
+            if (strpos($page, ".css") !== false) {
+                exit;
+            }
+            if (strpos($page, ".jpg") !== false) {
+                exit;
+            }
+            if (strpos($page, ".jpeg") !== false) {
+                exit;
+            }
             $user = $twig_vars['username'];
             $data = "[HIT],";
             $data = $data . date('Y/m/d H:i:s');
