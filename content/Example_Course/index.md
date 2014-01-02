@@ -1,5 +1,5 @@
 /*
-Title: Example Dashboard
+Title: Example Course
 layout: course
 Subject: example content
 Keywords: 

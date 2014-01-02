@@ -91,6 +91,7 @@ class Pico_Dashboard {
     	// only bother doing this function for logged in users
         if (isset($_SESSION['authed']) && $_SESSION['authed']) {
 
+        	
         	// get the last page visited
         	// TODO: This can be made more efficient by reading backwards from the end of the file
         	$plugin_path = dirname(dirname(__FILE__));
@@ -98,7 +99,7 @@ class Pico_Dashboard {
         	$last = NULL;
         	if(($handle = fopen($plugin_path . '/log/' . $user . '.log', "r")) !== FALSE) {
         		while(($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-        			if(strcmp($data[0], '[HIT]') == 0 && preg_match('/^\/Example_Course\/(.*)$/', $data[2]) === 1) {
+        			if(strcmp($data[0], '[HIT]') == 0 && preg_match('/^\/' . str_replace(" ", "_", $this->coursename) .'\/(.*)$/', $data[2]) === 1) {
         				$last = $data[2];
         			}
         		}
@@ -107,17 +108,16 @@ class Pico_Dashboard {
         	if (isset($settings['base_url'])) {
             	$this->pathheader = $settings['base_url'];
         	}
-
         	if($last == NULL){
         		$last_page = "Visit a page in this course to see your bookmark here";
         	} else {
         		if(strcmp(substr($last, -1),"/") == 0) {
-        			preg_match('/.*\.(\w*)\/\z/', $last, $matches);
+        			preg_match('/.*\.(\w*)\/\z/', str_replace("-", "_", $last), $matches);
         			$chapter = $matches[1];
         			$chapter = '<a href=' . $this->pathheader . $last . '>' . $chapter . '</a>';
         			$last_page = 'You were last at the index of ' . $chapter;
         		} else {
-        			preg_match('/.*\.(\w*)\/\d+\.(\w*)\z/', $last, $matches);
+        			preg_match('/.*\.(\w*)\/\d+\.(\w*)\z/', str_replace("-", "_", $last), $matches);
         			$page = str_replace("_", " ", $matches[2]);
         			$chapter = str_replace("_", " ", $matches[1]);
         			$page = '<a href=' . $this->pathheader . $last . '>' . $page . '</a>';
