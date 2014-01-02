@@ -1,13 +1,13 @@
 <?php
 /**
- * Populates 'my_keywords' twig variable to contain all the keywords
- * found on the current page, seperated by delimiter ','
+ * Builds the course dashboard and populates it with cool
+ * graphs and data and stuff.
  *
- * @author Timothy Su
- * @link http://www.timofeo.com/
+ * @author Ben Overholts
+ * @link http://www.benoverholts.com/
  * @license http://opensource.org/licenses/MIT
  */
-/*
+
 class Pico_Dashboard {
 
 	public function plugins_loaded()
@@ -76,7 +76,6 @@ class Pico_Dashboard {
 	{
         if ($this->layout = 'course') {
             $twig_vars['current_page']['title'] = $this->coursename;
-            $this->authed = $twig_vars['authed'];
 		    $twig_vars['dashboard'] = $this->buildDash();
         }
 	}
@@ -87,15 +86,90 @@ class Pico_Dashboard {
 	}
 	
     private function buildDash() {
-        if ($this->authed) {
-            $dashCode = '<h1>' . $this->coursename . '</h1>';
+    	session_start();
+
+    	// only bother doing this function for logged in users
+        if (isset($_SESSION['authed']) && $_SESSION['authed']) {
+
+        	// get the last page visited
+        	// TODO: This can be made more efficient by reading backwards from the end of the file
+        	$plugin_path = dirname(dirname(__FILE__));
+        	$user = $_SESSION['username'];
+        	$last = NULL;
+        	if(($handle = fopen($plugin_path . '/log/' . $user . '.log', "r")) !== FALSE) {
+        		while(($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+        			if(strcmp($data[0], "[HIT]") == 0) {
+        				$last = $data[3];
+        			}
+        		}
+        	}
+        	if($last == NULL){
+        		$last_page = "Visit a page to see your last page here";
+        	} else {
+        		$last_page = "placeholder";
+        	}
+
+
+        	// build dashboard html
+        	$dashCode = '<div class="row">
+				<div class="col-md-12">' .
+					'<h3>Welcome to ' . $this->coursename . ', ' . $_SESSION['username'] . '</h3>' .
+				'</div>
+				<div class="col-md-12">
+					<div class="well">
+						<h4>' . $last_page . '</h4>
+						<h4>Hours spent per course & Number of tests taken/Average test score</h4>
+						<canvas id="myChart" width="300" height="400"></canvas><canvas id="myChart2" width="300" height="400"></canvas>
+					</div>
+				</div>
+			</div>
+			</div>
+			<script type="text/javascript">
+			var data = {
+			    labels : ["Biology", "Business", "Finance", "Physics", "Writing"],
+			    datasets : [
+			        {
+			            fillColor : "rgba(151,187,205,0.5)",
+			            strokeColor : "rgba(151,187,205,1)",
+			            pointColor : "rgba(151,187,205,1)",
+			            pointStrokeColor : "#fff",
+			            data : [35,55,120,34,88]
+			        }
+			    ]
+			}
+
+			var data2 = {
+			    labels : ["September", "October", "November"],
+			    datasets : [
+			        {
+			            fillColor : "rgba(220,220,220,0.5)",
+			            strokeColor : "rgba(220,220,220,1)",
+			            data : [15, 33, 8]
+			        },
+			        {
+			            fillColor : "rgba(151,187,205,0.5)",
+			            strokeColor : "rgba(151,187,205,1)",
+			            data : [80, 100, 60]
+			        }
+			    ]
+			}
+
+			var ctx = document.getElementById("myChart").getContext("2d");
+			var myNewChart = new Chart(ctx).Line(data);
+			var ctx2 = document.getElementById("myChart2").getContext("2d");
+			var myNewChart2 = new Chart(ctx2).Bar(data2);</script>';
+
+
         }
         else {
             $dashCode = '<div class="col-md-12"><div class="well"><h2>Please login to view course dashboard!</h2></div></div>';
         }
 
+        session_write_close();
+
         return $dashCode;
+        
     }
 }
-*/
+
 ?>
