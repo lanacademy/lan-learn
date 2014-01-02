@@ -195,7 +195,8 @@ class Pico_Quiz
             '<h2>
                 Problem '. $number .'
                 <span class="credit"> - '. $q['credit'] .' Point(s)</span>
-            </h2>' ;
+            </h2>
+            <p>' . $q['description'] . '</p>' ;
             if ($q['type'] == 'single'):
                 $result = $result . '<ul>';
                 for ($j = 0; $j < count($q['choices']); ++$j):
@@ -313,7 +314,117 @@ class Pico_Quiz
             //var_dump($q['answer']);
         }
         //var_dump($_POST);
-        $result = "You scored a " . $correctpts . "/" . $totalpts;
+        $result = "<h2><i>You scored a " . $correctpts . "/" . $totalpts . "</i></h2><br />";
+        $result = $result . $this->dump_gradedquiz();
         return $result;
+    }
+
+    private function dump_gradedquiz()
+    {
+        $quiz_full = 'quizzes/' . $id;
+        $specs = $this->quizcontent;
+        $cases_dir = $quiz_full . '/testcases';
+        $submit_dir = $quiz_full . '/submissions';
+        $quiz = $this->parse_quiz($specs);
+        global $title;
+        $title_split = explode(' ', $title);
+        $quiz_order = $title_split[0];
+        $quiz_title = substr($title, strlen($quiz_order));
+        for ($i = 0; $i < count($quiz['quizzes']); ++$i) {
+            $q = $quiz['quizzes'][$i];
+            $number = $i + 1;
+            $result = $result . 
+            '<h2>
+                Problem '. $number .'
+                <span class="credit"> - '. $q['credit'] .' Point(s)</span>
+            </h2>
+            <p>' . $q['description'] . '</p>' ;
+            if ($q['type'] == 'single'):
+                $result = $result . '<ul>';
+                for ($j = 0; $j < count($q['choices']); ++$j):
+                    $choice = $q['choices'][$j];
+                $correct = -1;
+                if (strpos($q['choices'][$j], "*") !== false) {
+                    $correct = $j;
+                }
+                if($j == $correct && isset($_POST["problem-" . $i]) && $_POST["problem-" . $i] == $j) {
+                        $result = $result .
+                    '<li>
+                        <label for="problem-'. $i .'-choice-'. $j .'">' . trim(substr($choice, 1, strlen($choice) - 1)) . '</label> <i>- Correct answer & Your answer</i>
+                    </li>';
+                }
+                else if($j == $correct) {
+                    $result = $result .
+                    '<li>
+                        <label for="problem-'. $i .'-choice-'. $j .'">' . trim(substr($choice, 1, strlen($choice) - 1)) . '</label> <i>- Correct answer</i>
+                    </li>';
+                }
+                else if(isset($_POST["problem-" . $i]) && $_POST["problem-" . $i] == $j)
+                {
+                    $result = $result .
+                    '<li>
+                        <label for="problem-'. $i .'-choice-'. $j .'">' . trim(substr($choice, 1, strlen($choice) - 1)) . '</label> <i>- Your answer</i>
+                    </li>';
+                }
+                else {
+                    $result = $result .
+                    '<li>
+                        <label for="problem-'. $i .'-choice-'. $j .'">' . trim(substr($choice, 1, strlen($choice) - 1)) . '</label>
+                    </li>';
+                }
+                endfor;
+                $result = $result . '</ul>';
+            elseif ($q['type'] == 'multiple'):
+                $result = $result . '<ul>';
+                for ($j = 0; $j < count($q['choices']); ++$j):
+                    $choice = $q['choices'][$j];
+                $correct = -1;
+                if (strpos($q['choices'][$j], "*") !== false) {
+                    $correct = 1;
+                }
+                if($correct == 1 && isset($_POST["problem-" . $i . "-choice-" . $j])) {
+                        $result = $result .
+                    '<li>
+                        <label for="problem-'. $i .'-choice-'. $j .'">' . trim(substr($choice, 1, strlen($choice) - 1)) . '</label> <i>- Correct answer & Your answer</i>
+                    </li>';
+                }
+                else if($correct == 1) {
+                    $result = $result .
+                    '<li>
+                        <label for="problem-'. $i .'-choice-'. $j .'">' . trim(substr($choice, 1, strlen($choice) - 1)) . '</label> <i>- Correct answer</i>
+                    </li>';
+                }
+                else if(isset($_POST["problem-" . $i . "-choice-" . $j]))
+                {
+                    $result = $result .
+                    '<li>
+                        <label for="problem-'. $i .'-choice-'. $j .'">' . trim(substr($choice, 1, strlen($choice) - 1)) . '</label> <i>- Your answer</i>
+                    </li>';
+                }
+                else {
+                    $result = $result .
+                    '<li>
+                        <label for="problem-'. $i .'-choice-'. $j .'">' . trim(substr($choice, 1, strlen($choice) - 1)) . '</label>
+                    </li>';
+                }
+                endfor;
+                $result = $result . '</ul>';
+            elseif ($q['type'] == 'text'):
+                $result = $result . '<textarea readonly="true"
+                class="text-editor"
+                id="problem-'. $i .'"
+                name="problem-'. $i .'">' . $_POST["problem-" . $i] .'</textarea><p><b>We were looking for the following word(s): ' . str_replace(',', ', ', $q["answer"]) . '</b></p><br /><br />';
+            elseif ($q['type'] == 'code'):
+                $result = $result . '<div
+                class="code-editor"
+                id="problem-'. $i .'"></div>
+                <script>
+                editor = ace.edit("problem-'. $i .'");
+                editor.setHighlightActiveLine(false);
+                editor.getSession().setMode("ace/mode/c_cpp");
+                </script>';
+            endif;
+        }
+    return $result;
     }
 }
