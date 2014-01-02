@@ -39,6 +39,9 @@ class Pico_Tracking {
             if (strpos($page, "/media/") !== false) {
                 exit;
             }
+            if (strpos($page, "/themes/") !== false) {
+                exit;
+            }
             $user = $twig_vars['username'];
             $data = "[HIT],";
             $data = $data . date('Y/m/d H:i:s');
