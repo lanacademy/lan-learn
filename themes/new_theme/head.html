@@ -36,9 +36,13 @@
     <script src="{{ theme_url }}/scripts/jquery.highlight.js"></script>
     {% if meta.layout == "content" %}
     <script src="{{ theme_url }}/scripts/pkWiki.js"></script>
+    <script src="{{ theme_url }}/scripts/wordsmith.js"></script>
     <script type="text/javascript">
     $(function() {
         $('#pane_read').pkwiki({loc: 'lib', keywords: "{{ my_keywords }}" });
+        $('#pane_read').wordsmith({
+            lookupUrl: 'http://library.kiwix.org/search?content=wikipedia_en_wp1&pattern={word}'
+        });
     });
     </script>
     {% endif %}
