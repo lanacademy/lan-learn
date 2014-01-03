@@ -104,7 +104,6 @@ class Pico_Dashboard {
         			}
         		}
         	}
-        	
         	if (isset($settings['base_url'])) {
             	$this->pathheader = $settings['base_url'];
         	}
@@ -125,6 +124,31 @@ class Pico_Dashboard {
         		}
         	}
 
+        	// build quizzes taken / average score graph
+        	$quiz_avg = array(); // indexed by months
+        	$quiz_count = array(); // indexed by months
+        	if(($handle = fopen($plugin_path . '/log/' . $user . '.log', "r")) !== FALSE) {
+        		while(($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+        			if(strcmp($data[0], '[SQZ]') == 0) {
+        				$month = date_parse_from_format('Y/m/d H:i:s', $data[1])['month'];
+        				preg_match('/(\d+)\/(\d+)/', $data[4], $matches);
+        				if(isset($quiz_count[$month])) {
+        					$quiz_count[$month] += 1;
+        				} else {
+        					$quiz_count[$month] = 1;
+        				}
+        				if(isset($quiz_avg[$month])) {
+        					$quiz_avg[$month] += $matches[1]/$matches[2];
+        				} else {
+        					$quiz_avg[$month] = $matches[1]/$matches[2];
+        				}
+        			}
+        		}
+        	}
+
+        	var_dump($quiz_avg);
+        	var_dump($quiz_count);
+
         	// build dashboard html
         	$dashCode = '<div class="row">
 				<div class="col-md-12">' .
@@ -133,7 +157,7 @@ class Pico_Dashboard {
 				<div class="col-md-12">
 					<div class="well">
 						<h4>' . $last_page . '</h4>
-						<h4>Hours spent per course & Number of tests taken/Average test score</h4>
+						<h4>Hours spent per course & Number of quizzes taken/Average quiz score</h4>
 						<canvas id="myChart" width="300" height="400"></canvas><canvas id="myChart2" width="300" height="400"></canvas>
 					</div>
 				</div>
