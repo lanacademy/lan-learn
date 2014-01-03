@@ -130,7 +130,8 @@ class Pico_Dashboard {
         	if(($handle = fopen($plugin_path . '/log/' . $user . '.log', "r")) !== FALSE) {
         		while(($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
         			if(strcmp($data[0], '[SQZ]') == 0) {
-        				$month = date_parse_from_format('Y/m/d H:i:s', $data[1])['month'];
+        				$month = date_parse_from_format('Y/m/d H:i:s', $data[1]);
+        				$month = $month['month'];
         				preg_match('/(\d+)\/(\d+)/', $data[4], $matches);
         				if(isset($quiz_count[$month])) {
         					$quiz_count[$month] += 1;
