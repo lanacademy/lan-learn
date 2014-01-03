@@ -35,12 +35,13 @@ if(isset($_SESSION['authed']) && $_SESSION['authed'] && strlen($_GET['score']) >
 	//}
 
 	$score = $_GET['score'];
+    $chapter = $_GET['chapter'];
     $page = $_GET['page'];
     $coursetitle = substr($page, strpos($page, "|") + 2, strlen($page));
     $pagetitle = substr($page, 0, strpos($page, "|") - 1);
 	$data = "[SQZ],";
 	$data = $data . date('Y/m/d H:i:s');
-	$data = $data . "," . $coursetitle . "," . $pagetitle . "," . $score . "\n";
+	$data = $data . "," . $coursetitle . "," . $chapter . "," . $pagetitle . "," . $score . "\n";
 
 	if (file_exists($plugin_path . '/log/' . $user . '.log')) {
 	    $data = file_get_contents($plugin_path . '/log/' . $user . '.log') . $data;
