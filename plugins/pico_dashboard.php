@@ -146,8 +146,10 @@ class Pico_Dashboard {
         		}
         	}
 
-        	var_dump($quiz_avg);
-        	var_dump($quiz_count);
+        	// build time spent by course graph
+
+        	//var_dump($quiz_avg);
+        	//var_dump($quiz_count);
 
         	// build dashboard html
         	$dashCode = '<div class="row">
@@ -178,17 +180,41 @@ class Pico_Dashboard {
 			}
 
 			var data2 = {
-			    labels : ["September", "October", "November"],
+			    labels : [';
+
+			   	// insert months for quiz grades graph
+			    foreach($quiz_avg as $key => $value) {
+			    	$dashCode = $dashCode . '"' . date("F", mktime(0, 0, 0, $key, 10)) . '", ';
+			    }
+			    $dashCode = rtrim($dashCode, ", ");
+
+			$dashCode = $dashCode . '],
 			    datasets : [
 			        {
 			            fillColor : "rgba(220,220,220,0.5)",
 			            strokeColor : "rgba(220,220,220,1)",
-			            data : [15, 33, 8]
+			            data : [';
+			        
+			    		// insert data for number of quizzes taken by month
+			            foreach($quiz_count as $value) {
+			            	$dashCode = $dashCode . $value . ',';
+			            }
+			            $dashCode = rtrim($dashCode, ",");
+
+			    $dashCode = $dashCode . ']
 			        },
 			        {
 			            fillColor : "rgba(151,187,205,0.5)",
 			            strokeColor : "rgba(151,187,205,1)",
-			            data : [80, 100, 60]
+			            data : [';
+
+			            // insert data for averages quiz grades by month
+			            foreach($quiz_avg as $key => $value) {
+			            	$dashCode = $dashCode . (($value / $quiz_count[$key])*100) . ',';
+			            }
+			            $dashCode = rtrim($dashCode, ",");
+
+			    $dashCode = $dashCode . ']
 			        }
 			    ]
 			}
