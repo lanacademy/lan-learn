@@ -88,6 +88,8 @@ class Pico_Dashboard {
     private function buildDash() {
     	session_start();
 
+    	$Fcoursename = str_replace(" ", "_", $this->coursename);
+
     	// only bother doing this function for logged in users
         if (isset($_SESSION['authed']) && $_SESSION['authed']) {
 
@@ -99,7 +101,7 @@ class Pico_Dashboard {
         	$last = NULL;
         	if(($handle = fopen($plugin_path . '/log/' . $user . '.log', "r")) !== FALSE) {
         		while(($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-        			if(strcmp($data[0], '[HIT]') == 0 && preg_match('/^\/' . str_replace(" ", "_", $this->coursename) .'\/(.*)$/', $data[2]) === 1) {
+        			if(strcmp($data[0], '[HIT]') == 0 && preg_match('/^\/' . $Fcoursename .'\/(.*)$/', $data[2]) === 1) {
         				$last = $data[2];
         			}
         		}
@@ -132,7 +134,7 @@ class Pico_Dashboard {
         			if(strcmp($data[0], '[SQZ]') == 0) {
         				$month = date_parse_from_format('Y/m/d H:i:s', $data[1]);
         				$month = $month['month'];
-        				preg_match('/(\d+)\/(\d+)/', $data[4], $matches);
+        				preg_match('/(\d+)\/(\d+)/', $data[5], $matches);
         				if(isset($quiz_count[$month])) {
         					$quiz_count[$month] += 1;
         				} else {
@@ -148,9 +150,77 @@ class Pico_Dashboard {
         	}
 
         	// build time spent by course graph
+        	// ! SQZ tagged lines are not read by this
+        	// ! Time for last page wont be included if user goes straight from page to course dashboard (needs to refresh)
+        	//		(not sure if this can be fixed in pico, may need to wait for phile implementation)
 
-        	//var_dump($quiz_avg);
-        	//var_dump($quiz_count);
+        	// this can probably be cleaned up logically
+
+        	$chapter_last_timestamp = NULL; // indexed by chapter, needed for cumulative summation.
+        	$prev_chapter = NULL;
+        	$make_set = FALSE;
+        	$chapter_time = array(); // indexed by chapter, number of seconds spent on each chapter.
+        	if(($handle = fopen($plugin_path . '/log/' . $user . '.log', "r")) !== FALSE) {
+        		while(($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+        			if(strcmp($data[0], '[HIT]') == 0) {
+        				if(preg_match('/\A\/(\w*)\/\d+\.(\w*).*/', $data[2], $matches) === 1 && strcmp($matches[1], $Fcoursename) == 0) {
+        					if($prev_chapter != NULL) {
+	        					if($make_set && (strtotime($data[1]) - $chapter_last_timestamp) < 900) {
+	        						if(isset($chapter_time[$prev_chapter])) {
+	        							//echo 'Added ' . (strtotime($data[1]) - $chapter_last_timestamp) . ' seconds to ' . $prev_chapter . "\n";
+										$chapter_time[$prev_chapter] = $chapter_time[$prev_chapter] + (strtotime($data[1]) - $chapter_last_timestamp);
+	        						} else {
+	        							//echo 'Added ' . (strtotime($data[1]) - $chapter_last_timestamp) . ' seconds to ' . $prev_chapter . " (init)\n";
+	        							$chapter_time[$prev_chapter] = (strtotime($data[1]) - $chapter_last_timestamp);
+	        						}
+	        					} elseif($make_set && (strtotime($data[1]) - $chapter_last_timestamp) > 900) {
+	        						if(isset($chapter_time[$prev_chapter])) {
+	        							//echo 'Added ' . 60 . ' seconds to ' . $prev_chapter . "\n";
+										$chapter_time[$prev_chapter] = $chapter_time[$prev_chapter] + 60;
+	        						} else {
+	        							//echo 'Added ' . 60 . ' seconds to ' . $prev_chapter . " (init)\n";
+	        							$chapter_time[$prev_chapter] = 60;
+	        						}
+	        					}
+	        					$prev_chapter = $matches[2];
+	        					$chapter_last_timestamp = strtotime($data[1]);
+	        					$make_set = TRUE;
+	        				} else {
+	        					$prev_chapter = $matches[2];
+	        					$chapter_last_timestamp = strtotime($data[1]);
+	        					$make_set = TRUE;
+	        				}
+        				} else {
+        					if($prev_chapter != NULL) {
+	        					if($make_set && (strtotime($data[1]) - $chapter_last_timestamp) < 900) {
+	        						if(isset($chapter_time[$prev_chapter])) {
+	        							//echo 'Added ' . (strtotime($data[1]) - $chapter_last_timestamp) . ' seconds to ' . $prev_chapter . "\n";
+										$chapter_time[$prev_chapter] = $chapter_time[$prev_chapter] + (strtotime($data[1]) - $chapter_last_timestamp);
+	        						} else {
+	        							//echo 'Added ' . (strtotime($data[1]) - $chapter_last_timestamp) . ' seconds to ' . $prev_chapter . " (init)\n";
+	        							$chapter_time[$prev_chapter] = (strtotime($data[1]) - $chapter_last_timestamp);
+	        						}
+	        					} elseif($make_set && (strtotime($data[1]) - $chapter_last_timestamp) > 900) {
+	        						if(isset($chapter_time[$prev_chapter])) {
+	        							//echo 'Added ' . 60 . ' seconds to ' . $prev_chapter . "\n";
+										$chapter_time[$prev_chapter] = $chapter_time[$prev_chapter] + 60;
+	        						} else {
+	        							//echo 'Added ' . 60 . ' seconds to ' . $prev_chapter . " (init)\n";
+	        							$chapter_time[$prev_chapter] = 60;
+	        						}
+	        					}
+	        					$make_set = FALSE;
+	        				}  else {
+	        					$prev_chapter = $matches[2];
+	        					$chapter_last_timestamp = strtotime($data[1]);
+	        					$make_set = TRUE;
+	        				}
+        				}
+        			}
+        		}
+        	}
+
+			var_dump($chapter_time);   	
 
         	// build dashboard html
         	$dashCode = '<div class="row">
