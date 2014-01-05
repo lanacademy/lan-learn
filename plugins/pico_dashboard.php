@@ -218,9 +218,7 @@ class Pico_Dashboard {
         				}
         			}
         		}
-        	}
-
-			var_dump($chapter_time);   	
+        	}  	
 
         	// build dashboard html
         	$dashCode = '<div class="row">
@@ -230,7 +228,7 @@ class Pico_Dashboard {
 				<div class="col-md-12">
 					<div class="well">
 						<h4>' . $last_page . '</h4>
-						<h4>Hours spent per course & Number of quizzes taken/Average quiz score</h4>
+						<h4>Hours spent per chapter & Number of quizzes taken/Average quiz score</h4>
 						<canvas id="myChart" width="300" height="400"></canvas><canvas id="myChart2" width="300" height="400"></canvas>
 					</div>
 				</div>
@@ -238,14 +236,28 @@ class Pico_Dashboard {
 			</div>
 			<script type="text/javascript">
 			var data = {
-			    labels : ["Biology", "Business", "Finance", "Physics", "Writing"],
+			    labels : [';
+
+			    // insert chapter names for time by chapter graph
+			    foreach($chapter_time as $key => $value) {
+			    	$dashCode = $dashCode . '"' . $key . '", ';
+			    }
+			    $dashCode = rtrim($dashCode, ", ");
+
+
+			    $dashCode = $dashCode . '],
 			    datasets : [
 			        {
 			            fillColor : "rgba(151,187,205,0.5)",
 			            strokeColor : "rgba(151,187,205,1)",
-			            pointColor : "rgba(151,187,205,1)",
-			            pointStrokeColor : "#fff",
-			            data : [35,55,120,34,88]
+			            data : [';
+
+			            foreach($chapter_time as $key => $value) {
+			            	$dashCode = $dashCode . ($value/360) . ', ';
+			            }
+			            $dashCode = rtrim($dashCode, ', ');
+
+			            $dashCode = $dashCode . ']
 			        }
 			    ]
 			}
@@ -259,7 +271,7 @@ class Pico_Dashboard {
 			    }
 			    $dashCode = rtrim($dashCode, ", ");
 
-			$dashCode = $dashCode . '],
+				$dashCode = $dashCode . '],
 			    datasets : [
 			        {
 			            fillColor : "rgba(220,220,220,0.5)",
@@ -268,9 +280,9 @@ class Pico_Dashboard {
 			        
 			    		// insert data for number of quizzes taken by month
 			            foreach($quiz_count as $value) {
-			            	$dashCode = $dashCode . $value . ',';
+			            	$dashCode = $dashCode . $value . ', ';
 			            }
-			            $dashCode = rtrim($dashCode, ",");
+			            $dashCode = rtrim($dashCode, ", ");
 
 			    $dashCode = $dashCode . ']
 			        },
@@ -281,9 +293,9 @@ class Pico_Dashboard {
 
 			            // insert data for averages quiz grades by month
 			            foreach($quiz_avg as $key => $value) {
-			            	$dashCode = $dashCode . (($value / $quiz_count[$key])*100) . ',';
+			            	$dashCode = $dashCode . (($value / $quiz_count[$key])*100) . ', ';
 			            }
-			            $dashCode = rtrim($dashCode, ",");
+			            $dashCode = rtrim($dashCode, ", ");
 
 			    $dashCode = $dashCode . ']
 			        }
@@ -291,7 +303,7 @@ class Pico_Dashboard {
 			}
 
 			var ctx = document.getElementById("myChart").getContext("2d");
-			var myNewChart = new Chart(ctx).Line(data);
+			var myNewChart = new Chart(ctx).Bar(data);
 			var ctx2 = document.getElementById("myChart2").getContext("2d");
 			var myNewChart2 = new Chart(ctx2).Bar(data2);</script>';
 
