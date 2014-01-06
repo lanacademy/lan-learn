@@ -228,14 +228,23 @@ class Pico_Dashboard {
 				<div class="col-md-12">
 					<div class="well">
 						<h4>' . $last_page . '</h4>
-						<h4>Hours spent per chapter & Number of quizzes taken/Average quiz score</h4>
-						<canvas id="myChart" width="300" height="400"></canvas><canvas id="myChart2" width="300" height="400"></canvas>
-					</div>
+						<h4>Hours spent per chapter & Number of quizzes taken/Average quiz score</h4>';
+						if(count($chapter_time) > 0) {
+							$dashCode = $dashCode . '<canvas id="myChart" width="300" height="400"></canvas>';
+						} else {
+							$dashCode = $dashCode . '<h5>Start working to see statistics here [graph1]</h5>';
+						}
+						if(count($quiz_avg) > 0) {
+							$dashCode = $dashCode . '<canvas id="myChart2" width="300" height="400"></canvas>';
+						} else {
+							$dashCode = $dashCode . '<h5>Start working to see statistics here [graph2]</h5>';
+						}
+					$dashCode = $dashCode . '</div>
 				</div>
 			</div>
 			</div>
 			<script type="text/javascript">
-			var data = {
+			var time_by_chapter = {
 			    labels : [';
 
 			    // insert chapter names for time by chapter graph
@@ -262,7 +271,7 @@ class Pico_Dashboard {
 			    ]
 			}
 
-			var data2 = {
+			var quiz_by_month = {
 			    labels : [';
 
 			   	// insert months for quiz grades graph
@@ -303,9 +312,16 @@ class Pico_Dashboard {
 			}
 
 			var ctx = document.getElementById("myChart").getContext("2d");
-			var myNewChart = new Chart(ctx).Bar(data);
+			var myNewChart = new Chart(ctx).Bar(time_by_chapter);
 			var ctx2 = document.getElementById("myChart2").getContext("2d");
-			var myNewChart2 = new Chart(ctx2).Bar(data2);</script>';
+			var myNewChart2 = new Chart(ctx2).';
+			if(count($quiz_avg) > 1) {
+				$dashCode = $dashCode . 'Line';
+			} else {
+				$dashCode = $dashCode . 'Bar';
+			}
+
+			$dashCode = $dashCode . '(quiz_by_month);</script>';
 
 
         }
