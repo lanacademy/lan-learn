@@ -60,7 +60,7 @@
 				</ul>
 			</div>
 			<div id="page-content-wrapper">
-				<div class="content-header">
+				<div class="content-header" style="padding-left:5%;">
 				<a id="menu-toggle" href="#" class="btn btn-default" name="menu-toggle"></a>
 				<h1> {{ current_page.title }}</h1>
 				</div> 
@@ -71,7 +71,7 @@
 			{% elseif meta.layout == "content" %} 
 				{{ include('two_pane_content.html') }}
 			{% else %} 
-			<div class="well">
+			<div class="padding">
 				{{ content }}
 			</div>
 			{% endif %}	

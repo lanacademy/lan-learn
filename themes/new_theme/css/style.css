@@ -23,12 +23,12 @@
 }
 
 .sidebar-nav > .sidebar-brand h3 a{
-  color: #000000;
+  color: #FFF;
   text-decoration: none;
 }
 
 .sidebar-nav > .sidebar-brand h3 a:hover{
-  color: #000000;
+  color: #FFF;
   text-decoration: none;
 }
 
@@ -55,7 +55,7 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  background:#7292E2;
+  background:#595F69;
 }
 
 .sidebar-nav li {
@@ -257,9 +257,9 @@ width: 175px;
     font-size: 1.2em;
     margin: 5px;
 }
-.sibling_nav a:hover {
-    text-decoration: none;
-    background: rgb(173, 177, 196);
+.sibling_nav.pager a:hover {
+    text-decoration: underline;
+    background: rgb(104, 106, 117);
 }
 iframe {
     width: 100%;
@@ -274,4 +274,10 @@ iframe {
     cursor: pointer;
     text-decoration: underline;
     color: #333;
+}
+.nav-tabs{
+	border-top:1px solid #888;
+}
+#mce_32 {
+display: none;
 }
