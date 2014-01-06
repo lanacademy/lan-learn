@@ -150,7 +150,7 @@ class Pico_Dashboard {
         	$quiz_count_c = array(); // indexed by chapter
         	if(($handle = fopen($plugin_path . '/log/' . $user . '.log', "r")) !== FALSE) {
         		while(($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-        			if(strcmp($data[0], '[SQZ]') == 0) {
+        			if(strcmp($data[0], '[SQZ]') == 0 && strcmp($data[2], $this->coursename) == 0) {
         				$month = date_parse_from_format('Y/m/d H:i:s', $data[1]);
         				$month = $month['month'];
         				preg_match('/(\d+)\/(\d+)/', $data[5], $matches);
@@ -247,8 +247,6 @@ class Pico_Dashboard {
 	        					}
 	        					$make_set = FALSE;
 	        				}  else {
-	        					$prev_chapter = $matches[2];
-	        					$chapter_last_timestamp = strtotime($data[1]);
 	        					$make_set = TRUE;
 	        				}
         				}
