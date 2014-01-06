@@ -93,16 +93,31 @@ class Pico_Dashboard {
     	// only bother doing this function for logged in users
         if (isset($_SESSION['authed']) && $_SESSION['authed']) {
 
+        	// NOTE: theoretically, all of the data collection routines in this function
+        	// could be implemented in one iteration over the log file.  This might streamline
+        	// the process a bit but its still linear time either way.
         	
-        	// get the last page visited
+        	// get the last page visited and page clicks per chapter
         	// TODO: This can be made more efficient by reading backwards from the end of the file
         	$plugin_path = dirname(dirname(__FILE__));
         	$user = $_SESSION['username'];
         	$last = NULL;
+        	$wiki_count = array(); // indexed by chapter
         	if(($handle = fopen($plugin_path . '/log/' . $user . '.log', "r")) !== FALSE) {
         		while(($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
         			if(strcmp($data[0], '[HIT]') == 0 && preg_match('/^\/' . $Fcoursename .'\/(.*)$/', $data[2]) === 1) {
         				$last = $data[2];
+        			}
+        			if(strcmp($data[0], '[WIK]') == 0) {
+        				if($last != NULL) {
+        					preg_match('/\/' . $Fcoursename . '\/(\d+)\.(\w*)\/.*/', $last, $matches);
+        					$last_chapter = $matches[2];
+        					if(isset($wiki_count[$matches[2]])) {
+        						$wiki_count[$matches[2]] += 1;
+        					} else {
+        						$wiki_count[$matches[2]] = 1;
+        					}
+        				}
         			}
         		}
         	}
@@ -237,7 +252,7 @@ class Pico_Dashboard {
         				}
         			}
         		}
-        	}  	
+        	} 
 
         	// build dashboard html
         	$dashCode = '<div class="row">
@@ -247,7 +262,7 @@ class Pico_Dashboard {
 				<div class="col-md-12">
 					<div class="well">
 						<h4>' . $last_page . '</h4>
-						<h4>Hours spent per chapter [graph1] & Number of quizzes taken/Average quiz score by month [graph2] & by chapter [graph3]</h4>';
+						<h4>Hours spent per chapter [graph1] & Number of quizzes taken/Average quiz score by month [graph2] & by chapter [graph3] & wiki clicks by chapter [graph4]</h4>';
 						if(count($chapter_time) > 0) {
 							$dashCode = $dashCode . '<canvas id="myChart" width="300" height="400"></canvas>';
 						} else {
@@ -262,6 +277,11 @@ class Pico_Dashboard {
 							$dashCode = $dashCode . '<canvas id="myChart3" width="300" height="400"></canvas>';
 						} else {
 							$dashCode = $dashCode . '<h5>Start working to see statistics here [graph3]</h5>';
+						}
+						if(count($wiki_count) > 0) {
+							$dashCode = $dashCode . '<canvas id="myChart4" width="300" height="400"></canvas>';
+						} else {
+							$dashCode = $dashCode . '<h5>Start working to see statistics here [graph4]</h5>';
 						}
 					$dashCode = $dashCode . '</div>
 				</div>
@@ -287,6 +307,33 @@ class Pico_Dashboard {
 
 			            foreach($chapter_time as $key => $value) {
 			            	$dashCode = $dashCode . ($value/360) . ', ';
+			            }
+			            $dashCode = rtrim($dashCode, ', ');
+
+			            $dashCode = $dashCode . ']
+			        }
+			    ]
+			}
+
+			var wiki_by_chapter = {
+			    labels : [';
+
+			    // insert chapter names for time by chapter graph
+			    foreach($wiki_count as $key => $value) {
+			    	$dashCode = $dashCode . '"' . $key . '", ';
+			    }
+			    $dashCode = rtrim($dashCode, ", ");
+
+
+			    $dashCode = $dashCode . '],
+			    datasets : [
+			        {
+			            fillColor : "rgba(151,187,205,0.5)",
+			            strokeColor : "rgba(151,187,205,1)",
+			            data : [';
+
+			            foreach($wiki_count as $key => $value) {
+			            	$dashCode = $dashCode . $value . ', ';
 			            }
 			            $dashCode = rtrim($dashCode, ', ');
 
@@ -387,8 +434,17 @@ class Pico_Dashboard {
 
 			$dashCode = $dashCode . '(quiz_by_month);
 			var ctx3 = document.getElementById("myChart3").getContext("2d");
-			var myNewChart3 = new Chart(ctx3).Bar(quiz_by_chapter);</script>';
+			var myNewChart3 = new Chart(ctx3).Bar(quiz_by_chapter);
+			var ctx4 = document.getElementById("myChart4").getContext("2d");
+			var myNewChart4 = new Chart(ctx4).';
+			if(count($wiki_count) > 1) {
+				$dashCode = $dashCode . 'Line(wiki_by_chapter)';
+			} else {
+				$dashCode = $dashCode . 'Bar(wiki_by_chapter,{scaleOverride: true, scaleStepWidth: 1, scaleSteps: ';
+				$dashCode = $dashCode . (int)(count($wiki_count) + 4) . '}';
+			}
 
+			$dashCode = $dashCode . ');</script>';
 
         }
         else {
