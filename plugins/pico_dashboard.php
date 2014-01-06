@@ -88,6 +88,8 @@ class Pico_Dashboard {
     private function buildDash() {
     	session_start();
 
+    	$wiki_baseurl = "http://en.wikipedia.org/wiki/";
+
     	$Fcoursename = str_replace(" ", "_", $this->coursename);
 
     	// only bother doing this function for logged in users
@@ -252,7 +254,20 @@ class Pico_Dashboard {
         				}
         			}
         		}
-        	} 
+        	}
+
+        	// build the last 10 wiki hits
+        	$file = file($plugin_path . '/log/' . $user . '.log');
+        	$file = array_reverse($file);
+        	$wiki_words = array();
+        	$count = 0;
+        	foreach($file as $line) {
+        		$line = explode(",", $line);
+        		if(strcmp($line[0], '[WIK]') == 0 && $count < 10) {
+        			$wiki_words[$count] = $line[2];
+        			$count += 1;
+        		}
+        	}
 
         	// build dashboard html
         	$dashCode = '<div class="row">
@@ -282,6 +297,11 @@ class Pico_Dashboard {
 							$dashCode = $dashCode . '<canvas id="myChart4" width="300" height="400"></canvas>';
 						} else {
 							$dashCode = $dashCode . '<h5>Start working to see statistics here [graph4]</h5>';
+						}
+
+						$dashCode = $dashCode . '<h4>Last 10 Keywords Clicked</h4>';
+						for($i = 0; $i < 10; $i ++) {
+							$dashCode = $dashCode . '<h5><a href=' . $wiki_baseurl . $wiki_words[$i] . ' target="_blank">' . $wiki_words[$i] . '</a></h5>';
 						}
 					$dashCode = $dashCode . '</div>
 				</div>
