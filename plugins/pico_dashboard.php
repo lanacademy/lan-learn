@@ -126,25 +126,44 @@ class Pico_Dashboard {
         		}
         	}
 
-        	// build quizzes taken / average score graph
-        	$quiz_avg = array(); // indexed by months
-        	$quiz_count = array(); // indexed by months
+        	// build quizzes taken / average score graphs
+        	$quiz_avg_m = array(); // indexed by months
+        	$quiz_avg_c = array(); // indexed by chapter
+        	$quiz_count_m = array(); // indexed by months
+        	$quiz_count_c = array(); // indexed by chapter
         	if(($handle = fopen($plugin_path . '/log/' . $user . '.log', "r")) !== FALSE) {
         		while(($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
         			if(strcmp($data[0], '[SQZ]') == 0) {
         				$month = date_parse_from_format('Y/m/d H:i:s', $data[1]);
         				$month = $month['month'];
         				preg_match('/(\d+)\/(\d+)/', $data[5], $matches);
-        				if(isset($quiz_count[$month])) {
-        					$quiz_count[$month] += 1;
-        				} else {
-        					$quiz_count[$month] = 1;
-        				}
-        				if(isset($quiz_avg[$month])) {
-        					$quiz_avg[$month] += $matches[1]/$matches[2];
-        				} else {
-        					$quiz_avg[$month] = $matches[1]/$matches[2];
-        				}
+        				preg_match('/\w*/', $data[4], $match);
+        				$chapter = $match[0];
+        				// need to make sure aborted quizzes dont cause division by 0
+        				if($matches[2] != 0) { // this might be unsafe, not sure what happens if the regex doesnt match (should never happen though)
+	        				if(isset($quiz_count_m[$month])) {
+	        					$quiz_count_m[$month] += 1;
+	        				} else {
+	        					$quiz_count_m[$month] = 1;
+	        				}
+	        				if(isset($quiz_avg_m[$month])) {
+	        					$quiz_avg_m[$month] += $matches[1]/$matches[2];
+	        				} else {
+	        					$quiz_avg_m[$month] = $matches[1]/$matches[2];
+	        				}
+
+		        			if(isset($quiz_count_c[$chapter])) {
+		        				$quiz_count_c[$chapter] += 1;
+		        			} else {
+		        				$quiz_count_c[$chapter] = 1;
+		        			}
+		        			if(isset($quiz_avg_c[$chapter])) {
+		        				$quiz_avg_c[$chapter] += $matches[1]/$matches[2];
+		        			} else {
+	        					$quiz_avg_c[$chapter] = $matches[1]/$matches[2];
+	        				}
+
+		        		}
         			}
         		}
         	}
@@ -228,16 +247,21 @@ class Pico_Dashboard {
 				<div class="col-md-12">
 					<div class="well">
 						<h4>' . $last_page . '</h4>
-						<h4>Hours spent per chapter & Number of quizzes taken/Average quiz score</h4>';
+						<h4>Hours spent per chapter [graph1] & Number of quizzes taken/Average quiz score by month [graph2] & by chapter [graph3]</h4>';
 						if(count($chapter_time) > 0) {
 							$dashCode = $dashCode . '<canvas id="myChart" width="300" height="400"></canvas>';
 						} else {
 							$dashCode = $dashCode . '<h5>Start working to see statistics here [graph1]</h5>';
 						}
-						if(count($quiz_avg) > 0) {
+						if(count($quiz_avg_m) > 0) {
 							$dashCode = $dashCode . '<canvas id="myChart2" width="300" height="400"></canvas>';
 						} else {
 							$dashCode = $dashCode . '<h5>Start working to see statistics here [graph2]</h5>';
+						}
+						if(count($quiz_avg_c) > 0) {
+							$dashCode = $dashCode . '<canvas id="myChart3" width="300" height="400"></canvas>';
+						} else {
+							$dashCode = $dashCode . '<h5>Start working to see statistics here [graph3]</h5>';
 						}
 					$dashCode = $dashCode . '</div>
 				</div>
@@ -275,7 +299,7 @@ class Pico_Dashboard {
 			    labels : [';
 
 			   	// insert months for quiz grades graph
-			    foreach($quiz_avg as $key => $value) {
+			    foreach($quiz_avg_m as $key => $value) {
 			    	$dashCode = $dashCode . '"' . date("F", mktime(0, 0, 0, $key, 10)) . '", ';
 			    }
 			    $dashCode = rtrim($dashCode, ", ");
@@ -288,7 +312,7 @@ class Pico_Dashboard {
 			            data : [';
 			        
 			    		// insert data for number of quizzes taken by month
-			            foreach($quiz_count as $value) {
+			            foreach($quiz_count_m as $value) {
 			            	$dashCode = $dashCode . $value . ', ';
 			            }
 			            $dashCode = rtrim($dashCode, ", ");
@@ -301,8 +325,48 @@ class Pico_Dashboard {
 			            data : [';
 
 			            // insert data for averages quiz grades by month
-			            foreach($quiz_avg as $key => $value) {
-			            	$dashCode = $dashCode . (($value / $quiz_count[$key])*100) . ', ';
+			            foreach($quiz_avg_m as $key => $value) {
+			            	$dashCode = $dashCode . (($value / $quiz_count_m[$key])*100) . ', ';
+			            }
+			            $dashCode = rtrim($dashCode, ", ");
+
+			    $dashCode = $dashCode . ']
+			        }
+			    ]
+			}
+
+			var quiz_by_chapter = {
+				labels : [';
+
+			   	// insert months for quiz grades graph
+			    foreach($quiz_avg_c as $key => $value) {
+			    	$dashCode = $dashCode . '"' . $key . '", ';
+			    }
+			    $dashCode = rtrim($dashCode, ", ");
+
+				$dashCode = $dashCode . '],
+			    datasets : [
+			        {
+			            fillColor : "rgba(220,220,220,0.5)",
+			            strokeColor : "rgba(220,220,220,1)",
+			            data : [';
+			        
+			    		// insert data for number of quizzes taken by month
+			            foreach($quiz_count_c as $value) {
+			            	$dashCode = $dashCode . $value . ', ';
+			            }
+			            $dashCode = rtrim($dashCode, ", ");
+
+			    $dashCode = $dashCode . ']
+			        },
+			        {
+			            fillColor : "rgba(151,187,205,0.5)",
+			            strokeColor : "rgba(151,187,205,1)",
+			            data : [';
+
+			            // insert data for averages quiz grades by month
+			            foreach($quiz_avg_c as $key => $value) {
+			            	$dashCode = $dashCode . (($value / $quiz_count_c[$key])*100) . ', ';
 			            }
 			            $dashCode = rtrim($dashCode, ", ");
 
@@ -315,13 +379,15 @@ class Pico_Dashboard {
 			var myNewChart = new Chart(ctx).Bar(time_by_chapter);
 			var ctx2 = document.getElementById("myChart2").getContext("2d");
 			var myNewChart2 = new Chart(ctx2).';
-			if(count($quiz_avg) > 1) {
+			if(count($quiz_avg_m) > 1) {
 				$dashCode = $dashCode . 'Line';
 			} else {
 				$dashCode = $dashCode . 'Bar';
 			}
 
-			$dashCode = $dashCode . '(quiz_by_month);</script>';
+			$dashCode = $dashCode . '(quiz_by_month);
+			var ctx3 = document.getElementById("myChart3").getContext("2d");
+			var myNewChart3 = new Chart(ctx3).Bar(quiz_by_chapter);</script>';
 
 
         }
