@@ -49,7 +49,7 @@ class Pico_Register
             $postGrade     = $_POST['grade'];
             $postName      = $_POST['name'];
             if (isset($postUsername) && isset($postPassword) && isset($postPassword2) && isset($postGrade) && isset($postName)) {
-                if (!preg_match('/^[A-Za-z_\-0-9]/', $postUsername)) {
+                if (!preg_match('/\A[A-Za-z_\-0-9]\z/', $postUsername)) {
                     $twig_vars['register_error'] = 'Make sure username only consists of alphanumeric characters and underscores.';
                     $twig_vars['username']    = $postUsername;
                     $twig_vars['grade']       = $postGrade;
