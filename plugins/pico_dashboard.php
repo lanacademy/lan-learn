@@ -209,7 +209,7 @@ class Pico_Dashboard {
 	        							//echo 'Added ' . (strtotime($data[1]) - $chapter_last_timestamp) . ' seconds to ' . $prev_chapter . " (init)\n";
 	        							$chapter_time[$prev_chapter] = (strtotime($data[1]) - $chapter_last_timestamp);
 	        						}
-	        					} elseif($make_set && (strtotime($data[1]) - $chapter_last_timestamp) > 900) {
+	        					} elseif($make_set && (strtotime($data[1]) - $chapter_last_timestamp) >= 900) {
 	        						if(isset($chapter_time[$prev_chapter])) {
 	        							//echo 'Added ' . 60 . ' seconds to ' . $prev_chapter . "\n";
 										$chapter_time[$prev_chapter] = $chapter_time[$prev_chapter] + 60;
@@ -236,7 +236,7 @@ class Pico_Dashboard {
 	        							//echo 'Added ' . (strtotime($data[1]) - $chapter_last_timestamp) . ' seconds to ' . $prev_chapter . " (init)\n";
 	        							$chapter_time[$prev_chapter] = (strtotime($data[1]) - $chapter_last_timestamp);
 	        						}
-	        					} elseif($make_set && (strtotime($data[1]) - $chapter_last_timestamp) > 900) {
+	        					} elseif($make_set && (strtotime($data[1]) - $chapter_last_timestamp) >= 900) {
 	        						if(isset($chapter_time[$prev_chapter])) {
 	        							//echo 'Added ' . 60 . ' seconds to ' . $prev_chapter . "\n";
 										$chapter_time[$prev_chapter] = $chapter_time[$prev_chapter] + 60;
@@ -441,7 +441,12 @@ class Pico_Dashboard {
 			}
 
 			var ctx = document.getElementById("myChart").getContext("2d");
-			var myNewChart = new Chart(ctx).Bar(time_by_chapter);
+			var myNewChart = new Chart(ctx).Bar(time_by_chapter';
+			if(count($time_by_chapter) <= 1) {
+				$dashCode = $dashCode . ',{scaleOverride: true, scaleStepWidth: 1, scaleSteps: ';
+				$dashCode = $dashCode . (int)(count($wiki_count) + 1) . '}';
+			}
+			$dashCode = $dashCode . ');
 			var ctx2 = document.getElementById("myChart2").getContext("2d");
 			var myNewChart2 = new Chart(ctx2).';
 			if(count($quiz_avg_m) > 1) {
