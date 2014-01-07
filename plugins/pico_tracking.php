@@ -28,6 +28,7 @@ class Pico_Tracking {
     
 	public function before_render(&$twig_vars, &$twig)
 	{
+        //var_dump($page);
 		if ($twig_vars['authed'] && $this->tracking) {
             $page = $_SERVER['REQUEST_URI'];
             if (strpos($page, ".map") !== false) {

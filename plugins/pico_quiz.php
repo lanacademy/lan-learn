@@ -316,6 +316,7 @@ class Pico_Quiz
         //var_dump($_POST);
         $result = "<h2><i>You scored a " . $correctpts . "/" . $totalpts . "</i></h2><br />";
         $result = $result . $this->dump_gradedquiz();
+        //var_dump($result);
         return $result;
     }
 
