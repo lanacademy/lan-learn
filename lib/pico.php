@@ -210,7 +210,8 @@ class Pico {
 	 */
 	private function get_pages($base_url, $order_by = 'alpha', $order = 'asc', $excerpt_length = 50)
 	{
-        if (!file_exists(ROOT_DIR . '/lib/cache/pagescache.out') || filemtime(ROOT_DIR . '/lib/cache/pagescache.out')/60 < 30) {
+        clearstatcache();
+        if (!file_exists(ROOT_DIR . '/lib/cache/pagescache.out') || filemtime(ROOT_DIR . '/lib/cache/pagescache.out')/60 >= 30) {
           global $config;
 
           $pages = $this->get_files(CONTENT_DIR, CONTENT_EXT);
