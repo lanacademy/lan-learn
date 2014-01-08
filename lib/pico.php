@@ -210,13 +210,13 @@ class Pico {
 	 */
 	private function get_pages($base_url, $order_by = 'alpha', $order = 'asc', $excerpt_length = 50)
 	{
-        //clearstatcache();
-        //if (!file_exists(ROOT_DIR . '/lib/cache/pagescache.out') || (time() - filemtime(ROOT_DIR . '/lib/cache/pagescache.out')) >= 1800) {
+        clearstatcache();
+        if (!file_exists(ROOT_DIR . '/lib/cache/pagescache.out') || (time() - filemtime(ROOT_DIR . '/lib/cache/pagescache.out')) >= 1800) {
         	global $config;
 
         	$pages = $this->get_files(CONTENT_DIR, CONTENT_EXT);
-        	var_dump(CONTENT_DIR);
-        	var_dump($pages);
+        	//var_dump(CONTENT_DIR);
+        	//var_dump($pages);
         	$sorted_pages = array();
         	$date_id = 0;
         	foreach($pages as $key=>$page){
@@ -263,12 +263,12 @@ class Pico {
 	        if($order == 'desc') krsort($sorted_pages);
 	        else ksort($sorted_pages);
 
-	        //file_put_contents(ROOT_DIR . '/lib/cache/pagescache.out', serialize($sorted_pages));
+	        file_put_contents(ROOT_DIR . '/lib/cache/pagescache.out', serialize($sorted_pages));
 	        return $sorted_pages;
-    	//}
-    	//else {
-        //	return unserialize(file_get_contents(ROOT_DIR . '/lib/cache/pagescache.out'));
-    	//}
+    	}
+    	else {
+        	return unserialize(file_get_contents(ROOT_DIR . '/lib/cache/pagescache.out'));
+    	}
 	}
 	
 	/**
