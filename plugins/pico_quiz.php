@@ -54,6 +54,13 @@ class Pico_Quiz
     
     public function content_parsed(&$content)
     {
+    	// not sure the best place to do this so doing it here
+    	session_start();
+        if (isset($_SESSION['authed']) && $_SESSION['authed']) {
+        	$user = $_SESSION['username'];
+		}
+		session_write_close();
+
         if ($this->type == 'quiz' && !isset($_GET['grade']) && $_GET['grade'] != 1) {
             $content = $this->dump_quiz();
         }
@@ -158,6 +165,7 @@ class Pico_Quiz
         return $struct;
     }
     
+    // can delete this??
     private function dump_quiz_summary($id)
     {
         $quiz_full  = 'quizzes/' . $id;
@@ -172,6 +180,16 @@ class Pico_Quiz
     
     private function dump_quiz()
     {
+    	if(file_exists($this->log_path . $user . '_quiz.xml')) {
+
+    		$xml = simplexml_load_file($this->log_path . $user . '_quiz.xml');
+    		foreach($xml->quiz as $quiz) {
+    			if($quiz['id'] == $id) {
+    				return "<h4>You already took this quiz</h4>";
+    			}
+    		}
+    		// will eventually display previous attempt here
+    	}
         $htmlcode = $this->dump_quizhelper();
         return $htmlcode;
     } // function dump_quiz
@@ -263,24 +281,15 @@ class Pico_Quiz
         $correctpts = 0.0;
         $totalpts = 0;
 
-        session_start();
+        // load the completed quiz into xml
+        if(file_exists($this->log_path . $user . '_quiz.xml')) {
+        	$xml_log = simplexml_load_file($this->log_path . $user . '_quiz.xml');
+        	$xml = $xml_log->addChild('quiz');
+        } else {
+        	$xml = new SimpleXMLElement('<quiz></quiz>');
+    	}
+        $xml->addAttribute('id', $id);
 
-        if (isset($_SESSION['authed']) && $_SESSION['authed']) {
-
-        	$user = $_SESSION['username'];
-
-	        // load the completed quiz into xml
-	        if(file_exists($this->log_path . $user . '_quiz.xml')) {
-	        	$xml_log = simplexml_load_file($this->log_path . $user . '_quiz.xml');
-	        	$xml = $xml_log->addChild('quiz');
-	        } else {
-	        	$xml = new SimpleXMLElement('<quiz></quiz>');
-	    	}
-	        $xml->addAttribute('id', $id);
-
-	    } else {
-	    	// some kind of error here, tim decide how you want to handle this
-	    }
 
         // processing each question
         for ($i = 0; $i < count($quiz['quizzes']); ++$i) {
