@@ -1,6 +1,10 @@
-.login{
-  width:}
-
+.dashlogin {
+    margin: 50px 0px;
+    background-color: #DEE0E4;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+}
 #wrapper {
   padding-left: 302px;
   transition: all 0.4s ease 0s;
