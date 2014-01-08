@@ -1,10 +1,18 @@
 .dashlogin {
-    margin: 50px 0px;
-    background-color: #DEE0E4;
-    padding: 10px;
-    border-radius: 10px;
-    text-align: center;
+margin: 10px 0px;
+	background: rgb(197, 227, 241);
+	padding: 50px 10px;
+	border-radius: 1px;
+	text-align: center;
 }
+.dashboard-charts>.row>.col-md-6{
+	min-height:550px;
+}
+.keywd{
+	min-height:300px;
+}
+
+
 #wrapper {
   padding-left: 302px;
   transition: all 0.4s ease 0s;
@@ -214,30 +222,33 @@
 }
 
 #loginform {
-width: 175px;
-     padding-bottom: 2px;
-     padding-left: 5px;
-
-    display:none;
-
-
+	width: 250px;
+	padding:5px;
+	display:none;
     background: #FFF;
-        border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
-        box-shadow: 0px 0px 4px rgba(0,0,0,0.7); -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.7); -moz-box-shadow: 0 0px 4px rgba(0,0,0,0.7);
+	border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
+	box-shadow: 4px 4px 7px rgba(0,0,0,0.3); -webkit-box-shadow: 4px 4px 7px rgba(0,0,0,0.3); -moz-box-shadow: 4px 4px 7px rgba(0,0,0,0.3);
+	border: 2px solid rgb(70, 70, 70);
 }
 
 #registerform {
-width: 175px;
-     padding-bottom: 2px;
-     padding-left: 5px;
-
-    display:none;
-
-
+	width: 250px;
+	padding:5px;
+	display:none;
     background: #FFF;
-        border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
-        box-shadow: 0px 0px 4px rgba(0,0,0,0.7); -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.7); -moz-box-shadow: 0 0px 4px rgba(0,0,0,0.7);
+	border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
+	box-shadow: 4px 4px 7px rgba(0,0,0,0.3); -webkit-box-shadow: 4px 4px 7px rgba(0,0,0,0.3); -moz-box-shadow: 4px 4px 7px rgba(0,0,0,0.3);
+	border: 2px solid rgb(70, 70, 70);
 }
+
+#loginform>form{
+	padding:40px;
+}
+
+#registerform>form{
+	padding:40px;
+}
+
 #at-navigation>#nav2 {
     padding: 0px;
     margin: 0px;

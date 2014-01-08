@@ -127,7 +127,7 @@ class Pico_Dashboard {
             	$this->pathheader = $settings['base_url'];
         	}
         	if($last == NULL){
-        		$last_page = "Visit a page in this course to see your bookmark here";
+        		$last_page = "Last page visited (None yet!)";
         	} else {
         		if(strcmp(substr($last, -1),"/") == 0) {
         			preg_match('/.*\.(\w*)\/\z/', str_replace("-", "_", $last), $matches);
@@ -270,38 +270,50 @@ class Pico_Dashboard {
         	// build dashboard html
         	$dashCode = '<div class="row">
 				<div class="col-md-12">' .
-					'<h3>Welcome to ' . $this->coursename . ', ' . $_SESSION['username'] . '</h3>' .
+					'<h3>Welcome back, ' . $_SESSION['username'] . '!</h3>' .
 				'</div>
 				<div class="col-md-12">
-					<div class="well">
-						<h4>' . $last_page . '</h4>
-						<h4>Hours spent per chapter [graph1] & Number of quizzes taken/Average quiz score by month [graph2] & by chapter [graph3] & wiki clicks by chapter [graph4]</h4>';
+					<div class="dashboard-charts">
+						<h5>' . $last_page . '</h5>';
+						$dashCode = $dashCode . '<div class="row">
+							<div class="col-md-6">
+						<h5>Hours spend per Chapter</h5>';
 						if(count($chapter_time) > 0) {
 							$dashCode = $dashCode . '<canvas id="myChart" width="300" height="400"></canvas>';
 						} else {
-							$dashCode = $dashCode . '<h5>Start working to see statistics here [graph1]</h5>';
+							$dashCode = $dashCode . '<span>No data yet!</span>';
 						}
+						$dashCode = $dashCode . '</div>
+							<div class="col-md-6">
+						<h5>Quizzes Taken/Average Score</h5>';
 						if(count($quiz_avg_m) > 0) {
 							$dashCode = $dashCode . '<canvas id="myChart2" width="300" height="400"></canvas>';
 						} else {
-							$dashCode = $dashCode . '<h5>Start working to see statistics here [graph2]</h5>';
+							$dashCode = $dashCode . '<span>No data yet!</span>';
 						}
+						$dashCode = $dashCode . '</div>
+							<div class="col-md-6">
+							<h5>Quizzes Taken per Chapter</h5>';
 						if(count($quiz_avg_c) > 0) {
 							$dashCode = $dashCode . '<canvas id="myChart3" width="300" height="400"></canvas>';
 						} else {
-							$dashCode = $dashCode . '<h5>Start working to see statistics here [graph3]</h5>';
+							$dashCode = $dashCode . '<span>No data yet!</span>';
 						}
+						$dashCode = $dashCode . '</div>
+							<div class="col-md-6">
+							<h5>Keyword Links Explored per Chapter</h5>';
 						if(count($wiki_count) > 0) {
 							$dashCode = $dashCode . '<canvas id="myChart4" width="300" height="400"></canvas>';
 						} else {
-							$dashCode = $dashCode . '<h5>Start working to see statistics here [graph4]</h5>';
+							$dashCode = $dashCode . '<span>No data yet!</span>';
 						}
-
-						$dashCode = $dashCode . '<h4>Last 10 Keywords Clicked</h4>';
+						$dashCode = $dashCode . '</div>
+							</div>';
+						$dashCode = $dashCode . '<h4>Last 10 Keyword Links Explored</h4><div class=keywd>';
 						for($i = 0; $i < 10; $i ++) {
 							$dashCode = $dashCode . '<h5><a href=' . $wiki_baseurl . $wiki_words[$i] . ' target="_blank">' . $wiki_words[$i] . '</a></h5>';
 						}
-					$dashCode = $dashCode . '</div>
+					$dashCode = $dashCode . '</div></div>
 				</div>
 			</div>
 			</div>
@@ -471,7 +483,7 @@ class Pico_Dashboard {
 
         }
         else {
-            $dashCode = '<div class="dashlogin"><h2>You are currently not logged into  LAN Academy  <a id="go" rel="leanModal" name="loginform" class="btn btn-default right" href="#loginform">Login</a></h2></div>';
+            $dashCode = '<div class="col-md-9 col-md-offset-1"><div class="dashlogin"><h3>Please log in or register to see your dashboard<br><br><a id="go" rel="leanModal" name="loginform" class="btn btn-default right" href="#loginform">Login</a><a id="go" rel="leanModal" name="registerform" class="btn btn-default right" href="#registerform">Register</a></h3></div></div>';
         }
 
         session_write_close();
