@@ -255,12 +255,13 @@ class Pico {
             }
             else {
                 $sorted_pages[] = $data;
-                $sorted_pages = asort($sorted_pages);
             }
         }
 
         if($order == 'desc') krsort($sorted_pages);
         else ksort($sorted_pages);
+
+        array_multisort($sorted_pages);
         file_put_contents(ROOT_DIR . '/lib/cache/pagescache.out', serialize($sorted_pages));
         return $sorted_pages;
     }
