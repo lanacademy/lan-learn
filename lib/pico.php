@@ -336,6 +336,7 @@ class Pico {
 	        }
 	        closedir($handle);
 	    }
+        asort($array_items);
 	    return $array_items;
 	}
 	
