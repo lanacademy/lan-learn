@@ -325,25 +325,40 @@ class Pico {
 	 */ 
 	private function get_files($directory, $ext = '')
 	{
-	    $array_items = array();
-	    if($handle = opendir($directory)){
-            $wtf = scandir($directory);
-	        foreach ($wtf as $file) {
-	            if(preg_match("/^(^\.)/", $file) === 0){
-	                if(is_dir($directory. "/" . $file)){
-	                    $array_items = array_merge($array_items, $this->get_files($directory. "/" . $file, $ext));
-	                } else {
-	                    $file = $directory . "/" . $file;
-	                    if(!$ext || strstr($file, $ext)) {
-                            $array_items[] = preg_replace("/\/\//si", "/", $file);
-                        }
-	                }
-	            }
-	        }
-	        closedir($handle);
-	    }
-        return $array_items;
+       $array_items = array();
+       if($handle = opendir($directory)){
+        $wtf = scandir($directory);
+        $directories = array();
+        $files_list  = array();
+        foreach($wtf as $file){
+         if(($file != '.') && ($file != '..')){
+          if(is_dir($directory.'/'.$file)){
+           $directories[]  = $file;
+
+       }else{
+           $files_list[]    = $file;
+
+            }
+        }
     }
+    $wtf = array_merge($directories, $files_list);
+    //var_dump($wtf);
+    foreach ($wtf as $file) {
+        if(preg_match("/^(^\.)/", $file) === 0){
+            if(is_dir($directory. "/" . $file)){
+                $array_items = array_merge($array_items, $this->get_files($directory. "/" . $file, $ext));
+            } else {
+                $file = $directory . "/" . $file;
+                if(!$ext || strstr($file, $ext)) {
+                    $array_items[] = preg_replace("/\/\//si", "/", $file);
+                }
+            }
+        }
+    }
+closedir($handle);
+}
+return $array_items;
+}
 
 	/**
 	 * Helper function to limit the words in a string
