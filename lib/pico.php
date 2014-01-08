@@ -254,8 +254,8 @@ class Pico {
                 $date_id++;
             }
             else {
-                $data = asort($data);
                 $sorted_pages[] = $data;
+                $sorted_pages = asort($sorted_pages);
             }
         }
 
