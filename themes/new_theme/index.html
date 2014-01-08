@@ -53,7 +53,11 @@
 							<div id="quizArea"></div>
 						</div>
 						<div id="notes" class="tab-pane fade">
+                        {% if authed == true %}
 							{{ include('notes.html') }}
+                        {% else %}
+                            Please login to use notes!
+                        {% endif %}
 						</div>
                         </div>
 					</li>
