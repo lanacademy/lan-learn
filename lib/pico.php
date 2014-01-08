@@ -253,7 +253,10 @@ class Pico {
                 $sorted_pages[$page_meta['date'].$date_id] = $data;
                 $date_id++;
             }
-            else $sorted_pages[] = $data;
+            else {
+                $data = asort($data);
+                $sorted_pages[] = $data;
+            }
         }
 
         if($order == 'desc') krsort($sorted_pages);
@@ -336,9 +339,6 @@ class Pico {
 	        }
 	        closedir($handle);
 	    }
-        var_dump($array_items);
-        asort($array_items);
-        var_dump($array_items);
 	    return $array_items;
 	}
 	
