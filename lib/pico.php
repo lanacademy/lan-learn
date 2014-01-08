@@ -261,7 +261,6 @@ class Pico {
         if($order == 'desc') krsort($sorted_pages);
         else ksort($sorted_pages);
 
-        var_dump($sorted_pages);
         file_put_contents(ROOT_DIR . '/lib/cache/pagescache.out', serialize($sorted_pages));
         return $sorted_pages;
     }
@@ -340,6 +339,7 @@ class Pico {
 	        }
 	        closedir($handle);
 	    }
+        sort($array_items);
 	    return $array_items;
 	}
 	
