@@ -261,7 +261,7 @@ class Pico {
         if($order == 'desc') krsort($sorted_pages);
         else ksort($sorted_pages);
 
-        array_multisort($sorted_pages);
+        var_dump($sorted_pages);
         file_put_contents(ROOT_DIR . '/lib/cache/pagescache.out', serialize($sorted_pages));
         return $sorted_pages;
     }
