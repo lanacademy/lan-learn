@@ -9,7 +9,11 @@
 *
 */
 
-$name = $_GET['user'];
+session_start();
+
+if(isset($_SESSION['authed']) && $_SESSION['authed']) {
+
+$name = $_SESSION['username'];
 $ext = '-notes.xml';
 
 if($_GET['method'] == 'saveNotes'){
@@ -55,7 +59,8 @@ if($_GET['method'] == 'getNotes'){
 	}
 	echo json_encode($noteset);
 }
+}
 
-
+session_write_close();
 
 ?>
