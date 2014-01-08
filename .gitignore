@@ -4,5 +4,5 @@ phpinfo.php
 plugins/pkwiki_service/*.xml
 record.xml
 plugins/pknote_service/*.xml
-content/*
+#content/*
 *.xml
