@@ -333,13 +333,15 @@ class Pico {
 	                    $array_items = array_merge($array_items, $this->get_files($directory. "/" . $file, $ext));
 	                } else {
 	                    $file = $directory . "/" . $file;
-	                    if(!$ext || strstr($file, $ext)) $array_items[] = preg_replace("/\/\//si", "/", $file);
+	                    if(!$ext || strstr($file, $ext)) {
+                            $array_items[] = preg_replace("/\/\//si", "/", $file);
+                            sort($array_items);
+                        }
 	                }
 	            }
 	        }
 	        closedir($handle);
 	    }
-        sort($array_items);
 	    return $array_items;
 	}
 	
