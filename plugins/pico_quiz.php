@@ -15,6 +15,8 @@ class Pico_Quiz
     public function __construct()
     {
         $plugin_path       = dirname(__FILE__);
+        $parent_path       = dirname(dirname(__FILE__));
+        $this->log_path    = $parent_path . '/log/';
         $this->path        = $plugin_path;
         $this->small_cases = array(
             'a',
@@ -260,10 +262,35 @@ class Pico_Quiz
         $quiz = $this->parse_quiz($specs);
         $correctpts = 0.0;
         $totalpts = 0;
+
+        session_start();
+
+        if (isset($_SESSION['authed']) && $_SESSION['authed']) {
+
+        	$user = $_SESSION['username'];
+
+	        // load the completed quiz into xml
+	        if(file_exists($this->log_path . $user . '_quiz.xml')) {
+	        	$xml_log = simplexml_load_file($this->log_path . $user . '_quiz.xml');
+	        	$xml = $xml_log->addChild('quiz');
+	        } else {
+	        	$xml = new SimpleXMLElement('<quiz></quiz>');
+	    	}
+	        $xml->addAttribute('id', $id);
+
+	    } else {
+	    	// some kind of error here, tim decide how you want to handle this
+	    }
+
+        // processing each question
         for ($i = 0; $i < count($quiz['quizzes']); ++$i) {
+        	$xml->addChild('question', "");
+        	$xml->question[$i]->addAttribute('number', $i);
             $q = $quiz['quizzes'][$i];
             $totalpts += $q['credit'];
             if ($q['type'] == "single") {
+            	$xml->question[$i]->addAttribute('type', 'single');
+            	$xml->question[$i] = $_POST["problem-" . $i];
                 for ($n = 0; $n < count($q['choices']); ++$n) {
                     if (strpos($q['choices'][$n], "*") !== false) {
                         $correct = $n;
@@ -274,7 +301,11 @@ class Pico_Quiz
                 }
             }
             else if($q['type'] == "multiple") {
+            	$xml->question[$i]->addAttribute('type', 'multiple');
                 for ($n = 0; $n < count($q['choices']); ++$n) {
+
+                	$xml->question[$i]->addChild('choice', $_POST["problem-" . $i . "-choice-" . $n]);
+
                     if (strpos($q['choices'][$n], "*") !== false) {
                         $correctarray[$n] = 1;
                     }
@@ -300,6 +331,8 @@ class Pico_Quiz
                 }
             }
             else if($q['type'] == "text") {
+            	$xml->question[$i]->addAttribute('type', 'text');
+            	$xml->question[$i] = $_POST["problem-" . $i];
                 $wordarray = explode(',', $q['answer']);
                 $nummatches = 0;
                 for ($n = 0; $n < count($wordarray); ++$n) {
@@ -312,10 +345,16 @@ class Pico_Quiz
             }
             //var_dump($q['choices']);
             //var_dump($q['answer']);
+            //var_dump($_POST);
         }
         //var_dump($_POST);
         $result = "<h2><i>You scored a " . $correctpts . "/" . $totalpts . "</i></h2><br />";
         $result = $result . $this->dump_gradedquiz();
+
+        $xml->asXML($this->log_path . $user . '_quiz.xml');
+
+        session_write_close();
+
         //var_dump($result);
         return $result;
     }
@@ -426,6 +465,7 @@ class Pico_Quiz
                 </script>';
             endif;
         }
-    return $result;
+
+        return $result;
     }
 }
