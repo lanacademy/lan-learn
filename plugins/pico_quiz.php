@@ -193,11 +193,17 @@ class Pico_Quiz
     {
     	if(file_exists($this->log_path . '/tests/' . $this->user . '_' . $this->chapter . '_quiz.xml')) {
 			// call a thing that loads the xml and fakes POST
-    		return "<h4>You already took this quiz</h4>";
+    		//$this->xml_quiz_loader();
+    		return '<h4>You already took this quiz</h4>';
     	}
         $htmlcode = $this->dump_quizhelper();
         return $htmlcode;
     } // function dump_quiz
+
+    //private function xml_quiz_loader()
+    //{
+
+    //}
 
     private function dump_quizhelper()
     {
