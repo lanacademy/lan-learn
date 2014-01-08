@@ -330,7 +330,7 @@ class Pico {
 	        while(false !== ($file = readdir($handle))){
 	            if(preg_match("/^(^\.)/", $file) === 0){
 	                if(is_dir($directory. "/" . $file)){
-	                    asort($array_items) = array_merge($array_items, $this->get_files($directory. "/" . $file, $ext));
+	                    $array_items = array_merge($array_items, $this->get_files($directory. "/" . $file, $ext));
 	                } else {
 	                    $file = $directory . "/" . $file;
 	                    if(!$ext || strstr($file, $ext)) $array_items[] = preg_replace("/\/\//si", "/", $file);
