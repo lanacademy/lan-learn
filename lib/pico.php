@@ -327,7 +327,8 @@ class Pico {
 	{
 	    $array_items = array();
 	    if($handle = opendir($directory)){
-	        while(false !== ($file = readdir($handle))){
+            $wtf = scandir($directory);
+	        foreach ($wtf as $file) {
 	            if(preg_match("/^(^\.)/", $file) === 0){
 	                if(is_dir($directory. "/" . $file)){
 	                    $array_items = array_merge($array_items, $this->get_files($directory. "/" . $file, $ext));
@@ -341,12 +342,9 @@ class Pico {
 	        }
 	        closedir($handle);
 	    }
-        var_dump($array_items);
-        asort($array_items);
-        var_dump($array_items);
-	    return $array_items;
-	}
-	
+        return $array_items;
+    }
+
 	/**
 	 * Helper function to limit the words in a string
 	 *
