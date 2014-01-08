@@ -36,11 +36,13 @@ class Pico_Quiz
     public function config_loaded(&$settings)
     {
         $this->theme = $settings['theme'];
+        $this->config = $settings;
     }
     
     public function file_meta(&$meta)
     {
         $this->type = $meta['layout'];
+        $this->meta = $meta;
     }
     
     public function before_load_content(&$file)
@@ -57,9 +59,14 @@ class Pico_Quiz
     	// not sure the best place to do this so doing it here
     	session_start();
         if (isset($_SESSION['authed']) && $_SESSION['authed']) {
-        	$user = $_SESSION['username'];
+        	$this->user = $_SESSION['username'];
 		}
 		session_write_close();
+
+		// Hardcoded because this isnt even relevant yet
+		// Better things to do then figure this out
+		$this->chapter = 'Human_Origins';
+
 
         if ($this->type == 'quiz' && !isset($_GET['grade']) && $_GET['grade'] != 1) {
             $content = $this->dump_quiz();
@@ -68,6 +75,10 @@ class Pico_Quiz
             $content = $this->grade_quiz();
         }
     }
+
+    //private function get_chapter() {
+    	
+    //}
     
     private function trim_str_array($str_array)
     {
@@ -180,15 +191,9 @@ class Pico_Quiz
     
     private function dump_quiz()
     {
-    	if(file_exists($this->log_path . $user . '_quiz.xml')) {
-
-    		$xml = simplexml_load_file($this->log_path . $user . '_quiz.xml');
-    		foreach($xml->quiz as $quiz) {
-    			if($quiz['id'] == $id) {
-    				return "<h4>You already took this quiz</h4>";
-    			}
-    		}
-    		// will eventually display previous attempt here
+    	if(file_exists($this->log_path . '/tests/' . $this->user . '_' . $this->chapter . '_quiz.xml')) {
+			// call a thing that loads the xml and fakes POST
+    		return "<h4>You already took this quiz</h4>";
     	}
         $htmlcode = $this->dump_quizhelper();
         return $htmlcode;
@@ -282,14 +287,7 @@ class Pico_Quiz
         $totalpts = 0;
 
         // load the completed quiz into xml
-        if(file_exists($this->log_path . $user . '_quiz.xml')) {
-        	$xml_log = simplexml_load_file($this->log_path . $user . '_quiz.xml');
-        	$xml = $xml_log->addChild('quiz');
-        } else {
-        	$xml = new SimpleXMLElement('<quiz></quiz>');
-    	}
-        $xml->addAttribute('id', $id);
-
+       	$xml = new SimpleXMLElement('<quiz></quiz>');
 
         // processing each question
         for ($i = 0; $i < count($quiz['quizzes']); ++$i) {
@@ -360,12 +358,26 @@ class Pico_Quiz
         $result = "<h2><i>You scored a " . $correctpts . "/" . $totalpts . "</i></h2><br />";
         $result = $result . $this->dump_gradedquiz();
 
-        $xml->asXML($this->log_path . $user . '_quiz.xml');
+        $xml->asXML($this->log_path . '/tests/' . $this->user . '_' . $this->chapter . '_quiz.xml');
 
         session_write_close();
 
+        $this->log_to_tracker($correctpts, $totalpts);
+
         //var_dump($result);
         return $result;
+    }
+
+    private function log_to_tracker($correctpts, $totalpts) {
+    	$coursename = $this->config['site_title'];
+    	$data = '[CHT],';
+    	$data = $data . date('Y/m/d H:i:s');
+    	$data = $data . ',' . $coursename . ',' . $this->chapter;
+    	$data = $data . ',' . $correctpts . '/' . $totalpts . "\n";
+    	if (file_exists($this->log_path . $this->user . '.log')) {
+            $data = file_get_contents($this->log_path . $this->user . '.log') . $data;
+        }
+        file_put_contents($this->log_path . $this->user . '.log', $data);
     }
 
     private function dump_gradedquiz()
