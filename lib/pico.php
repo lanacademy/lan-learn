@@ -331,11 +331,11 @@ class Pico {
 	            if(preg_match("/^(^\.)/", $file) === 0){
 	                if(is_dir($directory. "/" . $file)){
 	                    $array_items = array_merge($array_items, $this->get_files($directory. "/" . $file, $ext));
+                        sort($array_items);
 	                } else {
 	                    $file = $directory . "/" . $file;
 	                    if(!$ext || strstr($file, $ext)) {
                             $array_items[] = preg_replace("/\/\//si", "/", $file);
-                            sort($array_items);
                         }
 	                }
 	            }
