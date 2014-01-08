@@ -212,62 +212,62 @@ class Pico {
 	{
         clearstatcache();
         if (!file_exists(ROOT_DIR . '/lib/cache/pagescache.out') || (time() - filemtime(ROOT_DIR . '/lib/cache/pagescache.out')) >= 1800) {
-          global $config;
+        	global $config;
 
-          $pages = $this->get_files(CONTENT_DIR, CONTENT_EXT);
-          $sorted_pages = array();
-          $date_id = 0;
-          foreach($pages as $key=>$page){
-			// Skip 404
-             if(basename($page) == '404'. CONTENT_EXT){
-                unset($pages[$key]);
-                continue;
-            }
+        	$pages = $this->get_files(CONTENT_DIR, CONTENT_EXT);
+        	$sorted_pages = array();
+        	$date_id = 0;
+        	foreach($pages as $key=>$page){
+				// Skip 404
+            	if(basename($page) == '404'. CONTENT_EXT){
+                	unset($pages[$key]);
+                	continue;
+            	}
 
-			// Ignore Emacs (and Nano) temp files
-            if (in_array(substr($page, -1), array('~','#'))) {
-                unset($pages[$key]);
-                continue;
-            }			
-			// Get title and format $page
-            $page_content = file_get_contents($page);
-            $page_meta = $this->read_file_meta($page_content);
-            $page_content = $this->parse_content($page_content);
-            $url = str_replace(CONTENT_DIR, $base_url .'/', $page);
-            $url = str_replace('index'. CONTENT_EXT, '', $url);
-            $url = str_replace(CONTENT_EXT, '', $url);
-            $data = array(
-                'title' => isset($page_meta['title']) ? $page_meta['title'] : '',
-                'url' => $url,
-                'author' => isset($page_meta['author']) ? $page_meta['author'] : '',
-                'date' => isset($page_meta['date']) ? $page_meta['date'] : '',
-                'date_formatted' => isset($page_meta['date']) ? date($config['date_format'], strtotime($page_meta['date'])) : '',
-                'content' => $page_content,
-                'excerpt' => $this->limit_words(strip_tags($page_content), $excerpt_length)
-                );
+				// Ignore Emacs (and Nano) temp files
+            	if (in_array(substr($page, -1), array('~','#'))) {
+                	unset($pages[$key]);
+                	continue;
+            	}			
+				// Get title and format $page
+	            $page_content = file_get_contents($page);
+	            $page_meta = $this->read_file_meta($page_content);
+	            $page_content = $this->parse_content($page_content);
+	            $url = str_replace(CONTENT_DIR, $base_url .'/', $page);
+	            $url = str_replace('index'. CONTENT_EXT, '', $url);
+	            $url = str_replace(CONTENT_EXT, '', $url);
+	            $data = array(
+	                'title' => isset($page_meta['title']) ? $page_meta['title'] : '',
+	                'url' => $url,
+	                'author' => isset($page_meta['author']) ? $page_meta['author'] : '',
+	                'date' => isset($page_meta['date']) ? $page_meta['date'] : '',
+	                'date_formatted' => isset($page_meta['date']) ? date($config['date_format'], strtotime($page_meta['date'])) : '',
+	                'content' => $page_content,
+	                'excerpt' => $this->limit_words(strip_tags($page_content), $excerpt_length)
+	                );
 
-			// Extend the data provided with each page by hooking into the data array
-            $this->run_hooks('get_page_data', array(&$data, $page_meta));
+				// Extend the data provided with each page by hooking into the data array
+	            $this->run_hooks('get_page_data', array(&$data, $page_meta));
 
-            if($order_by == 'date' && isset($page_meta['date'])){
-                $sorted_pages[$page_meta['date'].$date_id] = $data;
-                $date_id++;
-            }
-            else {
-                $sorted_pages[] = $data;
-            }
-        }
+	            if($order_by == 'date' && isset($page_meta['date'])){
+	                $sorted_pages[$page_meta['date'].$date_id] = $data;
+	                $date_id++;
+	            }
+	            else {
+	                $sorted_pages[] = $data;
+	            }
+        	}
 
-        if($order == 'desc') krsort($sorted_pages);
-        else ksort($sorted_pages);
+	        if($order == 'desc') krsort($sorted_pages);
+	        else ksort($sorted_pages);
 
-        file_put_contents(ROOT_DIR . '/lib/cache/pagescache.out', serialize($sorted_pages));
-        return $sorted_pages;
-    }
-    else {
-        return unserialize(file_get_contents(ROOT_DIR . '/lib/cache/pagescache.out'));
-    }
-}
+	        file_put_contents(ROOT_DIR . '/lib/cache/pagescache.out', serialize($sorted_pages));
+	        return $sorted_pages;
+    	}
+    	else {
+        	return unserialize(file_get_contents(ROOT_DIR . '/lib/cache/pagescache.out'));
+    	}
+	}
 	
 	/**
 	 * Processes any hooks and runs them
@@ -340,7 +340,7 @@ class Pico {
 	        	}
     		}
 	    	$wtf = array_merge($directories, $files_list);
-	    	var_dump($wtf);
+	    	//var_dump($wtf);
 	    	foreach ($wtf as $file) {
 	        	if(preg_match("/^(^\.)/", $file) === 0){
 	            	if(is_dir($directory. "/" . $file)){
@@ -355,6 +355,7 @@ class Pico {
 	    	}
 			closedir($handle);
 		}
+		var_dump($array_items);
 		return $array_items;
 	}
 
