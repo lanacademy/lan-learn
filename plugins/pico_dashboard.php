@@ -471,7 +471,7 @@ class Pico_Dashboard {
 
         }
         else {
-            $dashCode = '<div class="dashboardlogin"><h2>You are currently not logged into  LAN Academy  <a id="go" rel="leanModal" name="loginform" class="btn btn-default right" href="#loginform">Login</a></h2></div>';
+            $dashCode = '<div class="dashlogin"><h2>You are currently not logged into  LAN Academy  <a id="go" rel="leanModal" name="loginform" class="btn btn-default right" href="#loginform">Login</a></h2></div>';
         }
 
         session_write_close();
