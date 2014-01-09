@@ -5,3 +5,6 @@ plugins/pkwiki_service/*.xml
 record.xml
 plugins/pknote_service/*.xml
 *.xml
+!keywords.xml
+content/*
+!content/World_History/*
