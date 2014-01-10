@@ -1,0 +1,14 @@
+<form method="post" action="">
+   {% if login_error %}<p class="error">{{ login_error }}</p>{% endif %}
+   <input type="text" name="username" id="username" placeholder="Username" value="{{ username }}"/>
+   <input type="password" name="password" id="password" placeholder="Password"/>
+   <input type="password" name="password2" id="password2" placeholder="Confirm Password"/>
+   <select name="grade" id="grade">
+   <option value="9">9</option>
+   <option value="10">10</option>
+   <option value="11">11</option>
+   <option value="12">12</option>
+   </select>
+   <input type="text" name="name" id="name" placeholder="Full Name"/>
+   <input class="alignright" type="submit" value="Register" />
+</form>

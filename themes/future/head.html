@@ -1,0 +1,84 @@
+<head>
+    <meta charset="utf-8" />
+    
+    <title>{% if meta.title %}{{ meta.title }} | {% endif %}{{ site_title }}</title>
+
+	<!--Styles-->
+    <link rel="stylesheet" href="{{ theme_url }}/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="{{ theme_url }}/css/bootstrap.css" type="text/css" />
+    
+    <!-- 1. jquery library -->
+    <script src="{{ theme_url }}/scripts/jquery.min.js"></script>
+    <script src="{{ theme_url }}/scripts/bootstrap.js"></script>
+    <script src="{{ theme_url }}/scripts/modernizr-2.6.1.min.js"></script>
+    <script src="{{ theme_url }}/scripts/tinymce/tinymce.min.js"></script>
+    <script src="{{ theme_url }}/scripts/Chart.min.js"></script>
+   
+	<!-- Log in -->
+    {% if authed == false %}
+    <script src="{{ theme_url }}/scripts/jquery.leanModal.min.js"></script>
+    <script type="text/javascript">
+            $(function() {
+                $('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".modal_close" });       
+            });
+    </script>
+    {% endif %}
+
+	<!--For Exams, not currently functional-->
+   {% if meta.layout == "quiz" %}
+    <script src="{{ theme_url }}/scripts/ace.js"></script>
+    <link rel="stylesheet" href="{{ theme_url }}/css/quiz.css" type="text/css" />
+    {% endif %} 
+    
+<!-- Javascript for content pages only -->
+    <script src="{{ theme_url }}/scripts/jQuizMe-2.2.1.js"></script>
+    <link rel="stylesheet" href="{{ theme_url }}/css/jQuizMe.css" type="text/css" />	
+    <script src="{{ theme_url }}/scripts/jquery.highlight.js"></script>
+    {% if meta.layout == "content" %}
+    <script src="{{ theme_url }}/scripts/pkWiki.js"></script>
+    <script src="{{ theme_url }}/scripts/wordsmith.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        $('#pane_read').pkwiki({loc: 'lib', keywords: "{{ my_keywords }}" });
+        $('#pane_read').wordsmith({
+            lookupUrl: 'http://library.kiwix.org/search?content=wikipedia_en_wp1&pattern={word}'
+        });
+    });
+    </script>
+    {% endif %}
+
+	<!-- Menu functionality-->
+	<script type="text/javascript">
+      $(document).ready(function(){ 
+          $('#at-navigation > ul').hoverAccordion({ 
+              keepHeight: false, 
+              speed: 'fast',
+              onClickOnly: false
+          });    
+      });
+  	</script>
+	
+    	<!-- 2. flowplayer  -->
+        {% if meta.layout == "content" %}
+   	 	<script src="{{ theme_url }}/scripts/flowplayer.min.js"></script>
+        {% endif %}
+   	 	<link rel="stylesheet" href="{{ theme_url }}/css/functional.css">
+  	  	<script src="{{ theme_url }}/scripts/jquery.hoveraccordion.js"></script>
+  	 
+	
+	<!--Notes-->
+    {{include(template_from_string(common_theme_header))}}
+    <link rel="stylesheet" href="{{ theme_url }}/css/notes.css">
+  
+    <script type="text/javascript">
+            $(document).ready(function(){
+                var x = window.location.hash.substr(1);
+                if (x == 'displaylogin') {
+                    $('a[href=#loginform]').trigger("click");
+                }
+                if (x == 'displayregister') {
+                    $('a[href=#registerform]').trigger("click");
+                }
+            });
+    </script>
+</head>

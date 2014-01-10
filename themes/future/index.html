@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+		{{ include('head.html') }}
+		<body>
+		{{ include('login_register.html') }}
+		<div id="wrapper">
+			<div id="sidebar-wrapper">		
+				<ul class="sidebar-nav">
+					<li class="sidebar-brand">
+						<h3>
+							<a href="{{ coursehomelink }}" title="{{ site_title }}">{{ site_title }}</a>
+						</h3>
+					</li>
+                    <div class="nav btn-group stuff nav-tabs" id="navitab" data-tabs="navitab">
+                            <a href="#user" data-toggle="user" class="btn btn-stuff" role="button">Home</a>
+                            <a class="btn btn-stuff" href="#nav" data-toggle="quiz" role="button">Nav</a>
+                            <a class="btn btn-stuff" href="#quiz" data-toggle="quiz" role="button">Quiz</a> 
+                            <a class="btn btn-stuff" href="#notes" data-toggle="quiz" role="button">Notes</a> 
+                        </div>
+					<li style="list-style: none">
+						
+                        <div class="tab-content">
+                        {% if meta.layout == "home" %}
+						<div id="user" class="tab-pane fade in active">
+                        {% else %}
+                        <div id="user" class="tab-pane fade">
+                        {% endif %}
+							{% if authed == false %} 
+							<a id="go" rel="leanModal" name="loginform" href="#loginform">Login</a> 
+							<a id="go" rel="leanModal" name="registerform" href="#registerform">Register</a> 
+							{% else %}
+							<div id="userwelcome">
+								<b>Welcome {{ username }}</b>
+								<a href="/logout/">Logout</a>
+							</div>
+							{% endif %}
+                            {{ course_navigation }}
+						</div>
+                        {% if meta.layout == "home" %}
+						<div id="nav" class="tab-pane fade">
+							{{ course_navigation }} 
+                        {% else %}
+                        <div id="nav" class="tab-pane fade in active">
+							{{ at_navigation.navigation }} 
+                        {% endif %}
+						</div>
+						<div id="quiz" class="tab-pane fade">
+							{% if noquiz %}
+							<div id="noquiz">
+							No quiz for this page! (No keywords found)
+							</div>
+							{% endif %}
+							<div id="quizArea"></div>
+						</div>
+						<div id="notes" class="tab-pane fade">
+                        {% if authed == true %}
+							{{ include('notes.html') }}
+                        {% else %}
+                            Please login to use notes!
+                        {% endif %}
+						</div>
+                        </div>
+					</li>
+				</ul>
+			</div>
+			<div id="page-content-wrapper">
+				<div class="content-header" style="padding-left:5%;">
+				<a id="menu-toggle" href="#" class="btn btn-default" name="menu-toggle"></a>
+				<h1> {{ current_page.title }}</h1>
+				</div> 
+			{% if meta.layout == "course" %}
+	        <div class="content-header">
+			{{ dashboard }}
+			</div>
+			{% elseif meta.layout == "content" %} 
+				{{ include('two_pane_content.html') }}
+			{% else %} 
+			<div class="padding">
+				{{ content }}
+				<ul class="sibling_nav pager">
+								<li>
+									<a href="1.Human_Orgins">Start Lesson </a>
+								</li>
+							</ul>
+			</div>
+			{% endif %}	
+			</div><!--ending everything-->
+			
+    <script>
+  	$('#navitab a').click(function (e) {
+  	  	e.preventDefault()
+  	  	$(this).tab('show')
+	})
+
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("active");
+    });
+    </script>
+	<script>
+	<script type="text/javascript">
+	  function resizeIframe(iframe) {
+	    iframe.height = iframe.contentWindow.document.body.scrollHeight + "px";
+	  }
+	</script> 
+	</script>
+
+		</div>
+	</body>
+</html>
