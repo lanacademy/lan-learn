@@ -13,6 +13,43 @@
 	<style>
 	
 	body {margin-top: 60px;}
+	.navbar-inverse {
+		background-color: rgb(224, 101, 88);
+		border-color: #e74c3c;
+	}
+	.nav-tabs>li>a {
+	margin-right: 0;
+	line-height: 1.428571429;
+	border-radius: 0;
+	background-color: rgb(247, 247, 247);
+	border: 1px solid #ddd;
+	border-bottom-color: transparent;
+	color: #999;
+	}
+	
+	.nav>li>a:hover, .nav>li>a:focus {
+	text-decoration: none;
+	background-color: rgb(255, 255, 255);
+	border-color: #ddd #eee #fff;
+	color: #555;
+	}
+	.nav-tabs{
+		background:rgb(137, 189, 137);
+	}
+	.tab-content{
+		background:#fff;
+	}
+	.tab-pane{
+		border:1px solid #ddd;
+		border-top:transparent;
+		min-height:400px;
+	}
+	.padding{
+		padding:20px;
+	}
+	footer{
+		padding-top:50px;
+	}
 	
 	</style>
   </head>  
@@ -30,16 +67,19 @@
 	  	            <span class="icon-bar"></span>
 	  	            <span class="icon-bar"></span>
 	  	          </button>
-	  	          <a class="navbar-brand" href="index.php">Start Bootstrap</a>
+	  	          <!--<a class="navbar-brand" href="index.php">Start Bootstrap</a>-->
 	  	        </div>
 
-	  	        <!-- Collect the nav links, forms, and other content for toggling -->
+	  	        <!-- Collect the nav links, forms, and other content for toggling 
+				Also, this is a pretty shitty way to do this. But it almost works. I'll let even figure out a better way.
+				
+				-->
 	  	        <div class="collapse navbar-collapse navbar-ex1-collapse">
-	  	          <ul class="nav navbar-nav">
-	  	            <li><a href="#about">About</a></li>
-	  	            <li><a href="#services">Services</a></li>
-	  	            <li><a href="#contact">Contact</a></li>
-	  	          </ul>
+					<ul class="nav navbar-nav col-md-12">
+						<li class="pull-right"><a href="#about">Login</a></li>
+						<li class="pull-left"><a href="#contact">Navigation</a></li>
+						<li class="col-md-offset-4"><a href="#services">LAN Academy</a></li>
+					</ul>
 	  	        </div><!-- /.navbar-collapse -->
 	  	      </div><!-- /.container -->
 	  	    </nav>
@@ -51,20 +91,24 @@
 	  	          <h1>A better Bootstrap starter template.</h1>
 	  	          <!-- Nav tabs -->
 	  <ul class="nav nav-tabs">
-	    <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
-	    <li class=""><a href="#profile" data-toggle="tab">Profile</a></li>
-	    <li class=""><a href="#messages" data-toggle="tab">Messages</a></li>
-	    <li class=""><a href="#settings" data-toggle="tab">Settings</a></li>
+	    <li class="active"><a href="#home" data-toggle="tab">Reading</a></li>
+	    <li class=""><a href="#profile" data-toggle="tab">Quiz</a></li>
+	    <li class=""><a href="#messages" data-toggle="tab">Research</a></li>
 	  </ul>
 
 	  <!-- Tab panes -->
-	  <div class="tab-content" style="
-	      background: #fff;
-	  ">
-	    <div class="tab-pane active" id="home">...</div>
-	    <div class="tab-pane" id="profile">...</div>
+	  <div class="tab-content">
+	    <div class="tab-pane active" id="home">
+			<div class="padding">
+				<p>Stuff in here</p>
+			</div>
+		</div>
+	    <div class="tab-pane" id="profile">
+			<div class="padding">
+				<p>Other Stuff in here</p>
+			</div>
+		</div>
 	    <div class="tab-pane" id="messages">...</div>
-	    <div class="tab-pane" id="settings">...</div>
 	  </div>
 
 
@@ -72,7 +116,13 @@
 	  	      </div>
 
 	  	    </div><!-- /.container -->
-
+			<footer>
+			  <div class="container">
+				  <p class="text-center text-muted small">
+					  Copyright © Your Company 2013. All Rights Reserved
+				  </p>
+			  </div>
+		  </footer>
 	      <!-- The javascript
 	      ================================================== -->
 	      <!-- Placed at the end of the document so the pages load faster -->
