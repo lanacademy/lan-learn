@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>metro-bootstrap: Twitter Bootstrap with Metro style</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Le styles -->
+    <link rel="stylesheet" type="text/css" href="css/metro-bootstrap.css">
+	<link rel="stylesheet" href="docs/font-awesome.css">
+	<style>
+	
+	#wrapper {
+		padding-left: 250px;
+	}
+	
+	#wrapper-container {
+		width: 100%;
+	}
+	
+	#wrapper-container .container {
+		margin-left: inherit;
+	}
+	
+	#wrapper.wrapper-full {
+		padding-left: 110px;
+	}
+	
+	
+	
+	</style>
+  </head>  
+  <body >
+  
+   
+  <div id="wrapper">
+  
+    <div class="navbar navbar-default navbar-fixed-top">
+       <a class="navbar-brand" href="index.html"><h3>LAN Academy</h3></a>
+	  </div>
+	  
+
+
+
+	
+		
+
+	<div id="wrapper-container">
+    <div class="container">
+
+      <div class="">
+        <h1>World History</h1>
+       <ul id="" class="nav nav-tabs" style="border-top:none" data-tabs="research">
+		    <li class="active" ><a href="#pane_read" data-toggle="tab" >Read</a></li>
+			<li><a href="#pane_research" data-toggle="tab" >Research</a></li>
+			</ul>
+		<div class="tab-content">
+			<div class="tab-pane fade in active container" id="pane_read">
+				<div class="row">
+					<div class="col-md-10 col-md-offset-1">
+						<div class="padding">
+							{{ content }}
+						<br>
+						</div>
+	   
+	   
+      </div>
+	  
+
+    </div><!-- /.container -->
+	</div>
+	</div>
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="docs/jquery-1.8.0.js"></script>
+<script type="text/javascript" src="docs/bootstrap.js"></script>
+<script type="text/javascript" src="docs/jquery.validate.js"></script>
+<script type="text/javascript" src="docs/jquery.validate.unobtrusive.js"></script>
+<script type="text/javascript" src="docs/jquery.unobtrusive-ajax.js"></script>
+<script type="text/javascript" src="docs/metro-bootstrap/metro-docs.js"></script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36060270-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+  
+  
+  $('#collapse-sidebar').click(function()
+  {
+	
+	$('.navbar-side').toggleClass('navbar-side-closed');
+	$('#wrapper').toggleClass('wrapper-full');
+	
+	
+  });
+
+</script>
+
+  </body>
+</html>
