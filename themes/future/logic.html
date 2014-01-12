@@ -33,15 +33,17 @@ Interior
 	if course index
 		include = description/pretty chapter list, dashboard, notes
 	elseif chapter index
-		content of that page and big start button 
+		content of that page and nav
 	elseif article
 		include  = article, quiz, research 
-	elseif questions
+	elseif research_questions
 		include = research questions(modded exam), research
 	elseif exam
 		include = review (modded article), exam
-	elseif openexam
-		include = review, notes, exam
+		if meta.open-notes == yes
+		block notes
+		else
+		no block notes
 	else
 		"page type not valid"
 	previous next
