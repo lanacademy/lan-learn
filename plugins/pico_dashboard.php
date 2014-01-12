@@ -473,7 +473,7 @@ class Pico_Dashboard {
 			var ctx4 = document.getElementById("myChart4").getContext("2d");
 			var myNewChart4 = new Chart(ctx4).';
 			if(count($wiki_count) > 1) {
-				$dashCode = $dashCode . 'Line(wiki_by_chapter)';
+				$dashCode = $dashCode . 'Line(wiki_by_chapter';
 			} else {
 				$dashCode = $dashCode . 'Bar(wiki_by_chapter,{scaleOverride: true, scaleStepWidth: 1, scaleSteps: ';
 				$dashCode = $dashCode . (int)(count($wiki_count) + 4) . '}';
