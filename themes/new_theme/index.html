@@ -12,7 +12,7 @@
 						</h3>
 					</li>
                     <div class="nav btn-group stuff nav-tabs" id="navitab" data-tabs="navitab">
-                            <a href="#user" data-toggle="user" class="btn btn-stuff" role="button">Home</a>
+                            <a href="#user" data-toggle="user" class="btn btn-stuff" role="button">User</a>
                             <a class="btn btn-stuff" href="#nav" data-toggle="quiz" role="button">Nav</a>
                             <a class="btn btn-stuff" href="#quiz" data-toggle="quiz" role="button">Quiz</a> 
                             <a class="btn btn-stuff" href="#notes" data-toggle="quiz" role="button">Notes</a> 
@@ -69,17 +69,19 @@
 				<h1> {{ current_page.title }}</h1>
 				</div> 
 			{% if meta.layout == "course" %}
-	        <div class="content-header">
-			{{ dashboard }}
-			</div>
+				{{ include('course.html') }}
+		
+			{% elseif meta.layout == "home" %} 
+				{{ include('home.html') }}
+				
 			{% elseif meta.layout == "content" %} 
 				{{ include('two_pane_content.html') }}
-			{% else %} 
+			{% elseif meta.layout == "chapter" %} 
 			<div class="padding">
 				{{ content }}
 				<ul class="sibling_nav pager">
 								<li>
-									<a href="1.Human_Orgins">Start Lesson </a>
+									<a href="{{ prev_page.url }}">Start Chapter &gt;</a>
 								</li>
 							</ul>
 			</div>
