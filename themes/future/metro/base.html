@@ -11,52 +11,84 @@
     <link rel="stylesheet" type="text/css" href="css/metro-bootstrap.css">
 	<link rel="stylesheet" href="docs/font-awesome.css">
 	<style>
+	body {
+		margin-top: 60px;
+	}
 	
-	body {margin-top: 60px;}
+	/* Make the top nav thinner and colorful*/
+	.navbar {
+		min-height:32px !important
+	}
+	.navbar-nav > li > a {
+		padding-top:5px !important; 
+		padding-bottom:5px !important;
+	}
 	.navbar-inverse {
 		background-color: rgb(224, 101, 88);
 		border-color: #e74c3c;
 	}
+	
+	/* Content tab style and affix  */
+	.nav-tabs{
+		background:rgb(137, 189, 137);
+	}
+
+	.nav-tabs.affix-top {
+	margin-bottom: -52px; /*This, along with tab-content margin, makes the affix jump less jarring*/
+	}
+	
+	.nav-tabs.affix{
+	width: 81.3%; /* Would love a better way to do this*/
+	top: 36px;
+	border-bottom: 0px solid #CCCCCC;
+	height: 42px;
+	}
+	
+	.tab-content{
+		background:#fff;
+		margin-top:52px;
+	}
+	.tab-pane{
+		border:1px solid #ddd;
+		border-top:transparent;
+		min-height:800px;
+	}
+	
+	/* Styling the tab buttons themselves */
 	.nav-tabs>li>a {
 	margin-right: 0;
-	line-height: 1.428571429;
 	border-radius: 0;
-	background-color: rgb(247, 247, 247);
+	background-color: #EEECEC;
 	border: 1px solid #ddd;
 	border-bottom-color: transparent;
 	color: #999;
 	}
 	
 	.nav>li>a:hover, .nav>li>a:focus {
-	text-decoration: none;
+	text-decoration: underline;
 	background-color: rgb(255, 255, 255);
 	border-color: #ddd #eee #fff;
 	color: #555;
 	}
-	.nav-tabs{
-		background:rgb(137, 189, 137);
-	}
-	.tab-content{
-		background:#fff;
-	}
-	.tab-pane{
-		border:1px solid #ddd;
-		border-top:transparent;
-		min-height:400px;
-	}
+
+
+	/* Assorted Elements */
 	.padding{
 		padding:20px;
 	}
+	iframe{
+		width:100%;
+		height:20000px;
+	}
+	
 	footer{
 		padding-top:50px;
 	}
 	
+
 	</style>
   </head>  
   <body >
-	  <body style="
-	      background: rgb(245, 245, 245);
-	  ">
 
 	  	    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 	  	      <div class="container">
@@ -87,20 +119,23 @@
 	  	    <div class="container">
 
 	  	      <div class="row">
-	  	        <div class="col-lg-10 col-lg-offset-1">
-	  	          <h1>A better Bootstrap starter template.</h1>
+	  	        <div id="content" class="col-lg-10 col-lg-offset-1">
+	  	          <h1>Origins of Humanity</h1>
 	  	          <!-- Nav tabs -->
-	  <ul class="nav nav-tabs">
+	  <ul data-spy="affix" data-offset-top="93" class="nav nav-tabs">
 	    <li class="active"><a href="#home" data-toggle="tab">Reading</a></li>
 	    <li class=""><a href="#profile" data-toggle="tab">Quiz</a></li>
 	    <li class=""><a href="#messages" data-toggle="tab">Research</a></li>
 	  </ul>
-
 	  <!-- Tab panes -->
 	  <div class="tab-content">
 	    <div class="tab-pane active" id="home">
 			<div class="padding">
-				<p>Stuff in here</p>
+				<p>Our earth is estimated to have originated, by whatever means, about 4,600,000,000 years ago and the eons since have been variously described and classified by geologists, paleontologists and archaeologists into eras and periods and epochs. </p>
+				<p>The positions and relationships of land masses and seas have changed markedly throughout the time of the earth's existence. Some two hundred million years ago the Eurasian continent was separated from combined land mass called "Gondwanaland" which consisted of the present South America, Antarctica, Australia and India, by a great ocean joining the Atlantic Ocean to the Indian Ocean and running through the area which is now the Mediterranean Basin. This great sea is called "Tethys" and it had a northern arm ("Paratethys") which ran through the present Black, Caspian and Aral Seas areas.</p>
+				<p>We must discuss now the mystery of where and when modern man appeared on the world scene. Although an upright, walking man called Homo erectus was widespread in Asia, Africa and Europe some one-half million years ago, using fire and simple hand-axes and tools, the first fossils which appear to be those of a race more closely related to our modern races (Homo sapiens) have been found at Swanscombe in England and Steinheim in Germany. An apparent close "cousin" of these men and a variant of Homo sapiens, the Neanderthaler, lived during the last Ice Ages throughout Europe, North Africa, the Mid-east and apparently a few even in Asia, but this particular race for some reason did not survive. Nevertheless, the Neanderthal man was a skilled hunter, used fire, cooked food and buried his dead. There is some evidence in the fossils of the Near East that some authorities interpret as indicating that modern man, in the sense of our own sub-species, Homo sapiens sapiens, evolved from or out of Neanderthal man around 35,000 to 40,000 years ago, but this is not the consensus. </p>
+				<p>Modern man in Europe was initially represented by the Cro-Magnons - with large bones, high brows and powerful physiques, standing as high as six feet four inches, similar to some Europeans of today. Other representatives of modern Homo sapiens sapiens were also present at about this time, including one smaller and almost frail in comparison. This was Combe Capelle man, apparently related to the Mediterranean peoples of today.</p>
+<p>Although these new men, identified in Europe by about 37,000 years ago, carried a number of new types of tools, more importantly, according to recent extensive studies of these tools and remaining implements, this man had the brain which man has today, a brain capable of art, imagery and notation and of seeing the world in a time-factored and time-factoring way. We shall hear more about these features later.</p>
 			</div>
 		</div>
 	    <div class="tab-pane" id="profile">
@@ -108,7 +143,9 @@
 				<p>Other Stuff in here</p>
 			</div>
 		</div>
-	    <div class="tab-pane" id="messages">...</div>
+	    <div class="tab-pane" id="messages">
+	    <iframe id="iframeid" seamless src="http://library.kiwix.org/search?content=wikipedia_en_wp1&pattern=History of the world"></iframe> 
+	    </div>
 	  </div>
 
 
