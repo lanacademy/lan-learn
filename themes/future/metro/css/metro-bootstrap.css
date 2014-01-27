@@ -3201,7 +3201,7 @@ padding-right: 0
 margin-right: -15px;
 margin-left: -15px
 }
-@media(min-width:768px) {.container>.navbar-header,.container>.navbar-collapse {
+@media(min-width:768px) {.container>.navbar-h0eader,.container>.navbar-collapse {
 margin-right: 0;
 margin-left: 0
 }

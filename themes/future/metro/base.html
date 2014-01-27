@@ -13,6 +13,8 @@
     <link href="docs/font-awesome.css" rel="stylesheet">
     <style>
 body {
+		background-image:url(mountain.jpg);
+	
         
     }
 
@@ -93,7 +95,7 @@ body {
 
     /* Content tab style and affix  */
     .nav-tabs{
-        background:rgb(137, 189, 137);
+        background:rgb(196, 196, 196);;
     }
 
     .nav-tabs.affix-top {
@@ -101,13 +103,34 @@ body {
     }
 
     .nav-tabs.affix{
-    width:67.3%; /* Would love a better way to do this*/
+    width:945px; /* Would love a better way to do this*/
     top: 0px;
     border-bottom: 0px solid #CCC;
     height: 41px;
     z-index:999999;
+	
     }
+	
+	@media(max-width:1200px){
+	.nav-tabs.affix{
+    width:778px; }}
+	
+	
+	@media(max-width:992px){
+	.nav-tabs.affix{
+    width:720px; }}
 
+	@media(max-width:768px){
+	.nav-tabs.affix{
+    width:92%; }}
+	
+	
+	
+	
+	
+	
+	
+	
     .tab-content{
         background:#fff;
         margin-top:52px; /*Other affix smooth part */
@@ -135,7 +158,7 @@ body {
     }
 
     .nav-tabs>li.add-note-btn>a {
-    background: #FFFBD3;
+    background: #FFF;
     border: none;
     margin: 4px 10px;
     padding: 6px 12px;
@@ -185,7 +208,7 @@ body {
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav col-md-12">
                     <li class="pull-left dropdown">
-                        <a data-target="#" data-toggle="dropdown" href="#" id="dLabel">Navigation
+                        <a data-target="#" data-toggle="dropdown" href="#" id="dLabel"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Navigation
 				<span class="caret"></span> </a>
 
                         <ul class="dropdown-menu multi-level">
@@ -218,7 +241,7 @@ body {
                     <li class="col-md-offset-4 logo"><a href="#services">LAN Academy</a></li>
 
                     <li class="dropdown pull-right">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Login
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp; Login
 				<span class="caret"></span></a>
 
                         <ul class="dropdown-menu">
@@ -237,17 +260,17 @@ body {
     <div class="container">
         <div class="row">
             <div class="col-md-10 col-md-offset-1" id="content">
-                <h1>Origins of Humanity</h1><!-- Nav tabs -->
+                <h1>   Origins of Humanity</h1><!-- Nav tabs -->
 
                 <ul class="nav nav-tabs affix-top" data-offset-top="126" data-spy="affix">
-                    <li class="active"><a data-toggle="tab" href="#home">Reading</a></li>
+                    <li class="active"><a data-toggle="tab" href="#home"><span class="glyphicon glyphicon-book"></span> Reading</a></li>
 
-                    <li class=""><a data-toggle="tab" href="#messages">Research</a></li>
+                    <li class=""><a data-toggle="tab" href="#messages"><span class="glyphicon glyphicon-globe"></span> Research</a></li>
 
-                    <li class=""><a data-toggle="tab" href="#profile">Notes</a></li>
+                    <li class=""><a data-toggle="tab" href="#profile"><span class="glyphicon glyphicon-edit"></span> Notes</a></li>
 
                     <li class="add-note-btn dropdown pull-right">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="add-note">+</a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="add-note"><span class="glyphicon glyphicon-pencil"></span></a>
 
                         <div class="dropdown-menu note-box">
                             <form action="#" class="form" method="post">
@@ -259,7 +282,7 @@ body {
                                     </div>
 
                                     <div class="form-group">
-                                        <textarea class="form-control" placeholder="Text" required="" rows="3">
+                                        <textarea class="form-control" placeholder="Text" required rows="3">
 </textarea>
                                     </div><a class="btn btn-warning btn-sm btn-block" href="#">Add note</a>
                                 </div>
@@ -336,7 +359,7 @@ body {
                     </div>
 
                     <div class="tab-pane" id="messages">
-                        <iframe id="iframeid" name="iframeid" seamless="" src="http://library.kiwix.org/search?content=wikipedia_en_wp1&pattern=History%20of%20the%20world"></iframe>
+                        <iframe id="iframeid" name="iframeid" seamless src="http://library.kiwix.org/search?content=wikipedia_en_wp1&pattern=History%20of%20the%20world"></iframe>
                     </div>
 
                     <div class="tab-pane" id="profile">
