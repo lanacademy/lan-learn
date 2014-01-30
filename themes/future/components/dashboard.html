@@ -1,0 +1,27 @@
+{% extends "../index.html" %}
+
+{% block nav %}
+
+{{ parent() }}
+
+    <li class="">
+		<a data-toggle="tab" href="#dashboard">
+			<span class="glyphicon glyphicon-book"></span> 
+			Dashboard
+		</a>
+	</li>
+
+{% endblock nav %}
+
+{% block tabs %}
+
+{{ parent() }}
+    <div class="tab-pane " id="dashboard">
+        
+		
+		<div id="course-dashboard"></div>
+		
+		
+    </div>
+
+{% endblock tabs %}

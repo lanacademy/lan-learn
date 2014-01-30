@@ -1,110 +1,151 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!DOCTYPE html>
 <html lang="en">
-		{{ include('head.html') }}
-		<body>
-		{{ include('login_register.html') }}
-		<div id="wrapper">
-			<div id="sidebar-wrapper">		
-				<ul class="sidebar-nav">
-					<li class="sidebar-brand">
-						<h3>
-							<a href="{{ coursehomelink }}" title="{{ site_title }}">{{ site_title }}</a>
-						</h3>
-					</li>
-                    <div class="nav btn-group stuff nav-tabs" id="navitab" data-tabs="navitab">
-                            <a href="#user" data-toggle="user" class="btn btn-stuff" role="button">Home</a>
-                            <a class="btn btn-stuff" href="#nav" data-toggle="quiz" role="button">Nav</a>
-                            <a class="btn btn-stuff" href="#quiz" data-toggle="quiz" role="button">Quiz</a> 
-                            <a class="btn btn-stuff" href="#notes" data-toggle="quiz" role="button">Notes</a> 
-                        </div>
-					<li style="list-style: none">
-						
-                        <div class="tab-content">
-                        {% if meta.layout == "home" %}
-						<div id="user" class="tab-pane fade in active">
-                        {% else %}
-                        <div id="user" class="tab-pane fade">
-                        {% endif %}
-							{% if authed == false %} 
-							<a id="go" rel="leanModal" name="loginform" href="#loginform">Login</a> 
-							<a id="go" rel="leanModal" name="registerform" href="#registerform">Register</a> 
+	{{ include('components/head.html') }}
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button">
+					<span class="sr-only">
+					Toggle navigation
+					</span>
+				</button> 
+            </div>
+
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav col-md-12">
+                    <li class="pull-left dropdown">
+                        <a data-target="#" data-toggle="dropdown" href="#" id="dLabel">
+							<span class="glyphicon glyphicon-list"></span> 
+	                        {% if meta.layout == "home" %}
+							Course Navigation
 							{% else %}
-							<div id="userwelcome">
-								<b>Welcome {{ username }}</b>
-								<a href="/logout/">Logout</a>
-							</div>
-							{% endif %}
-                            {{ course_navigation }}
-						</div>
-                        {% if meta.layout == "home" %}
-						<div id="nav" class="tab-pane fade">
+							{{ site_title }}
+	                        {% endif %}
+							<span class="caret"></span> 
+						</a>
+                       	 	{% if meta.layout == "home" %}
 							{{ course_navigation }} 
-                        {% else %}
-                        <div id="nav" class="tab-pane fade in active">
+                        	{% else %}
 							{{ at_navigation.navigation }} 
-                        {% endif %}
-						</div>
-						<div id="quiz" class="tab-pane fade">
-							{% if noquiz %}
-							<div id="noquiz">
-							No quiz for this page! (No keywords found)
-							</div>
+                        	{% endif %}
+						<!--Example of Nav
+                        <ul class="dropdown-menu multi-level">
+							<li><a href="{{ coursehomelink }}">Course Home</a></li>
+                            <li class="dropdown-submenu">
+                                <a href="#">Chapter 1</a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Second level</a></li>
+
+                                    <li><a href="#">Second level</a></li>
+
+                                    <li><a href="#">Second level</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown-submenu">
+                                <a href="#">Chapter 2</a>
+
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Second level</a></li>
+
+                                    <li><a href="#">Second level</a></li>
+
+                                    <li><a href="#">Second level</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+					-->
+                    </li>
+					<!--Logo-->
+                    <li class="col-md-offset-4 logo"><a href="#services">LAN Academy</a></li>
+					
+                    <li class="dropdown pull-right">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"> 
+							<span class="glyphicon glyphicon-user"></span> 
+							{% if authed == false %} 
+							User
+							{% else %}
+							{{ username }}
 							{% endif %}
-							<div id="quizArea"></div>
-						</div>
-						<div id="notes" class="tab-pane fade">
-                        {% if authed == true %}
-							{{ include('notes.html') }}
-                        {% else %}
-                            Please login to use notes!
-                        {% endif %}
-						</div>
-                        </div>
-					</li>
-				</ul>
-			</div>
-			<div id="page-content-wrapper">
-				<div class="content-header" style="padding-left:5%;">
-				<a id="menu-toggle" href="#" class="btn btn-default" name="menu-toggle"></a>
-				<h1> {{ current_page.title }}</h1>
-				</div> 
-			{% if meta.layout == "course" %}
-	        <div class="content-header">
-			{{ dashboard }}
-			</div>
-			{% elseif meta.layout == "content" %} 
-				{{ include('two_pane_content.html') }}
-			{% else %} 
-			<div class="padding">
-				{{ content }}
-				<ul class="sibling_nav pager">
-								<li>
-									<a href="1.Human_Orgins">Start Lesson </a>
-								</li>
-							</ul>
-			</div>
-			{% endif %}	
-			</div><!--ending everything-->
-			
-    <script>
-  	$('#navitab a').click(function (e) {
-  	  	e.preventDefault()
-  	  	$(this).tab('show')
-	})
+							<span class="caret"></span>
+						</a>
+                        <ul class="dropdown-menu">
+							{% if authed == false %} 
+							<li><a id="login" name="loginform" href="#loginform">Login</a> </li>
+							<li><a id="register" name="registerform" href="#registerform">Register</a> </li>
+							{% else %}
+							<li><a href="/logout/">Logout</a></li>
+                            <!-- One day perhaps
+							<li><a href="#">Profile</a></li>
+							-->
+							{% endif %}
+                        </ul>
+                    </li>
+					
+                </ul> <!--top nav ul-->
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container -->
+    </nav>
 
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("active");
-    });
-    </script>
-	<script>
-	<script type="text/javascript">
-	  function resizeIframe(iframe) {
-	    iframe.height = iframe.contentWindow.document.body.scrollHeight + "px";
-	  }
-	</script> 
-	</script>
+	<div class="container">
+		<div class="row">
+				<div class="col-md-10 col-md-offset-1" id="main">
+					{% if meta.layout == "home" %}
+						<!-- Tabless layout -->
+						{{ include('components/home.html') }}
+						
+					{% else %} 
+					<!-- Tabbed layout -->
+						{% if meta.layout == "course" %}
+							{{ include ('components/content.html') }}
+							{{ include ('components/dashboard.html') }}
+							{{ include ('components/notes.html') }}
+							
+						{% elseif meta.layout == "chapter" %}
+							{{ include ('components/content.html') }}
+							{{ include ('components/research.html') }}
+							{{ include ('components/notes.html') }}
+							
+						{% elseif meta.layout == "article" %}
+							{{ include ('components/article.html') }}
+							{{ include ('components/research.html') }}
+							{{ include ('components/notes.html') }}	
+							
+						{% elseif meta.layout == "research_questions" %}	
+							{{ include ('components/content.html') }}
+							{{ include ('components/research.html') }}
+							{{ include ('components/notes.html') }}
+						
+						{% elseif meta.layout == "exam" %}	
+							{{ include ('components/content.html') }}
+							{% if meta.open-notes %}
+								{{ include ('components/notes.html') }}
+							{% endif %}
 
+						{% else %}
+						
+							{{ include ('components/error.html') }}
+							
+						{% endif %}
+						<!-- Nav tabs -->
+						<ul class="nav nav-tabs affix-top" data-offset-top="57" data-spy="affix">
+							{% block nav %}
+                   
+							{% endblock nav %}
+						</ul>
+						<!-- Tab panes -->
+						<div class="tab-content">
+							{% block tabs %}
+					
+							{% endblock tabs %}
+						</div>
+					{% endif %}
+				</div>
 		</div>
-	</body>
-</html>
+	</div><!-- /.container -->
+	
+
+	{{ include('components/foot.html') }}
+</body>
+</html>		

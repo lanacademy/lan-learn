@@ -1,0 +1,46 @@
+{% extends "../index.html" %}
+
+{% block nav %}
+<li class="active">
+	<a data-toggle="tab" href="#layout">
+		<span class="glyphicon glyphicon-book"></span> 
+		Layout
+	</a>
+</li>
+	{{ parent() }}
+{% endblock nav %}
+
+{% block tabs %}
+<div class="tab-pane active" id="layout">
+    <div class="padding">
+		<div class="row">
+
+			Interior
+
+				block	tabs
+				block	container
+
+				if course index
+					include = description/pretty chapter list, dashboard, notes
+				elseif chapter index
+					content of that page and nav
+				elseif article
+					include  = article, quiz, research 
+				elseif research_questions
+					include = research questions(modded exam), research
+				elseif exam
+					include = review (modded article), exam
+					if meta.open-notes == yes
+					block notes
+					else
+					no block notes
+				else
+					"page type not valid"
+				previous next
+		</div>
+    </div>
+</div>
+    
+	{{ parent() }}
+
+{% endblock tabs %}

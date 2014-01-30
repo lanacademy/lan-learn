@@ -11,191 +11,8 @@
     <meta content="" name="author"><!-- Le styles -->
     <link href="css/metro-bootstrap.css" rel="stylesheet" type="text/css">
     <link href="docs/font-awesome.css" rel="stylesheet">
-    <style>
-body {
-		background-image:url(mountain.jpg);
-	
-        
-    }
-
-    /* Make the top nav thinner and colorful*/
-    .navbar {
-        min-height:32px !important;
-    }
-    .navbar-nav > li > a {
-        padding-top:5px !important; 
-        padding-bottom:5px !important;
-        font-family: "Segoe UI Light","Helvetica Neue","Segoe UI","Segoe WP",sans-serif;
-        font-weight: 100;
-        font-size:17px;
-
-    }
-    .navbar-inverse {
-        background-color: rgb(224, 101, 88);
-        border-color: #e74c3c;
-    }
-
-    /* Dropdown Nav */
-    .dropdown>li>a {
-        text-align:left;
-    }
-    .dropdown-submenu {
-        position: relative;
-    }
-
-    .dropdown-submenu>.dropdown-menu {
-        top: 0;
-        left: 100%;
-        margin-top: -6px;
-        margin-left: -1px;
-        -webkit-border-radius: 0 6px 6px 6px;
-        -moz-border-radius: 0 6px 6px;
-        border-radius: 0 6px 6px 6px;
-    }
-
-    .dropdown-submenu:hover>.dropdown-menu {
-        display: block;
-    }
-
-    .dropdown-submenu>a:after {
-        display: block;
-        content: " ";
-        float: right;
-        width: 0;
-        height: 0;
-        border-color: transparent;
-        border-style: solid;
-        border-width: 5px 0 5px 5px;
-        border-left-color: #ccc;
-        margin-top: 5px;
-        margin-right: -10px;
-    }
-
-    .dropdown-submenu:hover>a:after {
-        border-left-color: #999;
-    }
-
-    .dropdown-submenu.pull-left {
-        float: none;
-    }
-    .dropdown-menu>li>a {
-	    text-align:left;
-    }
-
-    .dropdown-submenu.pull-left>.dropdown-menu {
-        left: -100%;
-        margin-left: 10px;
-        -webkit-border-radius: 6px 0 6px 6px;
-        -moz-border-radius: 6px 0 6px 6px;
-        border-radius: 6px 0 6px 6px;
-    }
-    .navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:hover, .navbar-inverse .navbar-nav>.open>a:focus {
-    background:inherit;
-    }
-
-    /* Content tab style and affix  */
-    .nav-tabs{
-        background:rgb(196, 196, 196);;
-    }
-
-    .nav-tabs.affix-top {
-    margin-bottom: -52px; /*This, along with tab-content margin, makes the affix jump less jarring*/
-    }
-
-    .nav-tabs.affix{
-    width:945px; /* Would love a better way to do this*/
-    top: 0px;
-    border-bottom: 0px solid #CCC;
-    height: 41px;
-    z-index:999999;
-	
-    }
-	
-	@media(max-width:1200px){
-	.nav-tabs.affix{
-    width:778px; }}
-	
-	
-	@media(max-width:992px){
-	.nav-tabs.affix{
-    width:720px; }}
-
-	@media(max-width:768px){
-	.nav-tabs.affix{
-    width:92%; }}
-	
-	
-	
-	
-	
-	
-	
-	
-    .tab-content{
-        background:#fff;
-        margin-top:52px; /*Other affix smooth part */
-    }
-    .tab-pane{
-        border:1px solid #ddd;
-        border-top:transparent;
-    }
-
-    /* Styling the tab buttons themselves */
-    .nav-tabs>li>a {
-    margin-right: 0;
-    border-radius: 0;
-    background-color: #EEECEC;
-    border: 1px solid #ddd;
-    border-bottom-color: transparent;
-    color: #999;
-    }
-
-    .nav>li>a:hover, .nav>li>a:focus {
-    text-decoration: none;
-    background-color: #fff;
-    border-color: #ddd #eee #fff;
-    color: #555;
-    }
-
-    .nav-tabs>li.add-note-btn>a {
-    background: #FFF;
-    border: none;
-    margin: 4px 10px;
-    padding: 6px 12px;
-    color: #000;
-    font-size: 16px;
-    }
-
-    /* Assorted Elements */
-    .padding{
-        padding:20px 40px 0px;
-    }
-
-    .col-md-offset-4.logo > a {
-    font-size: 20px;
-    margin-left: -25px;
-    }
-
-    #add-note-padding {
-    width: 260px;
-    padding: 10px;
-    }
-    .panel-warning>.panel-heading {
-    color: #333;
-    background-color: #FFFBCF;
-    border-color: #DDD;
-    }
-    iframe{
-        width:100%;
-        height:20000px;
-    }
-
-    footer{
-        padding-top:50px;
-    }
-
-
-    </style>
+    <link href="css/style.css" rel="stylesheet">
+   
 </head>
 
 <body>
@@ -260,9 +77,8 @@ body {
     <div class="container">
         <div class="row">
             <div class="col-md-10 col-md-offset-1" id="content">
-                <h1>   Origins of Humanity</h1><!-- Nav tabs -->
-
-                <ul class="nav nav-tabs affix-top" data-offset-top="126" data-spy="affix">
+				<!-- Nav tabs -->
+                <ul class="nav nav-tabs affix-top" data-offset-top="57" data-spy="affix">
                     <li class="active"><a data-toggle="tab" href="#home"><span class="glyphicon glyphicon-book"></span> Reading</a></li>
 
                     <li class=""><a data-toggle="tab" href="#messages"><span class="glyphicon glyphicon-globe"></span> Research</a></li>
@@ -294,6 +110,9 @@ body {
                 <div class="tab-content">
                     <div class="tab-pane active" id="home">
                         <div class="padding">
+							<div id="writing">
+			                <h1>   Origins of Humanity</h1>
+							
                             <p>Our earth is estimated to have originated, by whatever means, about 4,600,000,000 years ago and the eons since have been variously described and classified by geologists, paleontologists and archaeologists into eras and periods and epochs.</p>
 
                             <p>The positions and relationships of land masses and seas have changed markedly throughout the time of the earth's existence. Some two hundred million years ago the Eurasian continent was separated from combined land mass called "Gondwanaland" which consisted of the present South America, Antarctica, Australia and India, by a great ocean joining the Atlantic Ocean to the Indian Ocean and running through the area which is now the Mediterranean Basin. This great sea is called "Tethys" and it had a northern arm ("Paratethys") which ran through the present Black, Caspian and Aral Seas areas.</p>
@@ -303,59 +122,60 @@ body {
                             <p>Modern man in Europe was initially represented by the Cro-Magnons - with large bones, high brows and powerful physiques, standing as high as six feet four inches, similar to some Europeans of today. Other representatives of modern Homo sapiens sapiens were also present at about this time, including one smaller and almost frail in comparison. This was Combe Capelle man, apparently related to the Mediterranean peoples of today.</p>
 
                             <p>Although these new men, identified in Europe by about 37,000 years ago, carried a number of new types of tools, more importantly, according to recent extensive studies of these tools and remaining implements, this man had the brain which man has today, a brain capable of art, imagery and notation and of seeing the world in a time-factored and time-factoring way. We shall hear more about these features later.</p>
+						</div>
+							<div class="row">
+							  <div class="col-md-8 col-md-offset-2">
+							  <div class="panel panel-danger" id="vocab-quiz">
+							                                <div class="panel-heading">
+							                                    <h3 class="panel-title">Vocabulary Quiz</h3>
+							                                </div>
 
-                            <div class="panel panel-danger" id="vocab-quiz">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Vocabulary Quiz</h3>
-                                </div>
+							                                <div class="panel-body">
+							                                    <p>This is the defintion of a term that was in this section and is pretty long</p>
+																<div class="radio">
+																  <label>
+																    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+																   Option One
+																  </label>
+																</div>
+																<div class="radio">
+																  <label>
+																    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+																    Option two can be something else and selecting it will deselect option one
+																  </label>
+																</div>
+																<div class="radio">
+																  <label>
+																    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+																    Option two can be something else and selecting it will deselect option one
+																  </label>
+																</div>
+																<div class="radio">
+																  <label>
+																    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+																    Option two can be something else and selecting it will deselect option one
+																  </label>
+																</div>
+															</div>
+																	
+								
+							            
+									
+									
+							                                <div class="panel-footer">
+							                                    <button class="btn btn-success btn-sm" type="button">Check Answer</button> <button class="btn btn-primary disabled btn-sm" type="button">Next Question</button>
+							                                </div></div>
 
-                                <div class="panel-body">
-                                    <p>This is the defintion of a term that was in this section and is pretty long</p>
-
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="well well-sm">
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value=""> Internet</label>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-3">
-                                            <div class="well well-sm">
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value=""> Television</label>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-3">
-                                            <div class="well well-sm margin-bottom-none">
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value=""> Radio</label>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-3">
-                                            <div class="well well-sm margin-bottom-none">
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value=""> Radio</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="panel-footer">
-                                    <button class="btn btn-success btn-sm" type="button">Check Answer</button> <button class="btn btn-primary disabled btn-sm" type="button">Next Question</button>
-                                </div>
-                            </div>
+                                
+							                            </div>
+							</div>
                         </div>
+						<div class="row">
 			<ul class="pager pagination-lg">
 			  <li><a href="#">← A sad story</a></li>
 			  <li><a href="#">A happy story → </a></li>
 			</ul>
+		</div>
                     </div>
 
                     <div class="tab-pane" id="messages">
