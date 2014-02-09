@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+	{{ include('components/head.html') }}
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button">
+					<span class="sr-only">
+					Toggle navigation
+					</span>
+				</button> 
+            </div>
+
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav col-md-12">
+                    <li class="pull-left dropdown">
+                        <a data-target="#" data-toggle="dropdown" href="#" id="dLabel">
+							<span class="glyphicon glyphicon-list"></span> 
+	                        {% if meta.layout == "home" %}
+							Course Navigation
+							{% else %}
+							{{ site_title }}
+	                        {% endif %}
+							<span class="caret"></span> 
+						</a>
+                       	 	{% if meta.layout == "home" %}
+							{{ course_navigation }} 
+                        	{% else %}
+							{{ at_navigation.navigation }} 
+                        	{% endif %}
+						<!--Example of Nav
+                        <ul class="dropdown-menu multi-level">
+							<li><a href="{{ coursehomelink }}">Course Home</a></li>
+                            <li class="dropdown-submenu">
+                                <a href="#">Chapter 1</a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Second level</a></li>
+
+                                    <li><a href="#">Second level</a></li>
+
+                                    <li><a href="#">Second level</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown-submenu">
+                                <a href="#">Chapter 2</a>
+
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Second level</a></li>
+
+                                    <li><a href="#">Second level</a></li>
+
+                                    <li><a href="#">Second level</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+					-->
+                    </li>
+					<!--Logo-->
+                    <li class="col-md-offset-4 logo"><a href="#services">LAN Academy</a></li>
+					
+                    <li class="dropdown pull-right">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"> 
+							<span class="glyphicon glyphicon-user"></span> 
+							{% if authed == false %} 
+							User
+							{% else %}
+							{{ username }}
+							{% endif %}
+							<span class="caret"></span>
+						</a>
+                        <ul class="dropdown-menu">
+							{% if authed == false %} 
+							<li><a id="login" name="loginform" href="#loginform">Login</a> </li>
+							<li><a id="register" name="registerform" href="#registerform">Register</a> </li>
+							{% else %}
+							<li><a href="/logout/">Logout</a></li>
+                            <!-- One day perhaps
+							<li><a href="#">Profile</a></li>
+							-->
+							{% endif %}
+                        </ul>
+                    </li>
+					
+                </ul> <!--top nav ul-->
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container -->
+    </nav>
+
+	<div class="container">
+		<div class="row">
+				<div class="col-md-10 col-md-offset-1" id="main">
+					{% if meta.layout == "home" %}
+						<!-- Tabless layout -->
+						{{ include('components/home.html') }}
+						
+					{% else %} 
+					<!-- Tabbed layout -->
+						{% if meta.layout == "course" %}
+							<!-- Nav tabs -->
+
+<ul class="nav nav-tabs affix-top" data-offset-top="57" data-spy="affix">
+  <li class="active"> <a data-toggle="tab" href="#contents"> <span class="glyphicon glyphicon-book"></span> {{ meta.layout }} </a> </li>
+  <li class=""> <a data-toggle="tab" href="#dashboard"> <span class="glyphicon glyphicon-book"></span> Dashboard </a> </li>
+  <li class=""> <a data-toggle="tab" href="#notetab"> <span class="glyphicon glyphicon-edit"></span> Notes </a> </li>
+  <li class="add-note-btn dropdown pull-right"> <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="add-note"> <span class="glyphicon glyphicon-pencil"></span> </a>
+    <div class="dropdown-menu note-box">
+      <form action="#" class="form" method="post">
+        <div id="add-note-padding">
+          <h3 class="text-center">Add Note</h3>
+          <div class="form-group">
+            <input class="form-control" id="name" placeholder="Name" required="" type="text">
+          </div>
+          <div class="form-group">
+            <textarea class="form-control" placeholder="Text" required rows="3">
+										</textarea>
+          </div>
+          <a class="btn btn-warning btn-sm btn-block" href="#">Add note</a> </div>
+      </form>
+    </div>
+  </li>
+</ul>
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="contents">
+    <div class="padding">
+      <h1> {{ current_page.title }}</h1>
+      {{ content }} </div>
+    <div class="row">
+      <ul class="pager pagination-lg">
+        <li><a href="{{ next_page.url }}">← {{ next_page.title }}</a></li>
+        <li><a href="{{ prev_page.url }}">{{ prev_page.title }} →</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="tab-pane " id="dashboard">
+    <div id="course-dashboard"></div>
+  </div>
+  <div class="tab-pane" id="notetab">
+    <div class="panel borderless panel-warning">
+      <div class="panel-heading">
+        <h3 class="">Your Notes</h3>
+      </div>
+      <div class="panel-body">
+        <ul class="list-group">
+          <li class="list-group-item">
+            <div class="row">
+              <div class="col-xs-10 col-md-11">
+                <div> <a href="#">Just a demo note title</a> </div>
+                <div class="comment-text"> This is all just demo note text </div>
+              </div>
+              <div class="col-xs-2 col-md-1">
+                <div class="action">
+                  <button type="button" class="btn btn-primary" title="Edit"> <span class="glyphicon glyphicon-pencil"></span> </button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="list-group-item">
+            <div class="row">
+              <div class="col-xs-10 col-md-11">
+                <div> <a href="#">Just a demo note title</a> </div>
+                <div class="comment-text"> This is all just demo note text </div>
+              </div>
+              <div class="col-xs-2 col-md-1">
+                <div class="action">
+                  <button type="button" class="btn btn-primary" title="Edit"> <span class="glyphicon glyphicon-pencil"></span> </button>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <ul class="pagination" style=" margin-left: 34%;">
+          <li><a href="#">«</a></li>
+          <li><a href="#">1</a></li>
+          <li><a href="#">2</a></li>
+          <li><a href="#">3</a></li>
+          <li><a href="#">4</a></li>
+          <li><a href="#">5</a></li>
+          <li><a href="#">»</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+							
+						{% elseif meta.layout == "chapter" %}
+						<!-- Nav tabs -->
+
+<ul class="nav nav-tabs affix-top" data-offset-top="57" data-spy="affix">
+  {% block nav %}
+  <li class="active"> <a data-toggle="tab" href="#contents"> <span class="glyphicon glyphicon-book"></span> {{ meta.layout }} </a> </li>
+  <li class="active"> <a data-toggle="tab" href="#article"> <span class="glyphicon glyphicon-book"></span> Reading </a> </li>
+  <li class=""> <a data-toggle="tab" href="#notetab"> <span class="glyphicon glyphicon-edit"></span> Notes </a> </li>
+  <li class="add-note-btn dropdown pull-right"> <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="add-note"> <span class="glyphicon glyphicon-pencil"></span> </a>
+    <div class="dropdown-menu note-box">
+      <form action="#" class="form" method="post">
+        <div id="add-note-padding">
+          <h3 class="text-center">Add Note</h3>
+          <div class="form-group">
+            <input class="form-control" id="name" placeholder="Name" required="" type="text">
+          </div>
+          <div class="form-group">
+            <textarea class="form-control" placeholder="Text" required rows="3">
+										</textarea>
+          </div>
+          <a class="btn btn-warning btn-sm btn-block" href="#">Add note</a> </div>
+      </form>
+    </div>
+  </li>
+</ul>
+<!-- Tab panes -->
+<div class="tab-content">
+<div class="tab-pane active" id="contents">
+  <div class="padding">
+    <h1> {{ current_page.title }}</h1>
+    {{ content }} </div>
+  <div class="row">
+    <ul class="pager pagination-lg">
+      <li><a href="{{ next_page.url }}">← {{ next_page.title }}</a></li>
+      <li><a href="{{ prev_page.url }}">{{ prev_page.title }} →</a></li>
+    </ul>
+  </div>
+</div>
+<div class="tab-pane active" id="article">
+<div class="padding">
+  <h1> {{ current_page.title }}</h1>
+  {{ content }}
+  
+  {% if noquiz %} 
+  <!-- No quiz for this page (no keywords found)--> 
+  {% else %}
+  <div class="row" id="vocab-quiz">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="panel panel-danger" id="vocab-quiz-panel">
+        <div class="panel-heading">
+          <h3 class="panel-title">Vocabulary Quiz</h3>
+        </div>
+        <div class="panel-body">
+          <p> This is the defintion of a term that was in this section and is pretty long </p>
+          <div class="radio">
+            <label>
+              <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+              Option One </label>
+          </div>
+          <div class="radio">
+            <label>
+              <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+              Option two can be something else and selecting it will deselect option one </label>
+          </div>
+          <div class="radio">
+            <label>
+              <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+              Option two can be something else and selecting it will deselect option one </label>
+          </div>
+          <div class="radio">
+            <label>
+              <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+              Option two can be something else and selecting it will deselect option one </label>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <button class="btn btn-success btn-sm" type="button">Check Answer</button>
+          <button class="btn btn-primary disabled btn-sm" type="button">Next Question</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane" id="notetab">
+    <div class="panel borderless panel-warning">
+      <div class="panel-heading">
+        <h3 class="">Your Notes</h3>
+      </div>
+      <div class="panel-body">
+        <ul class="list-group">
+          <li class="list-group-item">
+            <div class="row">
+              <div class="col-xs-10 col-md-11">
+                <div> <a href="#">Just a demo note title</a> </div>
+                <div class="comment-text"> This is all just demo note text </div>
+
+              </div>
+              <div class="col-xs-2 col-md-1">
+                <div class="action">
+                  <button type="button" class="btn btn-primary" title="Edit"> <span class="glyphicon glyphicon-pencil"></span> </button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="list-group-item">
+            <div class="row">
+              <div class="col-xs-10 col-md-11">
+                <div> <a href="#">Just a demo note title</a> </div>
+                <div class="comment-text"> This is all just demo note text </div>
+              </div>
+              <div class="col-xs-2 col-md-1">
+                <div class="action">
+                  <button type="button" class="btn btn-primary" title="Edit"> <span class="glyphicon glyphicon-pencil"></span> </button>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <ul class="pagination" style=" margin-left: 34%;">
+          <li><a href="#">«</a></li>
+          <li><a href="#">1</a></li>
+          <li><a href="#">2</a></li>
+          <li><a href="#">3</a></li>
+          <li><a href="#">4</a></li>
+          <li><a href="#">5</a></li>
+          <li><a href="#">»</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+							
+						{% elseif meta.layout == "article" %}
+							<!-- Nav tabs -->
+
+<ul class="nav nav-tabs affix-top" data-offset-top="57" data-spy="affix">
+  <li class="active"> <a data-toggle="tab" href="#article"> <span class="glyphicon glyphicon-book"></span> Reading </a> </li>
+  <li class="active"> <a data-toggle="tab" href="#article"> <span class="glyphicon glyphicon-book"></span> Reading </a> </li>
+  <li class=""> <a data-toggle="tab" href="#notetab"> <span class="glyphicon glyphicon-edit"></span> Notes </a> </li>
+  <li class="add-note-btn dropdown pull-right"> <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="add-note"> <span class="glyphicon glyphicon-pencil"></span> </a>
+    <div class="dropdown-menu note-box">
+      <form action="#" class="form" method="post">
+        <div id="add-note-padding">
+          <h3 class="text-center">Add Note</h3>
+          <div class="form-group">
+            <input class="form-control" id="name" placeholder="Name" required="" type="text">
+          </div>
+          <div class="form-group">
+            <textarea class="form-control" placeholder="Text" required rows="3">
+										</textarea>
+          </div>
+          <a class="btn btn-warning btn-sm btn-block" href="#">Add note</a> </div>
+      </form>
+    </div>
+  </li>
+</ul>
+<!-- Tab panes -->
+<div class="tab-content"> 
+  <div class="tab-pane active" id="article">
+    <div class="padding">
+      <h1> {{ current_page.title }}</h1>
+      {{ content }}
+      
+      {% if noquiz %} 
+      <!-- No quiz for this page (no keywords found)--> 
+      {% else %}
+      <div class="row" id="vocab-quiz">
+        <div class="col-md-8 col-md-offset-2">
+          <div class="panel panel-danger" id="vocab-quiz-panel">
+            <div class="panel-heading">
+              <h3 class="panel-title">Vocabulary Quiz</h3>
+            </div>
+            <div class="panel-body">
+              <p> This is the defintion of a term that was in this section and is pretty long </p>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                  Option One </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                  Option two can be something else and selecting it will deselect option one </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                  Option two can be something else and selecting it will deselect option one </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                  Option two can be something else and selecting it will deselect option one </label>
+              </div>
+            </div>
+            <div class="panel-footer">
+              <button class="btn btn-success btn-sm" type="button">Check Answer</button>
+              <button class="btn btn-primary disabled btn-sm" type="button">Next Question</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %} </div>
+    <div class="row">
+      <ul class="pager pagination-lg">
+        <li><a href="{{ next_page.url }}">← {{ next_page.title }}</a></li>
+        <li><a href="{{ prev_page.url }}">{{ prev_page.title }} →</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="tab-pane active" id="article">
+    <div class="padding">
+      <h1> {{ current_page.title }}</h1>
+      {{ content }}
+      
+      {% if noquiz %} 
+      <!-- No quiz for this page (no keywords found)--> 
+      {% else %}
+      <div class="row" id="vocab-quiz">
+        <div class="col-md-8 col-md-offset-2">
+          <div class="panel panel-danger" id="vocab-quiz-panel">
+            <div class="panel-heading">
+              <h3 class="panel-title">Vocabulary Quiz</h3>
+            </div>
+            <div class="panel-body">
+              <p> This is the defintion of a term that was in this section and is pretty long </p>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                  Option One </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                  Option two can be something else and selecting it will deselect option one </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                  Option two can be something else and selecting it will deselect option one </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                  Option two can be something else and selecting it will deselect option one </label>
+              </div>
+            </div>
+            <div class="panel-footer">
+              <button class="btn btn-success btn-sm" type="button">Check Answer</button>
+              <button class="btn btn-primary disabled btn-sm" type="button">Next Question</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %} </div>
+    <div class="row">
+      <ul class="pager pagination-lg">
+        <li><a href="{{ next_page.url }}">← {{ next_page.title }}</a></li>
+        <li><a href="{{ prev_page.url }}">{{ prev_page.title }} →</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="tab-pane" id="notetab">
+    <div class="panel borderless panel-warning">
+      <div class="panel-heading">
+        <h3 class="">Your Notes</h3>
+      </div>
+      <div class="panel-body">
+        <ul class="list-group">
+          <li class="list-group-item">
+            <div class="row">
+              <div class="col-xs-10 col-md-11">
+                <div> <a href="#">Just a demo note title</a> </div>
+                <div class="comment-text"> This is all just demo note text </div>
+              </div>
+              <div class="col-xs-2 col-md-1">
+                <div class="action">
+                  <button type="button" class="btn btn-primary" title="Edit"> <span class="glyphicon glyphicon-pencil"></span> </button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="list-group-item">
+            <div class="row">
+              <div class="col-xs-10 col-md-11">
+                <div> <a href="#">Just a demo note title</a> </div>
+                <div class="comment-text"> This is all just demo note text </div>
+              </div>
+              <div class="col-xs-2 col-md-1">
+                <div class="action">
+                  <button type="button" class="btn btn-primary" title="Edit"> <span class="glyphicon glyphicon-pencil"></span> </button>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <ul class="pagination" style=" margin-left: 34%;">
+          <li><a href="#">«</a></li>
+          <li><a href="#">1</a></li>
+          <li><a href="#">2</a></li>
+          <li><a href="#">3</a></li>
+          <li><a href="#">4</a></li>
+          <li><a href="#">5</a></li>
+          <li><a href="#">»</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  </div>
+
+							
+						{% elseif meta.layout == "research_questions" %}	
+						<!-- Nav tabs -->
+
+<ul class="nav nav-tabs affix-top" data-offset-top="57" data-spy="affix">
+  <li class="active"> <a data-toggle="tab" href="#contents"> <span class="glyphicon glyphicon-book"></span> {{ meta.layout }} </a> </li>
+  <li class="active"> <a data-toggle="tab" href="#article"> <span class="glyphicon glyphicon-book"></span> Reading </a> </li>
+  <li class=""> <a data-toggle="tab" href="#notetab"> <span class="glyphicon glyphicon-edit"></span> Notes </a> </li>
+  <li class="add-note-btn dropdown pull-right"> <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="add-note"> <span class="glyphicon glyphicon-pencil"></span> </a>
+    <div class="dropdown-menu note-box">
+      <form action="#" class="form" method="post">
+        <div id="add-note-padding">
+          <h3 class="text-center">Add Note</h3>
+          <div class="form-group">
+            <input class="form-control" id="name" placeholder="Name" required="" type="text">
+          </div>
+          <div class="form-group">
+            <textarea class="form-control" placeholder="Text" required rows="3">
+										</textarea>
+          </div>
+          <a class="btn btn-warning btn-sm btn-block" href="#">Add note</a> </div>
+      </form>
+    </div>
+  </li>
+</ul>
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="contents">
+    <div class="padding">
+      <h1> {{ current_page.title }}</h1>
+      {{ content }} </div>
+    <div class="row">
+      <ul class="pager pagination-lg">
+        <li><a href="{{ next_page.url }}">← {{ next_page.title }}</a></li>
+        <li><a href="{{ prev_page.url }}">{{ prev_page.title }} →</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="tab-pane active" id="article">
+    <div class="padding">
+      <h1> {{ current_page.title }}</h1>
+      {{ content }}
+      
+      {% if noquiz %} 
+      <!-- No quiz for this page (no keywords found)--> 
+      {% else %}
+      <div class="row" id="vocab-quiz">
+        <div class="col-md-8 col-md-offset-2">
+          <div class="panel panel-danger" id="vocab-quiz-panel">
+            <div class="panel-heading">
+              <h3 class="panel-title">Vocabulary Quiz</h3>
+            </div>
+            <div class="panel-body">
+              <p> This is the defintion of a term that was in this section and is pretty long </p>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                  Option One </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                  Option two can be something else and selecting it will deselect option one </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                  Option two can be something else and selecting it will deselect option one </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                  Option two can be something else and selecting it will deselect option one </label>
+              </div>
+            </div>
+            <div class="panel-footer">
+              <button class="btn btn-success btn-sm" type="button">Check Answer</button>
+              <button class="btn btn-primary disabled btn-sm" type="button">Next Question</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %} </div>
+    <div class="row">
+      <ul class="pager pagination-lg">
+        <li><a href="{{ next_page.url }}">← {{ next_page.title }}</a></li>
+        <li><a href="{{ prev_page.url }}">{{ prev_page.title }} →</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="tab-pane" id="notetab">
+    <div class="panel borderless panel-warning">
+      <div class="panel-heading">
+        <h3 class="">Your Notes</h3>
+      </div>
+      <div class="panel-body">
+        <ul class="list-group">
+          <li class="list-group-item">
+            <div class="row">
+              <div class="col-xs-10 col-md-11">
+                <div> <a href="#">Just a demo note title</a> </div>
+                <div class="comment-text"> This is all just demo note text </div>
+              </div>
+              <div class="col-xs-2 col-md-1">
+                <div class="action">
+                  <button type="button" class="btn btn-primary" title="Edit"> <span class="glyphicon glyphicon-pencil"></span> </button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="list-group-item">
+            <div class="row">
+              <div class="col-xs-10 col-md-11">
+                <div> <a href="#">Just a demo note title</a> </div>
+                <div class="comment-text"> This is all just demo note text </div>
+              </div>
+              <div class="col-xs-2 col-md-1">
+                <div class="action">
+                  <button type="button" class="btn btn-primary" title="Edit"> <span class="glyphicon glyphicon-pencil"></span> </button>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <ul class="pagination" style=" margin-left: 34%;">
+          <li><a href="#">«</a></li>
+          <li><a href="#">1</a></li>
+          <li><a href="#">2</a></li>
+          <li><a href="#">3</a></li>
+          <li><a href="#">4</a></li>
+          <li><a href="#">5</a></li>
+          <li><a href="#">»</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+						
+						{% elseif meta.layout == "exam" %}	
+							<!-- Nav tabs -->
+						<ul class="nav nav-tabs affix-top" data-offset-top="57" data-spy="affix">
+							
+                       <li class="active">
+		<a data-toggle="tab" href="#contents">
+			<span class="glyphicon glyphicon-book"></span> 
+			{{ meta.layout }}
+		</a>
+	</li>
+						{% if meta.open-notes %}
+                               <li class="">
+						<a data-toggle="tab" href="#notetab">
+							<span class="glyphicon glyphicon-edit"></span> 
+							Notes
+						</a>
+					</li>
+
+                    <li class="add-note-btn dropdown pull-right">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="add-note">
+							<span class="glyphicon glyphicon-pencil"></span>
+						</a>
+
+						<div class="dropdown-menu note-box">
+                            <form action="#" class="form" method="post">
+                                <div id="add-note-padding">
+                                    <h3 class="text-center">Add Note</h3>
+
+                                    <div class="form-group">
+                                        <input class="form-control" id="name" placeholder="Name" required="" type="text">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <textarea class="form-control" placeholder="Text" required rows="3">
+										</textarea>
+                                    </div>
+									<a class="btn btn-warning btn-sm btn-block" href="#">Add note</a>
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+                        
+						</ul>
+						<!-- Tab panes -->
+						<div class="tab-content">
+							{% block tabs %}
+					  <div class="tab-pane active" id="contents">
+        <div class="padding">
+            <h1> {{ current_page.title }}</h1>
+			
+           	{{ content }}
+			
+        </div>
+		<div class="row">
+			<ul class="pager pagination-lg">
+				<li><a href="{{ next_page.url }}">← {{ next_page.title }}</a></li>
+				<li><a href="{{ prev_page.url }}">{{ prev_page.title }} →</a></li>
+			</ul>
+		</div>
+    </div>
+						{% if meta.open-notes %}
+                            
+                            
+                            	<div class="tab-pane" id="notetab">
+        <div class="panel borderless panel-warning">
+            <div class="panel-heading">
+                <h3 class="">Your Notes</h3>
+            </div>
+
+            <div class="panel-body">
+   			 	<ul class="list-group">
+					<li class="list-group-item">
+						<div class="row">
+							<div class="col-xs-10 col-md-11">
+								<div>
+									<a href="#">Just a demo note title</a>
+								</div>
+								<div class="comment-text">
+                                    This is all just demo note text
+								</div>
+							</div>
+							<div class="col-xs-2 col-md-1">
+								<div class="action">
+									<button type="button" class="btn btn-primary" title="Edit">
+										<span class="glyphicon glyphicon-pencil"></span>
+									</button>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li class="list-group-item">
+						<div class="row">
+							<div class="col-xs-10 col-md-11">
+								<div>
+									<a href="#">Just a demo note title</a>
+								</div>
+								<div class="comment-text">
+                                    This is all just demo note text
+								</div>
+							</div>
+							<div class="col-xs-2 col-md-1">
+								<div class="action">
+									<button type="button" class="btn btn-primary" title="Edit">
+										<span class="glyphicon glyphicon-pencil"></span>
+									</button>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<ul class="pagination" style=" margin-left: 34%;">
+					<li><a href="#">«</a></li>
+					<li><a href="#">1</a></li>
+					<li><a href="#">2</a></li>
+					<li><a href="#">3</a></li>
+  				  	<li><a href="#">4</a></li>
+					<li><a href="#">5</a></li>
+					<li><a href="#">»</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+						</div>
+                        
+                     
+							{% endif %}
+
+						{% else %}
+						
+							<!-- Nav tabs -->
+						<ul class="nav nav-tabs affix-top" data-offset-top="57" data-spy="affix">
+						
+                   <li class="active">
+	<a data-toggle="tab" href="#layout">
+		<span class="glyphicon glyphicon-book"></span> 
+		Layout
+	</a>
+</li>
+						
+						</ul>
+						<!-- Tab panes -->
+						<div class="tab-content">
+							
+					<div class="tab-pane active" id="layout">
+    <div class="padding">
+		<div class="row">
+
+			Interior
+
+				block	tabs
+				block	container
+
+				if course index
+					include = description/pretty chapter list, dashboard, notes
+				elseif chapter index
+					content of that page and nav
+				elseif article
+					include  = article, quiz, research 
+				elseif research_questions
+					include = research questions(modded exam), research
+				elseif exam
+					include = review (modded article), exam
+					if meta.open-notes == yes
+					block notes
+					else
+					no block notes
+				else
+					"page type not valid"
+				previous next
+		</div>
+    </div>
+</div>
+							
+						</div>
+							
+						{% endif %}
+						<!-- Nav tabs -->
+						<ul class="nav nav-tabs affix-top" data-offset-top="57" data-spy="affix">
+							{% block nav %}
+                   
+							{% endblock nav %}
+						</ul>
+						<!-- Tab panes -->
+						<div class="tab-content">
+							{% block tabs %}
+					
+							{% endblock tabs %}
+						</div>
+					{% endif %}
+				</div>
+		</div>
+	</div><!-- /.container -->
+	
+
+	{{ include('components/foot.html') }}
+</body>
+</html>		

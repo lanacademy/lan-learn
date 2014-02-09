@@ -1,0 +1,176 @@
+<!-- Nav tabs -->
+
+<ul class="nav nav-tabs affix-top" data-offset-top="57" data-spy="affix">
+  <li class="active"> <a data-toggle="tab" href="#article"> <span class="glyphicon glyphicon-book"></span> Reading </a> </li>
+  <li class="active"> <a data-toggle="tab" href="#article"> <span class="glyphicon glyphicon-book"></span> Reading </a> </li>
+  <li class=""> <a data-toggle="tab" href="#notetab"> <span class="glyphicon glyphicon-edit"></span> Notes </a> </li>
+  <li class="add-note-btn dropdown pull-right"> <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="add-note"> <span class="glyphicon glyphicon-pencil"></span> </a>
+    <div class="dropdown-menu note-box">
+      <form action="#" class="form" method="post">
+        <div id="add-note-padding">
+          <h3 class="text-center">Add Note</h3>
+          <div class="form-group">
+            <input class="form-control" id="name" placeholder="Name" required="" type="text">
+          </div>
+          <div class="form-group">
+            <textarea class="form-control" placeholder="Text" required rows="3">
+										</textarea>
+          </div>
+          <a class="btn btn-warning btn-sm btn-block" href="#">Add note</a> </div>
+      </form>
+    </div>
+  </li>
+</ul>
+<!-- Tab panes -->
+<div class="tab-content"> 
+  <div class="tab-pane active" id="article">
+    <div class="padding">
+      <h1> {{ current_page.title }}</h1>
+      {{ content }}
+      
+      {% if noquiz %} 
+      <!-- No quiz for this page (no keywords found)--> 
+      {% else %}
+      <div class="row" id="vocab-quiz">
+        <div class="col-md-8 col-md-offset-2">
+          <div class="panel panel-danger" id="vocab-quiz-panel">
+            <div class="panel-heading">
+              <h3 class="panel-title">Vocabulary Quiz</h3>
+            </div>
+            <div class="panel-body">
+              <p> This is the defintion of a term that was in this section and is pretty long </p>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                  Option One </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                  Option two can be something else and selecting it will deselect option one </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                  Option two can be something else and selecting it will deselect option one </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                  Option two can be something else and selecting it will deselect option one </label>
+              </div>
+            </div>
+            <div class="panel-footer">
+              <button class="btn btn-success btn-sm" type="button">Check Answer</button>
+              <button class="btn btn-primary disabled btn-sm" type="button">Next Question</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %} </div>
+    <div class="row">
+      <ul class="pager pagination-lg">
+        <li><a href="{{ next_page.url }}">← {{ next_page.title }}</a></li>
+        <li><a href="{{ prev_page.url }}">{{ prev_page.title }} →</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="tab-pane active" id="article">
+    <div class="padding">
+      <h1> {{ current_page.title }}</h1>
+      {{ content }}
+      
+      {% if noquiz %} 
+      <!-- No quiz for this page (no keywords found)--> 
+      {% else %}
+      <div class="row" id="vocab-quiz">
+        <div class="col-md-8 col-md-offset-2">
+          <div class="panel panel-danger" id="vocab-quiz-panel">
+            <div class="panel-heading">
+              <h3 class="panel-title">Vocabulary Quiz</h3>
+            </div>
+            <div class="panel-body">
+              <p> This is the defintion of a term that was in this section and is pretty long </p>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                  Option One </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                  Option two can be something else and selecting it will deselect option one </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                  Option two can be something else and selecting it will deselect option one </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                  Option two can be something else and selecting it will deselect option one </label>
+              </div>
+            </div>
+            <div class="panel-footer">
+              <button class="btn btn-success btn-sm" type="button">Check Answer</button>
+              <button class="btn btn-primary disabled btn-sm" type="button">Next Question</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %} </div>
+    <div class="row">
+      <ul class="pager pagination-lg">
+        <li><a href="{{ next_page.url }}">← {{ next_page.title }}</a></li>
+        <li><a href="{{ prev_page.url }}">{{ prev_page.title }} →</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="tab-pane" id="notetab">
+    <div class="panel borderless panel-warning">
+      <div class="panel-heading">
+        <h3 class="">Your Notes</h3>
+      </div>
+      <div class="panel-body">
+        <ul class="list-group">
+          <li class="list-group-item">
+            <div class="row">
+              <div class="col-xs-10 col-md-11">
+                <div> <a href="#">Just a demo note title</a> </div>
+                <div class="comment-text"> This is all just demo note text </div>
+              </div>
+              <div class="col-xs-2 col-md-1">
+                <div class="action">
+                  <button type="button" class="btn btn-primary" title="Edit"> <span class="glyphicon glyphicon-pencil"></span> </button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="list-group-item">
+            <div class="row">
+              <div class="col-xs-10 col-md-11">
+                <div> <a href="#">Just a demo note title</a> </div>
+                <div class="comment-text"> This is all just demo note text </div>
+              </div>
+              <div class="col-xs-2 col-md-1">
+                <div class="action">
+                  <button type="button" class="btn btn-primary" title="Edit"> <span class="glyphicon glyphicon-pencil"></span> </button>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <ul class="pagination" style=" margin-left: 34%;">
+          <li><a href="#">«</a></li>
+          <li><a href="#">1</a></li>
+          <li><a href="#">2</a></li>
+          <li><a href="#">3</a></li>
+          <li><a href="#">4</a></li>
+          <li><a href="#">5</a></li>
+          <li><a href="#">»</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+ </div>

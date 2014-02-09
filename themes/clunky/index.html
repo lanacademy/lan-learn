@@ -98,29 +98,21 @@
 					{% else %} 
 					<!-- Tabbed layout -->
 						{% if meta.layout == "course" %}
-							{{ include ('components/content.html') }}
-							{{ include ('components/dashboard.html') }}
-							{{ include ('components/notes.html') }}
-							
+							{{ include ('components/course-page.html') }}
+						
 						{% elseif meta.layout == "chapter" %}
-							{{ include ('components/content.html') }}
-							{{ include ('components/research.html') }}
-							{{ include ('components/notes.html') }}
+							{{ include ('components/chapter-page.html') }}
+							
 							
 						{% elseif meta.layout == "article" %}
-							{{ include ('components/article.html') }}
-							{{ include ('components/research.html') }}
-							{{ include ('components/notes.html') }}	
-							
+							{{ include ('components/article-page.html') }}
+													
 						{% elseif meta.layout == "research_questions" %}	
-							{{ include ('components/content.html') }}
-							{{ include ('components/research.html') }}
-							{{ include ('components/notes.html') }}
-						
+							{{ include ('components/research-questions.html') }}
+							
 						{% elseif meta.layout == "exam" %}	
-							{{ include ('components/content.html') }}
-							{% if meta.open-notes %}
-								{{ include ('components/notes.html') }}
+							{{ include ('components/exam page.html') }}
+							
 							{% endif %}
 
 						{% else %}
