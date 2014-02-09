@@ -1,0 +1,31 @@
+<footer>
+    <div class="container">
+        <p class="text-center text-muted small">
+			Copyright © LAN Academy Inc 2014 NC-BY-AT
+		</p>
+    </div>
+</footer>
+
+<!-- The javascript -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="docs/jquery-1.8.0.js" type="text/javascript"></script>
+<script src="docs/bootstrap.js" type="text/javascript"></script>
+<script src="docs/jquery.validate.js" type="text/javascript"></script>
+<script src="docs/jquery.validate.unobtrusive.js" type="text/javascript"></script>
+<script src="docs/jquery.unobtrusive-ajax.js" type="text/javascript"></script>
+<script src="docs/metro-bootstrap/metro-docs.js" type="text/javascript"></script>
+<script type="text/javascript">
+$('#collapse-sidebar').click(function()
+    {
+
+    $('.navbar-side').toggleClass('navbar-side-closed');
+    $('#wrapper').toggleClass('wrapper-full');
+
+
+    });
+
+</script>
+
+{% block btmscript %}
+
+{% endblock btmscript %}

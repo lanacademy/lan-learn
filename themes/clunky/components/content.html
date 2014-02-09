@@ -1,0 +1,31 @@
+{% extends "../index.html" %}
+
+{% block nav %}
+    <li class="active">
+		<a data-toggle="tab" href="#contents">
+			<span class="glyphicon glyphicon-book"></span> 
+			{{ meta.layout }}
+		</a>
+	</li>
+	{{ parent() }}
+{% endblock nav %}
+
+{% block tabs %}
+    <div class="tab-pane active" id="contents">
+        <div class="padding">
+            <h1> {{ current_page.title }}</h1>
+			
+           	{{ content }}
+			
+        </div>
+		<div class="row">
+			<ul class="pager pagination-lg">
+				<li><a href="{{ next_page.url }}">← {{ next_page.title }}</a></li>
+				<li><a href="{{ prev_page.url }}">{{ prev_page.title }} →</a></li>
+			</ul>
+		</div>
+    </div>
+    
+	{{ parent() }}
+
+{% endblock tabs %}
