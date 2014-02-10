@@ -92,47 +92,42 @@
 		<div class="row">
 				<div class="col-md-10 col-md-offset-1" id="main">
 					{% if meta.layout == "home" %}
-						<!-- Tabless layout -->
-						{{ include('components/home.html') }}
+					<!-- Tabless layout -->
+						{{ include('full-pages/home-page.html') }}
 						
-					{% else %} 
 					<!-- Tabbed layout -->
-						{% if meta.layout == "course" %}
-							{{ include ('components/course-page.html') }}
+					{% elseif meta.layout == "course" %}
+						{{ include ('full-pages/course-page.html') }}
+					
+					{% elseif meta.layout == "chapter" %}
+						{{ include ('full-pages/chapter-page.html') }}
 						
-						{% elseif meta.layout == "chapter" %}
-							{{ include ('components/chapter-page.html') }}
-							
-							
-						{% elseif meta.layout == "article" %}
-							{{ include ('components/article-page.html') }}
-													
-						{% elseif meta.layout == "research_questions" %}	
-							{{ include ('components/research-questions.html') }}
-							
-						{% elseif meta.layout == "exam" %}	
-							{{ include ('components/exam page.html') }}
-							
-							{% endif %}
+					{% elseif meta.layout == "article" %}
+						{{ include ('full-pages/article-page.html') }}
+												
+					{% elseif meta.layout == "research_questions" %}	
+						{{ include ('full-pages/research-questions.html') }}
+						
+					{% elseif meta.layout == "exam" %}	
+						{{ include ('full-pages/exam-page.html') }}
+						
+					{% else %}	
+						{{ include ('full-pages/error-page.html') }}
 
-						{% else %}
-						
-							{{ include ('components/error.html') }}
-							
-						{% endif %}
-						<!-- Nav tabs -->
+					{% endif %}	
+						<!-- Nav tabs 
 						<ul class="nav nav-tabs affix-top" data-offset-top="57" data-spy="affix">
 							{% block nav %}
                    
 							{% endblock nav %}
 						</ul>
-						<!-- Tab panes -->
+						Tab panes 
 						<div class="tab-content">
 							{% block tabs %}
 					
 							{% endblock tabs %}
-						</div>
-					{% endif %}
+						</div> -->
+					
 				</div>
 		</div>
 	</div><!-- /.container -->
