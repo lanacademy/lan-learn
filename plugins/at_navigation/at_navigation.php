@@ -101,7 +101,7 @@ class AT_Navigation
         $id    = $start ? $this->settings['at_navigation']['id'] : '';
         $class = $start ? $this->settings['at_navigation']['class'] : '';
         $child = '';
-        $ul    = $start ? '<ul id="%s" class="%s dropdown-menu">%s</ul>' : '<ul class="dropdown-menu" id="nav2">%s</ul>';
+        $ul    = $start ? '<ul id="%s" class="%s">%s</ul>' : '<ul id="nav2">%s</ul>';
         
         if (isset($navigation['_child'])) {
             $_child = $navigation['_child'];
@@ -117,7 +117,7 @@ class AT_Navigation
             $child = $start ? sprintf($ul, $id, $class, $child) : sprintf($ul, $child);
         }
         
-        $li = isset($navigation['title']) ? sprintf('<li class="%1$s dropdown-submenu"><a href="%2$s" class="%1$s" title="%3$s">%3$s</a>%4$s</li>', $navigation['class'], $navigation['url'], $navigation['title'], $child) : $child;
+        $li = isset($navigation['title']) ? sprintf('<li class="%1$s"><a href="%2$s" class="%1$s" title="%3$s">%3$s</a>%4$s</li>', $navigation['class'], $navigation['url'], $navigation['title'], $child) : $child;
         
         return $li;
     }
