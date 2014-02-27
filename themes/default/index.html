@@ -1,137 +1,112 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html lang="en">
-
-{{ include('head.html') }}
-
-
-<body>
-    <div id="loginform">
-            <a class="modal_close" href="#">X Close</a>
-            <form method="post" action="/login/">
-                {% if login_error %}<p class="error">{{ login_error }}</p>{% endif %}
-                <input type="text" name="username" id="username" placeholder="Username" value="{{ username }}"/>
-                <input type="password" name="password" id="password" placeholder="Password"/>
-                <input class="alignright" type="submit" value="Login" />
-            </form>
-            </div>
-            <div id="registerform">
-            <a class="modal_close" href="#">X Close</a>
-            <form method="post" action="/register/">
-                {% if register_error %}<p class="error">{{ register_error }}</p>{% endif %}
-                <input type="text" name="username" id="username" placeholder="Username" value="{{ username }}"/>
-                 <input type="password" name="password" id="password" placeholder="Password"/>
-                <input type="password" name="password2" id="password2" placeholder="Confirm Password"/>
-                Grade: <select name="grade" id="grade">
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                </select>
-                <input type="text" name="name" id="name" placeholder="Full Name"/>
-                <input class="alignright" type="submit" value="Register" />
-            </form>
-            </div>
-	<div id="left-sidebar">
- 	   <div id="left-content">
-		<h1><a href="{{ base_url }}">{{ site_title }}</a></h1>
-		<!--Login/logout goes here-->
-		
-	   	<div id="tabs">
-			<ul id="switcher">
-	 	   		<li><a href="#quiz">Quiz</a></li>
-	 	   		<li><a href="#nav">Nav</a></li>
-	 	   		<li><a href="#notes">Notes</a></li>
-			</ul>
-			
-			<div id="nav">
-            {% if authed == false %}
-            <a id="go" rel="leanModal" name="loginform" href="#loginform">Login</a>
-            <a id="go" rel="leanModal" name="registerform" href="#registerform">Register</a>
-                {% else %}
-                <div id ="userwelcome"><b>Welcome {{ username }}</b> - <a href="/logout/">Logout</a></div>
-                {% endif %}
-                <br />
-                <br />
-				{% if meta.layout == "home" %}
-                    {{ course_navigation }}
-                {% else %}
-                   {{ at_navigation.navigation }}
-                {% endif %}
-                <br />
-			</div>	
-			<div id="quiz">{% if noquiz %}<div id="noquiz">No keywords found - No Quiz!</div>{% endif %}
-				<div id="quizArea"></div>
+		{{ include('head.html') }}
+		<body>
+		{{ include('login_register.html') }}
+		<div id="wrapper">
+			<div id="sidebar-wrapper">		
+				<ul class="sidebar-nav">
+					<li class="sidebar-brand">
+						<h3>
+							<a href="{{ coursehomelink }}" title="{{ site_title }}">{{ site_title }}</a>
+						</h3>
+					</li>
+                    <div class="nav btn-group stuff nav-tabs" id="navitab" data-tabs="navitab">
+                            <a href="#user" data-toggle="user" class="btn btn-stuff" role="button">User</a>
+                            <a class="btn btn-stuff" href="#nav" data-toggle="quiz" role="button">Nav</a>
+                            <a class="btn btn-stuff" href="#quiz" data-toggle="quiz" role="button">Quiz</a> 
+                            <a class="btn btn-stuff" href="#notes" data-toggle="quiz" role="button">Notes</a> 
+                        </div>
+					<li style="list-style: none">
+						
+                        <div class="tab-content">
+                        {% if meta.layout == "home" %}
+						<div id="user" class="tab-pane fade in active">
+                        {% else %}
+                        <div id="user" class="tab-pane fade">
+                        {% endif %}
+							{% if authed == false %} 
+							<a id="go" rel="leanModal" name="loginform" href="#loginform">Login</a> 
+							<a id="go" rel="leanModal" name="registerform" href="#registerform">Register</a> 
+							{% else %}
+							<div id="userwelcome">
+								<b>Welcome {{ username }}</b>
+								<a href="/logout/">Logout</a>
+							</div>
+							{% endif %}
+                            {{ course_navigation }}
+						</div>
+                        {% if meta.layout == "home" %}
+						<div id="nav" class="tab-pane fade">
+							{{ course_navigation }} 
+                        {% else %}
+                        <div id="nav" class="tab-pane fade in active">
+							{{ at_navigation.navigation }} 
+                        {% endif %}
+						</div>
+						<div id="quiz" class="tab-pane fade">
+							{% if noquiz %}
+							<div id="noquiz">
+							No quiz for this page! (No keywords found)
+							</div>
+							{% endif %}
+							<div id="quizArea"></div>
+						</div>
+						<div id="notes" class="tab-pane fade">
+                        {% if authed == true %}
+							{{ include('notes.html') }}
+                        {% else %}
+                            Please login to use notes!
+                        {% endif %}
+						</div>
+                        </div>
+					</li>
+				</ul>
 			</div>
-			<div id="notes">
-				<div id="notesArea">
-					<form>
-					<input type="text" placeholder="Title"/>
-					<textarea id="editor_side"></textarea>
-					<input type="button" value="Save as New"/>
-					<input type="button" value="Save"/>
-					<input type="button" value="Discard"/>
-					</form>
-				</div>
+			<div id="page-content-wrapper">
+				<div class="content-header" style="padding-left:5%;">
+				<a id="menu-toggle" href="#" class="btn btn-default" name="menu-toggle"></a>
+				<h1> {{ current_page.title }}</h1>
+				</div> 
+			{% if meta.layout == "course" %}
+				{{ include('course.html') }}
+		
+			{% elseif meta.layout == "home" %} 
+				{{ include('home.html') }}
 				
-				<div id="notesList">
-					<form>
-						<input type="text" name="search" placeholder="search"/>
-					</form>
-					<ul>
-					</ul>
-				</div>
+			{% elseif meta.layout == "content" %} 
+				{{ include('two_pane_content.html') }}
+			{% elseif meta.layout == "chapter" %} 
+			<div class="padding">
+				{{ content }}
+				<ul class="sibling_nav pager">
+								<li>
+									<a href="{{ prev_page.url }}">Start Chapter &gt;</a>
+								</li>
+							</ul>
 			</div>
+			{% endif %}	
+			</div><!--ending everything-->
+			
+    <script>
+  	$('#navitab a').click(function (e) {
+  	  	e.preventDefault()
+  	  	$(this).tab('show')
+	})
+
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("active");
+    });
+    </script>
+	<script>
+	<script type="text/javascript">
+	  function resizeIframe(iframe) {
+	    iframe.height = iframe.contentWindow.document.body.scrollHeight + "px";
+	  }
+	</script> 
+	</script>
+
 		</div>
-		
-		</div>
-	</div>
-
-	<div class="wrapper">
-	{% if meta.layout == "course" %} 
-		  	  	{{ dashboard }}
-	</div>
-	{% else %}
-
-				{% if meta.layout == "content" %} <!--Content Page -->
-				<div id="tabbed_content"> <!-- need this setup for jquery-ui.tabs -->
-					 <ul id="wiki_switcher">
-						 <li class=""><a href="#pane_read" style="
-    color: inherit;
-">Read</a></li>
-						 <li  class=""><a href="#pane_research" style="
-    color: inherit;
-">Research</a></li>
-					 </ul>
-					 <div id="pane_read">
-									
-				{% else %}
-				{% endif %}
-	<h1>{{ current_page.title }}</h1>	
-		{{ content }}
-
-
-		{% if meta.layout == "content" %}
-			</div>
-			<div id="pane_research">
-				<iframe id="pane_wiki" src="http://library.kiwix.org/wikipedia_en_all_nopic/A/History%20of%20the%20world.html"></iframe>
-			</div>
-			</div> <!---end tabbed content-->
-		{% else %}
-		{% endif %}
-
-		<br/>
-		<div class="sibling_nav">
-			<a href="{{ next_page.url }}">< {{ next_page.title }}</a>			
-			<a href="{{ prev_page.url }}">{{ prev_page.title }} ></a>	
-		</div>
-	</div>
-		
-	{% endif %}
-	</div>
-	
-<div class="footer">
-			<p>	LAN-LMS is based off <a href="http://pico.dev7studios.com">Pico</a>.</p>
-</div>
-	
-</body>
+	</body>
 </html>

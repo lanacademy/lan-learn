@@ -23,13 +23,13 @@ dependencies:
 		return s.trim().charAt(0).toUpperCase() + s.trim().slice(1);
 	}
 	var urls = {
-		local : "http://library.kiwix.org/search?content=wikipedia_en_wp1&pattern=",
-		lib : "http://library.kiwix.org/search?content=wikipedia_en_wp1&pattern=",
+		local : "/",
+		lib : "http://library.kiwix.org/wikipedia_en_wp1/A/",
 		main : "http://en.wikipedia.org/wiki/"
 	};
 	var urlback = {
-		local : "",
-		lib : "",
+		local : ".html",
+		lib : ".html",
 		main : ""
 	};
 
@@ -56,7 +56,7 @@ dependencies:
 
 				/* This should probably be handled via a higher order function */
                 $.ajax({
-                    url: "../../plugins/pkwiki_service/wikilog.php",
+                    url: "../../plugins/pkwiki_service/toXML.php",
                     type: "GET", 
                     /* the user field should be determined in toXML's php, not here */
                     data: {user : 'default', keyword: capitalize($(this).text())}

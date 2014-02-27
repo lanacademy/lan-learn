@@ -32,4 +32,4 @@ $config['at_navigation']['exclude']['folder'] = array('media');
 $config['at_navigation']['exclude']['single'] = array('Empty_Course', 'Example_Course');
 $config['pages_order_by'] = 'alpha';	// Order pages by "alpha" or "date"
 $config['tracking'] = true;
-$config['theme'] = 'new_theme'; 			// Set the theme (defaults to "default")
+$config['theme'] = 'default'; 			// Set the theme (defaults to "default")

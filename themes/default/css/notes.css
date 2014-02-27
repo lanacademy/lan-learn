@@ -1,0 +1,66 @@
+#notes{
+	width: auto;
+	padding-left: 0px;
+	margin-left:0;
+	margin-top:0px;
+	position: relative;
+}
+
+#notes .mce-tinymce{
+	padding-bottom: 2px;
+
+}
+
+#notesArea{
+	padding-bottom: 55px;
+	border-bottom: 1px solid #888;
+	padding-left: 0px;
+}
+#notesArea input[type=text]{
+	width:100%;
+	margin-left:-20px;
+	margin-bottom:2px;
+}
+#notesArea input[type=button]{
+	float:right;
+	margin-top: 5px;
+}
+#notesArea input[type=button][value='Save as New']{
+	float:left;
+}
+
+input[type=button]:disabled{
+	opacity:.5;
+}
+#notesList{
+	padding-top:10px;
+}
+#notesList input[type=text]{
+	width: 90%;
+	margin-left:-10px;
+}
+#notesList input[type=button]{
+	float: right;
+}
+#notesList ul{
+	style: none;
+	padding-left:0px;
+}
+#notesList ul li{
+	height: 60px;
+	padding: 0px;
+	position: relative;
+}
+#notesList ul li a{
+	height: 50px;
+	padding: 0px;
+
+}
+#notesList ul li input[type=button]{
+	position:absolute;
+	right:0px;
+	top:2px;
+}
+#notesList ul li input[type=button][value=edit]{
+	right:40px;
+}

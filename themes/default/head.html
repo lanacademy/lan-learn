@@ -2,21 +2,19 @@
     <meta charset="utf-8" />
     
     <title>{% if meta.title %}{{ meta.title }} | {% endif %}{{ site_title }}</title>
-{% if meta.description %}
-    <meta name="description" content="{{ meta.description }}"> 
-{% endif %}{% if meta.robots %}
-    <meta name="robots" content="{{ meta.robots }}">
-{% endif %}
 
-    <link rel="stylesheet" href="{{ theme_url }}/style2.css" type="text/css" />
-    <link rel="stylesheet" href="{{ theme_url }}/jQuizMe.css" type="text/css" />
+	<!--Styles-->
+    <link rel="stylesheet" href="{{ theme_url }}/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="{{ theme_url }}/css/bootstrap.css" type="text/css" />
     
     <!-- 1. jquery library -->
     <script src="{{ theme_url }}/scripts/jquery.min.js"></script>
+    <script src="{{ theme_url }}/scripts/bootstrap.js"></script>
     <script src="{{ theme_url }}/scripts/modernizr-2.6.1.min.js"></script>
     <script src="{{ theme_url }}/scripts/tinymce/tinymce.min.js"></script>
+    <script src="{{ theme_url }}/scripts/Chart.min.js"></script>
    
-	<!-- easytabs -->
+	<!-- Log in -->
     {% if authed == false %}
     <script src="{{ theme_url }}/scripts/jquery.leanModal.min.js"></script>
     <script type="text/javascript">
@@ -26,132 +24,53 @@
     </script>
     {% endif %}
 
-    {% if meta.layout == "quiz" %}
+	<!--For Exams, not currently functional-->
+   {% if meta.layout == "quiz" %}
     <script src="{{ theme_url }}/scripts/ace.js"></script>
-    <link rel="stylesheet" href="{{ theme_url }}/quiz.css" type="text/css" />
-    {% endif %}
+    <link rel="stylesheet" href="{{ theme_url }}/css/quiz.css" type="text/css" />
+    {% endif %} 
     
-    {% if meta.layout == "content" %}
+<!-- Javascript for content pages only -->
     <script src="{{ theme_url }}/scripts/jQuizMe-2.2.1.js"></script>
-    <!-- Note: I added all of jquery UI for development purposes. The only thing
-    I've used is the tabs functionality. Feel free to replace this with ui.tabs-->
-    <script src="{{ theme_url }}/scripts/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="{{ theme_url }}/css/jQuizMe.css" type="text/css" />	
     <script src="{{ theme_url }}/scripts/jquery.highlight.js"></script>
+    {% if meta.layout == "content" %}
     <script src="{{ theme_url }}/scripts/pkWiki.js"></script>
-
+    <script src="{{ theme_url }}/scripts/wordsmith.js"></script>
     <script type="text/javascript">
     $(function() {
-        $('#tabbed_content').tabs();
-        $('#tabbed_content').pkwiki({loc: 'lib', keywords: "{{ my_keywords }}" });
+        $('#pane_read').pkwiki({loc: 'lib', keywords: "{{ my_keywords }}" });
+        $('#pane_read').wordsmith({
+            lookupUrl: 'http://library.kiwix.org/search?content=wikipedia_en_wp1&pattern={word}'
+        });
     });
     </script>
     {% endif %}
 
-    <!-- 2. flowplayer  -->
-    <script src="{{ theme_url }}/scripts/flowplayer.min.js"></script>
-    <!-- 3. skin -->
-    <link rel="stylesheet" href="{{ theme_url }}/minimalist.css">
-    <script src="{{ theme_url }}/scripts/jquery.hoveraccordion.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function(){ 
-            $('#at-navigation > ul').hoverAccordion({ 
-                keepHeight: false, 
-                speed: 'fast',
-                onClickOnly: false
-            }); 
-            
-        });
-    </script>
+	<!-- Menu functionality-->
 	<script type="text/javascript">
-	$(function() {                                   // <== shorter form of doc ready
-	    $('#tabs > div').hide();
-	    $('#tabs div:first').fadeIn('slow');
-	    $('#tabs ul li:first').addClass('active');
-	    $('#tabs ul li a').click(function(){
-	        $('#tabs ul li.active').removeClass('active');  // <== Only what you need
-	        $(this).parent().addClass('active');
-	        var selectedTab=$(this).attr('href');
-	        $('#tabs > div').fadeOut('fast', function() {       // <== Use a callback
-	            $(selectedTab).delay(500).fadeIn('fast');          // <== add a delay
-	        });        
-	        return false;
-	    });
-	});
-	</script>
-
-    <script src="{{ theme_url }}/scripts/pknotes.js"></script>
-    <link rel="stylesheet" href="{{ theme_url }}/notes.css">
-    <script type="text/javascript">
-    $(function(){
-        // Send Config to JS
-
-        window.pkConfig = {base_url: "{{attribute(config,'base_url')}}"};
-
-        tinymce.init({
-            selector: "textarea#editor_side",
-            menubar: false,
-            statusbar: false,
-            encoding: "xml",
-            entity_encoding: "named",
-            plugins: [
-                "advlist autolink lists link image charmap print preview anchor",
-                "searchreplace visualblocks code fullscreen",
-                "insertdatetime media table contextmenu paste"
-            ],
-            toolbar: "bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent link image"
-        });
-
-        var notelist = $('#notesList ul');
-
-        check_populated = function(){
-            if($('#notesArea input[type=text]').val().length == 0){
-                return false;
-                if( $(tinymce.activeEditor.getContent()).text() == ''){
-                    return false;
-                }
-            }
-            return true;
-        };
-        notelist.pkLoadNotes();
-        $('#notesArea input[type=button][value=Discard]').click(function(){
-            $('#notesArea input[type=text]').val('');
-            tinyMCE.activeEditor.setContent('');
-            $(notelist).pkClearOpenNotes();
-        });
-        $('#notesArea input[type=button][value=Save]').click(function(){
-            if(!check_populated()){
-                alert("Note not filled out");
-                return;
-            }
-            if($('#pknote_editing').length == 0){
-                $("#notesArea input[type=button][value='Save as New']").click();
-                return;
-            }
-            notelist.pkSaveNote($('#notesArea input[type=text]').val(),tinyMCE.activeEditor.getContent(),tinyMCE.activeEditor.getContent({format: 'text'}));
-            $('#notesArea input[type=text]').val('');
-            tinyMCE.activeEditor.setContent('');
-            notelist.pkSaveAllNotes();
-        });
-        $("#notesArea input[type=button][value='Save as New']").click(function(){
-            if(!check_populated()){
-                alert("Note not filled out");
-                return;
-            }
-            notelist.pkAddNote($('#notesArea input[type=text]').val(), tinyMCE.activeEditor.getContent(), tinyMCE.activeEditor.getContent({format: 'text'}));
-            notelist.pkSaveAllNotes();
-            $('#notesArea input[type=button][value=Discard]').click();
-        });
-        $("#notesList input[type=text]").keydown(function(){
-            notelist.pkFilterNotes($(this).val());
-        })
-        $("#notesList input[type=text]").keyup(function(){
-            notelist.pkFilterNotes($(this).val());
-        })
-        $("#notesArea input[type=button][value=Save]").prop('disabled',true);
-    });
-    </script>
+      $(document).ready(function(){ 
+          $('#at-navigation > ul').hoverAccordion({ 
+              keepHeight: false, 
+              speed: 'fast',
+              onClickOnly: false
+          });    
+      });
+  	</script>
+	
+    	<!-- 2. flowplayer  -->
+        {% if meta.layout == "content" %}
+   	 	<script src="{{ theme_url }}/scripts/flowplayer.min.js"></script>
+        {% endif %}
+   	 	<link rel="stylesheet" href="{{ theme_url }}/css/functional.css">
+  	  	<script src="{{ theme_url }}/scripts/jquery.hoveraccordion.js"></script>
+  	 
+	
+	<!--Notes-->
+    {{include(template_from_string(common_theme_header))}}
+    <link rel="stylesheet" href="{{ theme_url }}/css/notes.css">
   
-        <script type="text/javascript">
+    <script type="text/javascript">
             $(document).ready(function(){
                 var x = window.location.hash.substr(1);
                 if (x == 'displaylogin') {
